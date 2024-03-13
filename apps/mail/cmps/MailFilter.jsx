@@ -17,7 +17,6 @@ export function MailFilter({ onSetFilter, filterBy }) {
                 value = target.checked
                 break
         }
-        console.log('value:',value)
         setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, [field]: value }))
     }
 

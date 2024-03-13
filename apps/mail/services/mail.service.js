@@ -42,7 +42,7 @@ _createEmails()
 function query(filterBy = getDefaultFilter()) {
     return storageService.query(EMAIL_KEY)
         .then(emails => {
-            if (filterBy.status) {
+            if (filterBy.status && filterBy.status !== 'all-mail') {
                 const regex = new RegExp(filterBy.status, 'i')
                 emails = emails.filter(email => regex.test(email.status))
             }

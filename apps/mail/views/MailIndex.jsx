@@ -70,7 +70,10 @@ export function MailIndex() {
         />
 
 
-        <MailFolder />
+        <MailFolder
+            onSetFilter={onSetFilter}
+            filterBy={filterBy}
+        />
 
 
         <MailList
