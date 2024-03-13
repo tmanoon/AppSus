@@ -1,3 +1,3 @@
-export function NoteList() {
-    return <div>note list</div>
+export function NotePreview() {
+    return <div>note preview</div>
 }

@@ -1,9 +1,9 @@
 import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
+import {}
 
 const NOTES_KEY = 'notesDB'
 _createNotes()
-
 
 export const noteService = {
     query,
@@ -23,8 +23,8 @@ function query(filterBy = getDefaultFilter()) {
 
     return storageService.query(NOTES_KEY)
         .then(notes => {
-            if (filterBy.txt) {
-                const regex = new RegExp(filterBy.txt, 'i')
+            if (filterBy.search) {
+                const regex = new RegExp(filterBy.search, 'i')
                 notes = notes.filter(note => regex.test(note.vendor))
             }
             if (filterBy.minSpeed) {
@@ -71,7 +71,7 @@ function getEmptyNote() {
 }
 
 function getDefaultFilter() {
-    return { txt: '', minSpeed: 50, desc: '' }
+    return { search: '', type: '' }
 }
 
 function getFilterFromParams(searchParams = {}) {
