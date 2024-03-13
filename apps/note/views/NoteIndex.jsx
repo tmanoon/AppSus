@@ -2,6 +2,7 @@ import { NotePreview } from "../cmps/NotePreview.jsx"
 import { noteService } from "../services/note.service.js"
 import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
 import { NoteHeader } from '../cmps/NoteHeader.jsx'
+import { NoteAdd } from '../cmps/NoteAdd.jsx'
 
 const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
@@ -60,7 +61,7 @@ export function NoteIndex() {
     return <section className="note-main">
         <NoteHeader onSetFilter={onSetFilter} filterBy={ {search} }/>
         {/* <noteFilter onSetFilter={onSetFilter} filterBy={{ type }} /> */}
-
+        <NoteAdd setNotes={setNotes} notes={notes} />
 
         {/* <Link to="/note/edit"><button>Add a note</button></Link> */}
         {/* <DataTable notes={notes} onRemovenote={onRemovenote} /> */}

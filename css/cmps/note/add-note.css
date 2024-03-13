@@ -1,0 +1,50 @@
+.add-note-div .square-check::before {
+    left: -40px;
+    content: '\f14a';
+    font-family: fa;
+    color: var(--icons-clr);
+}
+
+.add-note-div .brush::before {
+    content: '\f1fc';
+    font-family: fa;
+    color: var(--icons-clr);
+}
+
+.add-note-div .image::before {
+    content: '\f03e';
+    font-family: fa;
+    color: var(--icons-clr);
+}
+
+.add-note-div input[type="text"] {
+    color: var(--add-note-clr);
+    padding: 18px;
+    border: none;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
+    height: 1em;
+    width: 30em;
+    font-size: 1.2em;
+}
+
+.add-note-div input:focus {
+    outline: none;
+}
+
+.add-note-div {
+    left: 50%;
+}
+
+.add-note-div .icons {
+    position: absolute;
+    top: 30%;
+    right: 0;
+    font-size: 1.2em;
+    display: flex;
+    gap: 1.7em;
+    padding-inline-end: 18px;
+}
+
+.input-place {
+    position: relative;
+}
