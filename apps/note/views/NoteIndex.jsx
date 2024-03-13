@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { NotePreview } from "../cmps/NotePreview.jsx"
 import { noteService } from "../services/note.service.js"
 import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
@@ -78,3 +79,9 @@ export function NoteIndex() {
 
 
 
+=======
+
+export function NoteIndex() {
+    return <div>note app</div>
+}
+>>>>>>> 41b96a2fcb759fc8bbb41b4936ef209ffc4825dd
