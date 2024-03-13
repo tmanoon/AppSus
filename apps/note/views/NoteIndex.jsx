@@ -55,27 +55,17 @@ export function NoteIndex() {
 
     // console.log('notes from note index', notes)
     // console.log('selectednote from note index', selectednote)
-    const { txt, minSpeed, desc } = filterBy
+    const { search, type} = filterBy
     if (!notes) return <div>loading...</div>
-    return <section className="note-index">
-        <NoteHeader />
-        <noteFilter
-            onSetFilter={onSetFilter}
-            filterBy={{ txt, minSpeed }} />
+    return <section className="note-main">
+        <NoteHeader onSetFilter={onSetFilter} filterBy={ {search} }/>
+        {/* <noteFilter onSetFilter={onSetFilter} filterBy={{ type }} /> */}
 
-        <noteFilterDesc
-            onSetFilter={onSetFilter}
-            filterBy={{ desc }} />
 
-        <Link to="/note/edit"><button>Add a note</button></Link>
+        {/* <Link to="/note/edit"><button>Add a note</button></Link> */}
         {/* <DataTable notes={notes} onRemovenote={onRemovenote} /> */}
-        <noteList
-            notes={notes}
-            onRemoveNote={onRemoveNote}
-            onUpdateNote={onUpdateNote}
-        />
+        <NotePreview notes={notes} onRemoveNote={onRemoveNote} onUpdateNote={onUpdateNote} />
     </section >
-    return <div>note app</div>
 
 }
 
