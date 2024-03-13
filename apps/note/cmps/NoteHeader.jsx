@@ -41,7 +41,7 @@ export function NoteHeader({ onSetFilter, filterBy }) {
         </div>
         <div className="header-search flex space-between align-center">
             <span className="span-search"></span>
-            <input type='text' placeholder="Search" name='search' value='' onChange={handleChange} />
+            <input type='text' placeholder="Search" name='search' value={filterBy.search} onChange={handleChange} />
         </div>
     </section>
 }
