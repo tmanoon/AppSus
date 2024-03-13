@@ -6,6 +6,8 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
+    getRandomColor,
+    makeNoteId
 }
 
 function makeId(length = 6) {
@@ -17,6 +19,13 @@ function makeId(length = 6) {
     }
 
     return txt
+}
+
+function makeNoteId(idx) {
+    var txt = 'n'
+    const num = 100 + idx
+
+    return txt + num
 }
 
 function makeLorem(size = 100) {
