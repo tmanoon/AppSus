@@ -159,8 +159,11 @@ function _createEmail() {
     const statusOps = ['inbox', 'sent', 'trash']
     const status = statusOps[utilService.getRandomIntInclusive(0, 2)]
     const email = getEmptyEmail(status)
-    if (status === 'draft' || status === 'sent') {
+    if (status === 'sent') {
         email.to = utilService.getRandomEmail()
+    } else  if (status === 'inbox') {
+        email.from = utilService.getRandomEmail()
+        email.to = loggedinUser.email
     } else {
         if (utilService.getRandomIntInclusive(0, 1) > 0.5) {
             email.to = utilService.getRandomEmail()
