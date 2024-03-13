@@ -6,8 +6,9 @@ export function MailList({ emails, onRemoveEmail, onUnread, onMarkEmail, onStarE
     if (!emails.length) return <div>No Emails to show</div>
 
     return <ul className="email-list">
-        {emails.map(email => <li key={email.id}>
-            <div className="email-mark-actions">
+        {emails.map(email => <li key={email.id} className="grid">
+            <div className="email-mark-actions flex align-center">
+
                 <label htmlFor={`mark ${email.id}`}>
                     {(email.isMarked) ? <i className="fa-regular fa-square-check"></i> : <i className="fa-regular fa-square"></i>}
                 </label>
@@ -28,10 +29,12 @@ export function MailList({ emails, onRemoveEmail, onUnread, onMarkEmail, onStarE
                     onChange={() => onStarEmail(email)}
                 />
             </div>
+
             <Link to={`/mail/${email.id}`}>
                 <MailPreview email={email} />
             </Link>
-            <div className="email-actions">
+
+            <div className="email-actions center">
                 <label htmlFor={`read ${email.id}`}>
                 {(email.isRead) ? <i className="fa-regular fa-envelope-open"></i> : <i className="fa-regular fa-envelope"></i>}
                 </label>

@@ -22,10 +22,12 @@ export function MailPreview({ email }) {
         dispTime = `${dayOfMonth}/${monthOfYear}/${year}`
     }
 
-    return < article className="email-preview" >
-        <h5>{email.from}</h5>
-        <div className="email-short-disp">
-            <h5>{email.subject}</h5>
+    return < article className="email-preview flex space-between" >
+        {email.isRead && <h4 style={{ fontWeight: 'lighter' }}>{email.from}</h4>}
+        {!email.isRead && <h4>{email.from}</h4>}
+        <div className="email-short-disp flex align-center">
+            {email.isRead &&  <h6 style={{ fontWeight: 'lighter' }}>{email.subject}</h6>}
+            {!email.isRead &&  <h6>{email.subject}</h6>}
             <p>- {email.body}</p>
         </div>
         <p className="email-time-disp">{dispTime}</p>

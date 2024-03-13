@@ -3,9 +3,7 @@ const { Link, useSearchParams } = ReactRouterDOM
 
 import { MailList } from './../cmps/MailList.jsx'
 import { MailFilter } from './../cmps/MailFilter.jsx'
-// import { EmailFilter } from './../cmps/emailFilter.jsx'
-// import { DataTable } from './../cmps/data-table/DataTable.jsx'
-// import { EmailFilterDesc } from './../cmps/emailFilterDesc.jsx'
+import { MailFolder } from './../cmps/MailFolder.jsx'
 
 import { emailService } from './../services/mail.service.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
@@ -61,16 +59,19 @@ export function MailIndex() {
     }
 
     if (!emails) return <div>loading...</div>
-    return <section className="email-index">
+    return <section className="email-index grid">
+
+        <button>Compose</button>
+        {/* <Link to="/email/compose"><button>Compose</button></Link> */}
 
         <MailFilter
             onSetFilter={onSetFilter}
             filterBy={filterBy}
         />
 
-        {/* <MailFolder />
 
-        <Link to="/email/compose"><button>Compose</button></Link> */}
+        <MailFolder />
+
 
         <MailList
             emails={emails}

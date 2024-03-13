@@ -21,8 +21,9 @@ export function MailFilter({ onSetFilter, filterBy }) {
         setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, [field]: value }))
     }
 
-    return <section className="email-filter">
-        <form>
+    return <section className="email-filter flex align-center">
+        <form className="flex align-center space-between">
+            <div>
             <input type="text"
                 id="email-search"
                 name="txt"
@@ -31,7 +32,8 @@ export function MailFilter({ onSetFilter, filterBy }) {
                 placeholder="Search"
             />
             <label htmlFor="email-search"><i className="fa-solid fa-magnifying-glass"></i></label>
-
+            </div>
+            <div>
             <input type="checkbox"
                 id="email-read"
                 name="isRead"
@@ -39,7 +41,8 @@ export function MailFilter({ onSetFilter, filterBy }) {
                 onChange={handleChange}
             />
             <label htmlFor="email-read">Unread</label>
-
+            </div>
+            <div>
             <input type="checkbox"
                 id="email-star"
                 name="isStared"
@@ -47,7 +50,8 @@ export function MailFilter({ onSetFilter, filterBy }) {
                 onChange={handleChange}
             />
             <label htmlFor="email-star">Stared</label>
-
+            </div>
+            <div>
             <input type="text"
                 id="email-label"
                 name="labels"
@@ -56,6 +60,7 @@ export function MailFilter({ onSetFilter, filterBy }) {
                 placeholder="space separated labels "
             />
             <label htmlFor="email-label"><i className="fa-solid fa-tags"></i></label>
+            </div>
         </form>
     </section>
 }

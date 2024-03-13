@@ -1,1 +1,39 @@
  /* mail list */
+.email-list {
+    border: 1px solid #535353c4;
+    border-radius: 20px;
+    padding: 10px 15px 0;
+}
+
+.email-list > li {
+    position: relative;
+
+    border-bottom: 1px solid #535353c4;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+
+    grid-template-columns: 40px minmax(200px, 1fr);
+    gap: 20px;
+}
+
+.email-list li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.email-mark-actions,
+.email-actions {
+    gap: 5px;
+}
+
+.email-actions {
+    display: none;
+    position: absolute;
+    inset: 30% 0 auto auto;
+}
+
+.email-list > li:hover .email-actions {
+    display: flex;
+}

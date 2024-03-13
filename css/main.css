@@ -19,8 +19,10 @@
 /* COMPONENTS */
 @import './cmps/UserMsg.css';
 @import './cmps/AppHeader.css';
+
 @import './cmps/note/note-header.css';
 @import './cmps/note/note-main.css';
+@import './cmps/note/NoteList.css';
 
-@import './cmps/note/MailList.css';
-@import './cmps/mail/NoteList.css';
+@import './cmps/mail/MailList.css';
+@import './cmps/mail/MailPreview.css';

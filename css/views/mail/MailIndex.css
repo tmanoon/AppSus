@@ -1,1 +1,12 @@
  /* mail index  */
+.email-index {
+    grid-template-columns: minmax(150px, 1fr) minmax(100px, 4fr);
+    grid-template-rows: 50px minmax(100px, 1fr);
+    gap: 5px;
+
+    padding: 10px 20px;
+}
+
+.email-filter form {
+    width: 100%;
+}
