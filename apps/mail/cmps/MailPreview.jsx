@@ -23,7 +23,7 @@ export function MailPreview({ email }) {
     }
 
     return < article className="email-preview" >
-        <h2>{email.from}</h2>
+        <h5>{email.from}</h5>
         <div className="email-short-disp">
             <h5>{email.subject}</h5>
             <p>- {email.body}</p>

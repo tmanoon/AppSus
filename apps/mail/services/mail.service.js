@@ -50,13 +50,14 @@ function query(filterBy = getDefaultFilter()) {
                 const regex = new RegExp(filterBy.txt, 'i')
                 emails = emails.filter(email => regex.test(email.subject) || regex.test(email.body))
             }
-            if (filterBy.isRead === true || filterBy.isRead === false) {
-                emails = emails.filter(email => email.isRead === filterBy.isRead)
+            if (filterBy.isRead) {
+                emails = emails.filter(email => !email.isRead)
             }
-            if (filterBy.isStared === true || filterBy.isStared === false) {
-                emails = emails.filter(email => email.isStared === filterBy.isStared)
+            if (filterBy.isStared) {
+                emails = emails.filter(email => email.isStared)
             }
-            if (filterBy.labels && filterBy.labels.length > 0) {
+            const labelArr = filterBy.labels.split(' ')
+            if (filterBy.labels && labelArr > 0) {
                 emails = emails.filter(email => filterBy.labels.every(label => email.labels.includes(label)))
             }
             return emails
@@ -114,9 +115,9 @@ function getDefaultFilter() {
     return {
         status: 'inbox',  //inbox/sent/trash/draft
         txt: '',
-        isRead: null, //true/false/null
-        isStared: null,  //true/false/null
-        labels: []
+        isRead: false, //true/false
+        isStared: false,  //true/false
+        labels: ''
     }
 }
 
@@ -125,8 +126,8 @@ function getFilterFromParams(searchParams = {}) {
     return {
         status: searchParams.get('status') || defaultFilter.status,
         txt: searchParams.get('txt') || defaultFilter.txt,
-        isRead: searchParams.get('isRead') || defaultFilter.isRead,
-        isStared: searchParams.get('isStared') || defaultFilter.isStared,
+        isRead: searchParams.get('isRead') === 'true' || defaultFilter.isRead,
+        isStared: searchParams.get('isStared') === 'true' || defaultFilter.isStared,
         labels: searchParams.get('labels') || defaultFilter.labels
     }
 }

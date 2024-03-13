@@ -2,6 +2,7 @@ const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
 
 import { MailList } from './../cmps/MailList.jsx'
+import { MailFilter } from './../cmps/MailFilter.jsx'
 // import { EmailFilter } from './../cmps/emailFilter.jsx'
 // import { DataTable } from './../cmps/data-table/DataTable.jsx'
 // import { EmailFilterDesc } from './../cmps/emailFilterDesc.jsx'
@@ -28,6 +29,7 @@ export function MailIndex() {
         emailService.query(filterBy)
             .then((emails) => {
                 setEmails(emails)
+                // console.log('emails (loadEmails):', emails)
             })
     }
 
@@ -45,40 +47,38 @@ export function MailIndex() {
 
     function onUnread(email) {
         emailService.toggle('isRead', email)
-        .then(() => loadEmails())
+            .then(() => loadEmails())
     }
 
     function onMarkEmail(email) {
         emailService.toggle('isMarked', email)
-        .then(() => loadEmails())
+            .then(() => loadEmails())
     }
 
     function onStarEmail(email) {
         emailService.toggle('isStared', email)
-        .then(() => loadEmails())
+            .then(() => loadEmails())
     }
 
     if (!emails) return <div>loading...</div>
-    return <MailList
-        emails={emails}
-        onRemoveEmail={onRemoveEmail}
-        onUnread={onUnread}
-        onMarkEmail={onMarkEmail}
-        onStarEmail={onStarEmail}
-    />
-    // return <section className="email-index">
-    //     <MailFilter
-    //         onSetFilter={onSetFilter}
-    //         filterBy={filterBy} />
+    return <section className="email-index">
 
-    //     <MailFolder />
+        <MailFilter
+            onSetFilter={onSetFilter}
+            filterBy={filterBy}
+        />
 
-    //     <Link to="/email/compose"><button>Compose</button></Link>
+        {/* <MailFolder />
 
-    //     <MailList
-    //         emails={emails}
-    //         onRemoveEmail={onRemoveEmail}
-    //     />
-    // </section >
+        <Link to="/email/compose"><button>Compose</button></Link> */}
+
+        <MailList
+            emails={emails}
+            onRemoveEmail={onRemoveEmail}
+            onUnread={onUnread}
+            onMarkEmail={onMarkEmail}
+            onStarEmail={onStarEmail}
+        />
+    </section >
 }
 
