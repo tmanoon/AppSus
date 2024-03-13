@@ -1,1 +1,28 @@
  /* note list */
+
+ .note.NoteImg > img {
+    width: 250px;
+    height: auto;
+ }
+
+ .note {
+    width: 250px;
+    padding: 10px;
+ }
+
+ .note.todo-note > ul .finished {
+    font-weight: bold;
+ }
+
+ .todo-note > ul > li {
+    list-style-type: circle;
+ }
+
+ .notes-container {
+    columns: 250px 3; 
+    padding-inline: 30px;
+}
+
+/* .column-element {
+    break-inside: avoid;
+} */

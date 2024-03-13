@@ -17,7 +17,6 @@ export function NoteIndex() {
     }, [filterBy])
 
     function onSetFilter(fieldsToUpdate) {
-        console.log('fieldsToUpdate', fieldsToUpdate)
         setFilterBy(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
     }
 
@@ -27,7 +26,8 @@ export function NoteIndex() {
                 setNotes(notes)
             })
     }
-
+    
+    console.log(notes)
     function onRemoveNote(noteId) {
         noteService.remove(noteId)
             .then(() => {
@@ -64,7 +64,7 @@ export function NoteIndex() {
 
         {/* <Link to="/note/edit"><button>Add a note</button></Link> */}
         {/* <DataTable notes={notes} onRemovenote={onRemovenote} /> */}
-        <NotePreview notes={notes} onRemoveNote={onRemoveNote} onUpdateNote={onUpdateNote} />
+        <NotePreview filterBy={filterBy} notes={notes} onRemoveNote={onRemoveNote} onUpdateNote={onUpdateNote} />
     </section >
 
 }

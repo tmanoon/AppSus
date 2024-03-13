@@ -25,12 +25,19 @@ function query(filterBy = getDefaultFilter()) {
         .then(notes => {
             if (filterBy.search) {
                 const regex = new RegExp(filterBy.search, 'i')
-                notes = notes.filter(note => regex.test(note.info.title || note.info.txt))
+                notes = notes.filter(note => {
+                    return regex.test(note.type) ||
+                        (note.info.title && regex.test(note.info.title)) ||
+                        (note.info.url && regex.test(note.info.url)) ||
+                        (note.info.txt && regex.test(note.info.txt)) ||
+                        (note.info.todos && note.info.todos.some(todo => regex.test(todo.txt) || (todo.title && regex.test(todo.title))))
+                })
             }
             if (filterBy.type) {
                 const regex = new RegExp(filterBy.type, 'i')
                 notes = notes.filter(note => regex.test(note.type))
             }
+            console.log(notes)
             return notes
         })
 }
@@ -84,24 +91,44 @@ function _createNotes() {
     if (!notes || !notes.length) {
         notes = []
         let numForId = notes.length + 1
-        notes.push(_createNote(numForId++, 'NoteTxt', true, {backgroundColor: '#00d'}, {txt: 'Fullstack Me Baby!'}, 1112222))
-        notes.push(_createNote(numForId++, 'NoteImg', false, {backgroundColor: '#00d'}, {url: 'http://some-img/me', title: 'Mooni and Me'}))
-        notes.push(_createNote(numForId++, 'NoteTodos', false, {}, {title: 'Get my stuff together', todos: [{ txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }]} ))
+        notes.push(_createNote(numForId++, 'NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, 1112222))
+        notes.push(_createNote(numForId++, 'NoteTxt', true, { txt: 'Fullstack Me Baby!' }, 1112222))
+        notes.push(_createNote(numForId++, 'NoteImg', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
+        notes.push(_createNote(numForId++, 'NoteTodos', false, { title: 'Get my stuff together', todos: [{ txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
+        notes.push(_createNote(numForId++, 'NoteVideo', false, { url: 'https://www.youtube.com/watch?v=RCmuTH6T7fk', title: 'Blame it on the boogie - Michael Jackson' }))
         storageFuncsService.saveToStorage(NOTES_KEY, notes)
     }
 }
 
-function _createNote(numForId, type, isPinned, style = {}, info = {}, createdAt = Date.now()) {
+function _createNote(numForId, type, isPinned, info = {}, createdAt = Date.now()) {
     const note = getEmptyNote()
-    note.id = utilService.makeNoteId(numForId),
-    note.type = type,
-    note.isPinned = isPinned,
-    note.style = style,
-    note.info = info,
+    note.id = utilService.makeNoteId(numForId)
+    note.type = type
+    note.isPinned = isPinned
     note.createdAt = createdAt
+
+    switch (type) {
+        case 'NoteTxt':
+            if (info.title) note.info.title = info.title
+            note.info.txt = info.txt
+            break
+        case 'NoteImg':
+            note.info.url = info.url
+            note.info.title = info.title
+            break
+        case 'NoteTodos':
+            note.info.title = info.title
+            note.info.todos = info.todos
+            break
+        case 'NoteVideo':
+            if (info.title) note.info.title = info.title,
+                note.info.url = info.url
+        default:
+            break
+    }
+
     return note
 }
-
 function _setNextPrevNoteId(note) {
     return storageService.query(NOTES_KEY).then((notes) => {
         const noteIdx = notes.findIndex((currNote) => currNote.id === note.id)
