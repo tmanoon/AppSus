@@ -12,11 +12,6 @@ export function MailFolder({ onSetFilter, filterBy }) {
         onSetFilter(filterByToEdit)
     }, [filterByToEdit])
 
-    function onClickFolder(folder) {
-        setCurrFolder(folder)
-        handleChange(folder)
-    }
-
     function handleChange(val) {
         val = val.toLowerCase()
         if (val !== 'starred') {
@@ -24,6 +19,11 @@ export function MailFolder({ onSetFilter, filterBy }) {
         } else {
             setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, ['isStared']: !prevFilterBy.isStared, ['status']: 'all-mail' }))
         }
+    }
+
+    function onClickFolder(folder) {
+        setCurrFolder(folder)
+        handleChange(folder)
     }
 
     return <section className="email-folder">

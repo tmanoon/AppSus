@@ -11,7 +11,3 @@
 .email-folder button:hover {
     background-color: rgba(245, 245, 245, 0.568);
 }
-
-.email-folder button.current {
-    background-color: rgba(245, 245, 245, 0.568);
-}

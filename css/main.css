@@ -24,11 +24,8 @@
 @import './cmps/note/note-header.css';
 @import './cmps/note/note-preview.css';
 @import './cmps/note/note-main.css';
-<<<<<<< Updated upstream
 @import './cmps/note/NoteList.css';
-=======
 @import './cmps/note/add-note.css';
->>>>>>> Stashed changes
 
 @import './cmps/mail/MailList.css';
 @import './cmps/mail/MailPreview.css';
