@@ -173,6 +173,7 @@ function _createEmail() {
     email.subject = utilService.makeLorem(5)
     email.body = utilService.makeLorem(50)
     email.sentAt = utilService.getRandomIntInclusive(1577839200000, new Date().getTime())
+    email.isRead = utilService.getRandomIntInclusive(0, 1) > 0.5
     return email
 }
 
