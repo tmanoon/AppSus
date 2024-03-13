@@ -23,3 +23,7 @@ nav a.active {
     font-weight: bold;
     text-decoration: overline;
 }
+
+.search-btn::before {
+    content: '\f002';
+}
