@@ -42,7 +42,6 @@ _createEmails()
 function query(filterBy = getDefaultFilter()) {
     return storageService.query(EMAIL_KEY)
         .then(emails => {
-            console.log('emails from query:',emails)
             if (filterBy.status) {
                 const regex = new RegExp(filterBy.status, 'i')
                 emails = emails.filter(email => regex.test(email.status))
@@ -144,6 +143,13 @@ function _createEmails() {
         emails.push(_createEmail())
         emails.push(_createEmail())
         emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
         storageFuncsService.saveToStorage(EMAIL_KEY, emails)
     }
 }
@@ -163,8 +169,8 @@ function _createEmail() {
             email.from = utilService.getRandomEmail()
         }
     }
-    email.subject = utilService.makeLorem(20)
-    email.body = utilService.makeLorem(120)
+    email.subject = utilService.makeLorem(5)
+    email.body = utilService.makeLorem(50)
     email.sentAt = utilService.getRandomIntInclusive(1577839200000, new Date().getTime())
     return email
 }

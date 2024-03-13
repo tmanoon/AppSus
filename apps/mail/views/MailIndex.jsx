@@ -30,7 +30,6 @@ export function MailIndex() {
                 setEmails(emails)
             })
     }
-    console.log('emails:',emails)
 
     function onRemoveEmail(emailId) {
         emailService.remove(emailId)
@@ -44,26 +43,26 @@ export function MailIndex() {
             })
     }
 
+    function onUnread(email) {
+        emailService.toggle('isRead', email)
+        .then(() => loadEmails())
+    }
+
     function onMarkEmail(email) {
         emailService.toggle('isMarked', email)
-            .then((emails) => {
-                setEmails(emails)
-            })
+        .then(() => loadEmails())
     }
 
     function onStarEmail(email) {
         emailService.toggle('isStared', email)
-            .then((emails) => {
-                setEmails(emails)
-            })
+        .then(() => loadEmails())
     }
 
-    // console.log('emails from email index', emails)
-    // console.log('selectedEmail from email index', selectedEmail)
     if (!emails) return <div>loading...</div>
     return <MailList
         emails={emails}
         onRemoveEmail={onRemoveEmail}
+        onUnread={onUnread}
         onMarkEmail={onMarkEmail}
         onStarEmail={onStarEmail}
     />

@@ -2,7 +2,7 @@ const { Link } = ReactRouterDOM
 
 import { MailPreview } from "./MailPreview.jsx"
 
-export function MailList({ emails, onRemoveEmail, onMarkEmail, onStarEmail }) {
+export function MailList({ emails, onRemoveEmail, onUnread, onMarkEmail, onStarEmail }) {
     if (!emails.length) return <div>No Emails to show</div>
 
     return <ul className="email-list">
@@ -16,7 +16,7 @@ export function MailList({ emails, onRemoveEmail, onMarkEmail, onStarEmail }) {
             </Link>
             <div className="email-actions">
                 <button className="remove-btn" onClick={() => onRemoveEmail(email.id)}>X</button>
-                <button >Increase speed</button>
+                <button className="unread-btn" onClick={() => onUnread(email)}>unread</button>
             </div>
         </li>)}
     </ul>
