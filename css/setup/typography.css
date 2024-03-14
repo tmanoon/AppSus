@@ -7,3 +7,13 @@
     font-family: fa reg;
     src: url(../../fonts/fa-regular-400.ttf);
 }
+
+@font-face {
+    font-family: roboto;
+    src: url(../../fonts/Roboto-Regular.ttf);
+}
+
+@font-face {
+    font-family: google-sans;
+    src: url(../../fonts/GoogleSans-Regular.ttf);
+} 

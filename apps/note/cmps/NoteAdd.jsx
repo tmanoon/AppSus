@@ -89,7 +89,7 @@ export function NoteAdd({ setNotes, notes }) {
 
     return <div className={"add-note-div flex space-between align-center"}>
         <div className="input-place">
-            <input type="text" placeholder="Take a note..." name="note-edit" value={title} onKeyDown={onSaveByEnter} onClick={onAddNote} onChange={onChangeTitle} /></div>
+        <input type="text" placeholder="Take a note..." name="note-edit" value={title} onKeyDown={onSaveByEnter} onClick={onAddNote} onChange={onChangeTitle} /></div>
         {isNote && <div className="icons-star"><span className="star" onClick={onSetStarred}></span></div>}
         {!isNote && <div className="icons"><span className="square-check" onClick={onAddTodoNote}></span>
             <span className="brush" onClick={onAddCanvasNote}></span>

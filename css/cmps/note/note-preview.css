@@ -23,12 +23,8 @@
  }
 
  .notes-container {
-   /* display: grid;
-   grid-template-columns: repeat(3, 250px);
-   margin: auto;
-   gap: 10px; */
    columns: 250px 8;
-   
+   margin-inline: 10.625em;
 }
 
 .notes-container li {
