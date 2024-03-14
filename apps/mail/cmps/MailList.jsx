@@ -34,7 +34,7 @@ export function MailList({ emails, onRemoveEmail, onUnread, onMarkEmail, onStarE
                 <MailPreview email={email} />
             </Link>
 
-            <div className="email-actions center">
+            <div className="email-actions flex center">
                 <label htmlFor={`read ${email.id}`}>
                 {(email.isRead) ? <i className="fa-regular fa-envelope-open"></i> : <i className="fa-regular fa-envelope"></i>}
                 </label>

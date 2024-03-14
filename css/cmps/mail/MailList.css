@@ -8,7 +8,7 @@
 .email-list > li {
     position: relative;
     width: 100%;
-    height: 30px;
+    height: 36px;
 
     align-content: center;
     padding-block: 10px;
@@ -37,7 +37,7 @@
 .email-actions {
     display: none;
     position: absolute;
-    inset: 30% 0 auto auto;
+    inset: 10% 0 auto auto;
 }
 
 .email-list > li:hover .email-actions {

@@ -14,7 +14,7 @@
     flex-wrap: wrap;
  }
 
- article {
+ .note-element article {
    width: 100%;
  }
 
