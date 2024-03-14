@@ -40,7 +40,7 @@ const EMAIL_KEY = 'emails'
 
 _createEmails()
 
-function query(filterBy = getDefaultFilter()) {
+function query(filterBy = getFilterFromParams(new URLSearchParams(window.location.search))) {
     return storageService.query(EMAIL_KEY)
         .then(emails => {
             if (filterBy.status && filterBy.status !== 'all-mail') {
@@ -57,9 +57,10 @@ function query(filterBy = getDefaultFilter()) {
             if (filterBy.isStared) {
                 emails = emails.filter(email => email.isStared)
             }
-            const labelArr = filterBy.labels.split(' ')
-            if (filterBy.labels && labelArr > 0) {
-                emails = emails.filter(email => filterBy.labels.every(label => email.labels.includes(label)))
+            if (filterBy.labels) {
+                const labelArr = filterBy.labels.split(' ')
+                if (labelArr > 0)
+                    emails = emails.filter(email => filterBy.labels.every(label => email.labels.includes(label)))
             }
             return emails.sort((a, b) => b.sentAt - a.sentAt)
         })
@@ -93,7 +94,8 @@ function save(email) {
 }
 
 function toggle(keyName, email) {
-    email[keyName] = !email[keyName]
+    if (keyName === 'status') email[keyName] = 'inbox'
+    else email[keyName] = !email[keyName]
     return storageService.put(EMAIL_KEY, email)
 }
 
@@ -110,7 +112,7 @@ function getEmptyEmail(status = 'drafts') {
         isRead: true,
         isStared: false,
         isMarked: false,
-        sentAt: new Date(),
+        sentAt: new Date().getTime(),
         removedAt: null,
         from: (status === 'drafts' || status === 'sent') ? loggedinUser.email : '',
         to: '',
@@ -171,13 +173,13 @@ function _createEmail() {
     email.body = utilService.makeLorem(50)
     email.sentAt = utilService.getRandomIntInclusive(1577839200000, new Date().getTime())
     email.isRead = utilService.getRandomIntInclusive(0, 1) > 0.5
-    email.isStared = utilService.getRandomIntInclusive(0, 1) > 0.8
     if (status === 'sent') {
         email.to = utilService.getRandomEmail()
         email.isRead = true
     } else if (status === 'inbox') {
         email.from = utilService.getRandomEmail()
         email.to = loggedinUser.email
+        email.isStared = utilService.getRandomIntInclusive(0, 1) > 0.8
     } else {
         if (utilService.getRandomIntInclusive(0, 1) > 0.5) {
             email.to = utilService.getRandomEmail()

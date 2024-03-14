@@ -3,8 +3,8 @@ const { Link } = ReactRouterDOM
 import { MailPreview } from "./MailPreview.jsx"
 
 export function MailList({ emails, onRemoveEmail, onUnread, onMarkEmail, onStarEmail }) {
-    console.log('List:',emails)
-    if (!emails.length || !emails) return <div>No Emails to show</div>
+
+    if (!emails.length || !emails) return <div className="email-list flex center"><div>No Emails to show</div></div>
     return <ul className="email-list">
         {emails.map(email => <li key={email.id} className="grid">
             <div className="email-mark-actions flex align-center">

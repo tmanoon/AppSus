@@ -1,20 +1,25 @@
 const { useState, useEffect } = React
-const { Link, useSearchParams, Outlet, useLocation } = ReactRouterDOM
+const { Link, useParams, useSearchParams, Outlet, useLocation } = ReactRouterDOM
 
-import { MailList } from './../cmps/MailList.jsx'
 import { MailFilter } from './../cmps/MailFilter.jsx'
 import { MailFolder } from './../cmps/MailFolder.jsx'
+import { MailList } from './../cmps/MailList.jsx'
+import { MailDetails } from '../cmps/MailDetails.jsx'
 
 import { emailService } from './../services/mail.service.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 export function MailIndex() {
+    const { emailId } = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
     const location = useLocation()
     const path = location.pathname
+    var pathWithId
 
     const [emails, setEmails] = useState(null)
     const [filterBy, setFilterBy] = useState(emailService.getFilterFromParams(searchParams))
+
+    if (emailId) pathWithId = '/mail/' + emailId
 
     useEffect(() => {
         setSearchParams(filterBy)
@@ -35,11 +40,10 @@ export function MailIndex() {
     function onRemoveEmail(emailId) {
         emailService.remove(emailId)
             .then(() => {
-                setEmails((prevEmails) => prevEmails.filter(email => email.id !== emailId))
+                loadEmails()
                 showSuccessMsg(`email removed successfully (${emailId})`)
             })
             .catch((err) => {
-                console.log('Had issues removing email', err)
                 showErrorMsg(`Could not remove (${emailId})`)
             })
     }
@@ -59,8 +63,12 @@ export function MailIndex() {
             .then(() => loadEmails())
     }
 
-    console.log('index:',emails)
-    if (!emails) return <div>loading...</div>
+    function restoreEmail(email) {
+        emailService.toggle('status', email)
+        .then(() => loadEmails())
+    }
+
+    if (!emails) return <div className="flex center"><div>loading...</div></div>
     return <section className="email-index grid">
 
         <Link to="/mail/compose"><button className="compose-btn">Compose</button></Link>
@@ -70,20 +78,26 @@ export function MailIndex() {
             filterBy={filterBy}
         />
 
-
         <MailFolder
             onSetFilter={onSetFilter}
-            filterBy={filterBy}
         />
 
-        {path === '/mail' &&<MailList
+        {path === '/mail' && <MailList
             emails={emails}
             onRemoveEmail={onRemoveEmail}
             onUnread={onUnread}
             onMarkEmail={onMarkEmail}
             onStarEmail={onStarEmail}
         />}
-        {path !== '/mail' && <Outlet/>}
+
+        {path === pathWithId && <MailDetails
+            onRemoveEmail={onRemoveEmail}
+            onUnread={onUnread}
+            onStarEmail={onStarEmail}
+            restoreEmail={restoreEmail}
+        />}
+
+        {path === '/mail/compose' && <Outlet />}
     </section >
 }
 

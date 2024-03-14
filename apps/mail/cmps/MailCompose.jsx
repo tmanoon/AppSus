@@ -44,7 +44,7 @@ export function MailCompose() {
     }
 
     return <section className="email-compose">
-        <div className="flex space-between">
+        <div className="flex space-between align-center">
             <button onClick={saveToDrafts} className="back-btn">Back</button>
             <h1>New Massage</h1>
             <button onClick={saveToDrafts} className="close-btn"><i className="fa-solid fa-xmark"></i></button>

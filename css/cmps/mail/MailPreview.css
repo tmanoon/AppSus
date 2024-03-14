@@ -28,9 +28,10 @@
     font-size: 1em;
 }
 
-.email-short-disp>p {
-    font-size: 14px;
-    color: gray;
+.email-short-disp>p,
+.email-time-disp {
+    font-size: 12px;
+    color: var(--mailOutletBorder);
 }
 
 

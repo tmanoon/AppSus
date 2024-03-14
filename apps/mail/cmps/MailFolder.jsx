@@ -1,12 +1,16 @@
 const { useState, useEffect } = React
+const { useNavigate } = ReactRouter
+const { useSearchParams } = ReactRouterDOM
 
-export function MailFolder({ onSetFilter, filterBy }) {
+export function MailFolder({ onSetFilter }) {
+
+    const navigate = useNavigate()
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filterByToEdit, setFilterByToEdit] = useState({status: searchParams.get('status')})
+    const [currFolder, setCurrFolder] = useState(searchParams.get('status'))
 
     const folders = ['Inbox', 'Starred', 'Sent', 'Drafts', 'Trash', 'All-Mail']
     const icons = ["fa-solid fa-inbox", "fa-regular fa-star", "fa-regular fa-paper-plane", "fa-regular fa-file", "fa-regular fa-trash-can", "fa-solid fa-envelopes-bulk"]
-
-    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
-    const [currFolder, setCurrFolder] = useState('inbox')
 
     useEffect(() => {
         onSetFilter(filterByToEdit)
@@ -19,6 +23,7 @@ export function MailFolder({ onSetFilter, filterBy }) {
         } else {
             setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, ['isStared']: !prevFilterBy.isStared, ['status']: 'all-mail' }))
         }
+        navigate('/mail')
     }
 
     function onClickFolder(folder) {

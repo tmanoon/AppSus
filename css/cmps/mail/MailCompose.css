@@ -7,13 +7,12 @@
     cursor: context-menu;
 }
 
-.email-compose>h1 {
-    padding-block: 10px;
-    font-size: 20px;
+.email-compose>div {
+    padding-block-end: 6px;
 }
 
-.email-compose>div {
-    padding-block: 10px;
+.email-compose>div>h1 {
+    font-size: 20px;
 }
 
 .email-compose>div>button {
