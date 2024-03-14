@@ -57,7 +57,8 @@ function save(note) {
         return storageService.put(NOTES_KEY, note)
     } else {
         const currLength = storageFuncsService.loadFromStorage(NOTES_KEY).length
-        note = _createNote(note.type, note.isStarred, note.info)
+        if(note.style) note = _createNote(note.type, note.isStarred, note.info, note.style)
+        else note = _createNote(note.type, note.isStarred, note.info)
         return storageService.post(NOTES_KEY, note)
     }
 }
@@ -91,13 +92,13 @@ function _createNotes() {
     let notes = storageFuncsService.loadFromStorage(NOTES_KEY)
     if (!notes || !notes.length) {
         notes = []
-        notes.push(_createNote('NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, 1112222))
-        notes.push(_createNote('NoteTxt', true, { txt: 'Fullstack Me Baby!' }, 1112222))
+        notes.push(_createNote('NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, '', 1112222))
+        notes.push(_createNote('NoteTxt', true, { txt: 'Fullstack Me Baby!' }, '', 1112222))
         notes.push(_createNote('NoteImg', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
         notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [{ txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
         notes.push(_createNote('NoteVideo', false, { url: 'https://www.youtube.com/watch?v=RCmuTH6T7fk', title: 'Blame it on the boogie - Michael Jackson' }))
-        notes.push(_createNote('NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, 1112222))
-        notes.push(_createNote('NoteTxt', true, { txt: 'Fullstack Me Baby!' }, 1112222))
+        notes.push(_createNote('NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, '', 1112222))
+        notes.push(_createNote('NoteTxt', true, { txt: 'Fullstack Me Baby!' }, '', 1112222))
         notes.push(_createNote('NoteImg', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
         notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [{ txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
         notes.push(_createNote('NoteVideo', false, { url: 'https://www.youtube.com/watch?v=RCmuTH6T7fk', title: 'Blame it on the boogie - Michael Jackson' }))

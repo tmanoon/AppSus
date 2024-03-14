@@ -6,8 +6,8 @@ export function NoteAdd({ setNotes, notes }) {
     const colorsToChoose = ['#f1c2ff', '#ffefba', '#caf5ca', '#c3ecff', '#ffffff']
     const [isNote, setNoteClick] = useState(false)
     const [colorMode, setColorMode] = useState(false)
-    const [title, setTitle] = useState('')
-    const [txt, setTxt] = useState('')
+    const [title, setTitle] = useState(null)
+    const [txt, setTxt] = useState(null)
     // const navigate = useNavigate()
     // const titleRef = useRef()
     const [bgc, setBgc] = useState('')
@@ -18,6 +18,8 @@ export function NoteAdd({ setNotes, notes }) {
         if (isNote && txtRef.current) txtRef.current.focus()
         // else txtRef.current.blur()
     }, [isNote])
+
+
 
     function onChangeTitle(e) {
         e.stopPropagation()
@@ -63,8 +65,20 @@ export function NoteAdd({ setNotes, notes }) {
     }
 
     function onSaveByEnter(e) {
+        console.log(txt, title)
         if (e.key !== 'Enter') return
-        if (title) {
+        if((!title && !txt && bgc) || (!title && !txt && !bgc)) return
+        console.log(title, txt, bgc)
+        if (title && !txt && bgc) saveWithBgc(true, false)
+        else if (title && txt && bgc) saveWithBgc(true, true)
+        else if (!title && txt && bgc) saveWithBgc(false, true)
+        else if (title && txt) saveNote(true, true)
+        else if (title && !txt) saveNote(true, false)
+        else if (!title && txt) saveNote(false, true)
+    }
+
+    function saveNote(isTitle, isTxt) {
+        if (isTitle && isTxt) {
             noteService.save({ type: 'NoteTxt', isStarred: isStarred, info: { title: title, txt: txt } })
                 .then(savedNote => {
                     setNotes(notes => [...notes, savedNote])
@@ -72,7 +86,7 @@ export function NoteAdd({ setNotes, notes }) {
                 .catch(err => {
                     console.log('Had issues saving the note', err)
                 })
-        } else if (title && !txt) {
+        } else if (isTitle && !isTxt) {
             noteService.save({ type: 'NoteTxt', isStarred: isStarred, info: { title: title } })
                 .then(savedNote => {
                     setNotes(notes => [...notes, savedNote])
@@ -80,8 +94,36 @@ export function NoteAdd({ setNotes, notes }) {
                 .catch(err => {
                     console.log('Had issues saving the note', err)
                 })
-        } else {
+        } else if (!isTitle && isTxt) {
             noteService.save({ type: 'NoteTxt', isStarred: isStarred, info: { txt: txt } })
+                .then(savedNote => {
+                    setNotes(notes => [...notes, savedNote])
+                })
+                .catch(err => {
+                    console.log('Had issues saving the note', err)
+                })
+        }
+    }
+
+    function saveWithBgc(isTitle, isTxt) {
+        if (isTitle && isTxt) {
+            noteService.save({ type: 'NoteTxt', isStarred: isStarred, info: { title: title, txt: txt }, style: { backgroundColor: bgc } })
+                .then(savedNote => {
+                    setNotes(notes => [...notes, savedNote])
+                })
+                .catch(err => {
+                    console.log('Had issues saving the note', err)
+                })
+        } else if (isTitle && !isTxt) {
+            noteService.save({ type: 'NoteTxt', isStarred: isStarred, info: { title: title }, style: { backgroundColor: bgc } })
+                .then(savedNote => {
+                    setNotes(notes => [...notes, savedNote])
+                })
+                .catch(err => {
+                    console.log('Had issues saving the note', err)
+                })
+        } else if (!isTitle && isTxt) {
+            noteService.save({ type: 'NoteTxt', isStarred: isStarred, info: { txt: txt }, style: { backgroundColor: bgc } })
                 .then(savedNote => {
                     setNotes(notes => [...notes, savedNote])
                 })
@@ -125,7 +167,7 @@ export function NoteAdd({ setNotes, notes }) {
                         key={color}
                         className="color"
                         id={color}
-                        style={{ backgroundColor: color, left: `${calculateLeftPosition(idx, colorsToChoose.length)}em`}}></div>
+                        style={{ backgroundColor: color, left: `${calculateLeftPosition(idx, colorsToChoose.length)}em` }}></div>
                 ))}
             </div>}
         </div>}
