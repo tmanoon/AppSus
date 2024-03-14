@@ -19,7 +19,6 @@
     border: none;
     height: 2em;
     font-size: 1.2em;
-    width: 70%;
     font-family: google-sans, roboto;
     height: 2.2em;
 }
@@ -34,7 +33,7 @@
 
 .add-note-div {
     box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
-    width: 40em;
+    max-width: 40em;
     background-color: transparent;
     flex-wrap: wrap;
     margin-inline: auto;
@@ -82,4 +81,9 @@
     font-family: google-sans, roboto;
     padding: 12px 16px 12px 16px;
     color: var(--add-note-clr);
+    resize: none;
+}
+
+.add-note-div .input-place {
+    width: 70%;
 }
