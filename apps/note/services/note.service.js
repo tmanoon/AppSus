@@ -56,7 +56,8 @@ function save(note) {
     if (note.id) {
         return storageService.put(NOTES_KEY, note)
     } else {
-        note = _createNote(note.vendor, note.maxSpeed)
+        const currLength = storageFuncsService.loadFromStorage(NOTES_KEY).length
+        note = _createNote(note.type, note.isStarred, note.info)
         return storageService.post(NOTES_KEY, note)
     }
 }
@@ -65,7 +66,7 @@ function getEmptyNote() {
     return {
         createdAt: '',
         type: '',
-        isPinned: '',
+        isStarred: '',
         style: {
             backgroundColor: utilService.getRandomColor()
         },
@@ -90,21 +91,25 @@ function _createNotes() {
     let notes = storageFuncsService.loadFromStorage(NOTES_KEY)
     if (!notes || !notes.length) {
         notes = []
-        let numForId = notes.length + 1
-        notes.push(_createNote(numForId++, 'NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, 1112222))
-        notes.push(_createNote(numForId++, 'NoteTxt', true, { txt: 'Fullstack Me Baby!' }, 1112222))
-        notes.push(_createNote(numForId++, 'NoteImg', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
-        notes.push(_createNote(numForId++, 'NoteTodos', false, { title: 'Get my stuff together', todos: [{ txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
-        notes.push(_createNote(numForId++, 'NoteVideo', false, { url: 'https://www.youtube.com/watch?v=RCmuTH6T7fk', title: 'Blame it on the boogie - Michael Jackson' }))
+        notes.push(_createNote('NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, 1112222))
+        notes.push(_createNote('NoteTxt', true, { txt: 'Fullstack Me Baby!' }, 1112222))
+        notes.push(_createNote('NoteImg', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
+        notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [{ txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
+        notes.push(_createNote('NoteVideo', false, { url: 'https://www.youtube.com/watch?v=RCmuTH6T7fk', title: 'Blame it on the boogie - Michael Jackson' }))
+        notes.push(_createNote('NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, 1112222))
+        notes.push(_createNote('NoteTxt', true, { txt: 'Fullstack Me Baby!' }, 1112222))
+        notes.push(_createNote('NoteImg', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
+        notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [{ txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
+        notes.push(_createNote('NoteVideo', false, { url: 'https://www.youtube.com/watch?v=RCmuTH6T7fk', title: 'Blame it on the boogie - Michael Jackson' }))
         storageFuncsService.saveToStorage(NOTES_KEY, notes)
     }
 }
 
-function _createNote(numForId, type, isPinned, info = {}, createdAt = Date.now()) {
+function _createNote(type, isStarred, info = {}, createdAt = Date.now()) {
     const note = getEmptyNote()
-    note.id = utilService.makeNoteId(numForId)
+    note.id = utilService.makeId()
     note.type = type
-    note.isPinned = isPinned
+    note.isStarred = isStarred
     note.createdAt = createdAt
 
     switch (type) {

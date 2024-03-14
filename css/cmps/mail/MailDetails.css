@@ -32,6 +32,10 @@
     color: var(--mailOutletBorder);
 }
 
+.to-from>h4 {
+    font-size: 0.8rem;
+}
+
 .sent-actions>h5 {
     padding: 10px;
 }
