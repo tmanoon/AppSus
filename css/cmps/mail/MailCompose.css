@@ -20,6 +20,7 @@
     padding: 10px 15px;
     gap: 5px;
     height: 36.67px;
+    width: fit-content;
 
     cursor: pointer;
 }
