@@ -15,7 +15,6 @@
 
 .add-note-div input[type="text"] {
     color: var(--add-note-clr);
-    padding: 12px 16px 12px 16px;
     border: none;
     height: 2em;
     font-size: 1.2em;
@@ -38,6 +37,7 @@
     flex-wrap: wrap;
     margin-inline: auto;
     margin-block: 45px;
+    padding: 12px 16px 12px 16px;
 }
 
 .add-note-div .icons {
@@ -46,7 +46,7 @@
     gap: 1.7em;
     font-family: fa;
     color: var(--icons-clr);
-    padding-inline-end: 18px;
+    padding-inline-end: 0.9375em;
 }
 
 .add-note-txt {
@@ -63,9 +63,7 @@
     font-family: fa reg;
     color: var(--icons-clr);
     font-size: 1.2em;
-    right: 18px;
-    top: 12px;
-    padding-inline-end: 18px;
+    padding-inline-end: 0.9375em;
 }
 
 .add-note-txt p:focus {
@@ -79,11 +77,46 @@
 .add-note-div textarea {
     border: none;
     font-family: google-sans, roboto;
-    padding: 12px 16px 12px 16px;
     color: var(--add-note-clr);
     resize: none;
+    width: 100%;
 }
 
 .add-note-div .input-place {
     width: 70%;
+}
+
+.user-actions .save::before {
+    content: '\f0c7';
+    font-family: fa;
+}
+
+.user-actions .color-palette:before {
+    content: '\f53f';
+    font-family: fa;
+}
+
+.user-actions {
+    position: relative;
+}
+
+.colors-to-choose {
+    position: absolute;
+    width: 7.625em;
+    height: 1.875em;
+    background-color: var(--main-bg-note-color);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
+    top: 1.25em;
+}
+
+.colors-to-choose .color {
+    top: 0.3125em;
+    position: absolute;
+    width: 1.25em;
+    height: 1.25em;
+    border-radius: 50%;
+}
+
+.colors-to-choose .color:hover {
+    outline: gold .1em solid;
 }
