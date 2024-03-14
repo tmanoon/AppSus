@@ -1,11 +1,8 @@
 const { useState } = React
 export function NoteTodos({note}) {
     const noteTodos = note.info.todos
-    const [noteStyle, setNoteStyle] = useState({
-        backgroundColor: note.style.backgroundColor,
-    })
 
-    return <article style={noteStyle} className={`column-element note ${note.type} todo-note`}>
+    return <article className={`note ${note.type} todo-note`}>
         {note.title && <h3>{note.title}</h3>}
         <ul>
             {noteTodos.map(todo => {

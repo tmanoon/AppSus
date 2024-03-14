@@ -2,3 +2,8 @@
     font-family: fa;
     src: url('../../fonts/fa-solid-900.ttf');
 }
+
+@font-face {
+    font-family: fa reg;
+    src: url(../../fonts/fa-regular-400.ttf);
+}
