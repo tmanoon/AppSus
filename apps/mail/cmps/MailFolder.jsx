@@ -21,7 +21,7 @@ export function MailFolder({ onSetFilter }) {
         if (val !== 'starred') {
             setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, ['status']: val, ['isStared']: false }))
         } else {
-            setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, ['isStared']: !prevFilterBy.isStared, ['status']: 'all-mail' }))
+            setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, ['isStared']: prevFilterBy.isStared = true}))
         }
         navigate('/mail')
     }
