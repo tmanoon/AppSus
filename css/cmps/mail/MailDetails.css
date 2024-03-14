@@ -2,4 +2,71 @@
     border: 1px solid #535353c4;
     border-radius: 20px;
     padding: 10px 15px 0;
+
+    cursor: context-menu;
+}
+
+.email-details>h1 {
+    padding-block: 10px;
+    font-size: 20px;
+}
+
+.email-details>div {
+    padding-block-end: 10px;
+    border-bottom: 1px solid #535353c4;
+}
+
+.to-from {
+    gap: 5px;
+}
+
+.to-from>div {
+    gap: 10px;
+}
+
+.to-from>*>h5,
+.to-from>h5,
+.sent-actions>h5 {
+    font-weight: lighter;
+    color: #535353;
+}
+
+.sent-actions>h5 {
+    padding: 10px;
+}
+
+.bottom-btns {
+    gap: 20px;
+    margin-block: 16px;
+}
+
+.email-details>.bottom-btns>* {
+    border: 1px solid #535353c4;
+}
+
+.email-details>.bottom-btns>*,
+.sent-actions>button
+
+/*link*/
+    {
+    border-radius: 20px;
+    padding: 10px 15px;
+    gap: 5px;
+    height: 36.67px;
+
+    cursor: pointer;
+}
+
+.sent-actions>.star {
+    border-radius: 20px;
+    padding: 10px 10px;
+
+    cursor: pointer;
+}
+
+.email-details>.bottom-btns>*:hover,
+.sent-actions>button:hover,
+/*link*/
+.sent-actions>.star:hover {
+    background-color: #c2bfbf62;
 }

@@ -48,7 +48,7 @@ export function MailFilter({ onSetFilter, filterBy }) {
                 value={filterByToEdit.isStared}
                 onChange={handleChange}
             />
-            <label htmlFor="email-star">Stared</label>
+            <label htmlFor="email-star">Starred</label>
             </div>
             <div className="txt-input-div">
             <input type="text"

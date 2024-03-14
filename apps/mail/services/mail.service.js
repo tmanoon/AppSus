@@ -9,6 +9,7 @@ export const emailService = {
     remove,
     save,
     toggle,
+    read,
     getEmptyEmail,
     getDefaultFilter,
     getFilterFromParams
@@ -91,6 +92,11 @@ function save(email) {
 
 function toggle(keyName, email) {
     email[keyName] = !email[keyName]
+    return storageService.put(EMAIL_KEY, email)
+}
+
+function read(email) {
+    if (!email.isRead) email.isRead = true
     return storageService.put(EMAIL_KEY, email)
 }
 
