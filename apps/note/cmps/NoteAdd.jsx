@@ -6,8 +6,8 @@ export function NoteAdd({ setNotes, notes }) {
     const colorsToChoose = ['#f1c2ff', '#ffefba', '#caf5ca', '#c3ecff', '#ffffff']
     const [isNote, setNoteClick] = useState(false)
     const [colorMode, setColorMode] = useState(false)
-    const [title, setTitle] = useState(null)
-    const [txt, setTxt] = useState(null)
+    const [title, setTitle] = useState(undefined)
+    const [txt, setTxt] = useState(undefined)
     // const navigate = useNavigate()
     // const titleRef = useRef()
     const [bgc, setBgc] = useState('')
@@ -64,9 +64,8 @@ export function NoteAdd({ setNotes, notes }) {
 
     }
 
-    function onSaveByEnter(e) {
-        console.log(txt, title)
-        if (e.key !== 'Enter') return
+    function onSave(e) {
+        if (e.type === 'keydown' && e.key !== 'Enter') return
         if((!title && !txt && bgc) || (!title && !txt && !bgc)) return
         console.log(title, txt, bgc)
         if (title && !txt && bgc) saveWithBgc(true, false)
@@ -153,14 +152,14 @@ export function NoteAdd({ setNotes, notes }) {
 
     return <div className={"add-note-div flex space-between align-center"} style={{ backgroundColor: bgc || 'transparent' }}>
         <div className="input-place">
-            <input type="text" placeholder="Take a note..." name="note-edit" value={title} onKeyDown={onSaveByEnter} onClick={onAddNote} onChange={onChangeTitle} /></div>
+            <input type="text" placeholder="Take a note..." name="note-edit" value={title} onKeyDown={onSave} onClick={onAddNote} onChange={onChangeTitle} /></div>
         {isNote && <div className="icons-star"><span className="star" onClick={onSetStarred}></span></div>}
         {!isNote && <div className="icons"><span className="square-check" onClick={onAddTodoNote}></span>
             <span className="brush" onClick={onAddCanvasNote}></span>
             <span className="image" onClick={onAddImageNote}></span></div>}
-        {isNote && <textarea ref={txtRef} value={txt} placeholder="Add your note..." onClick={onFocusTxt} onChange={handleTxtField} onKeyDown={onSaveByEnter} />}
+        {isNote && <textarea ref={txtRef} value={txt} placeholder="Add your note..." onClick={onFocusTxt} onChange={handleTxtField} onKeyDown={onSave} />}
         {isNote && <div className="user-actions icons">
-            <span className="save"></span><span className="color-palette" onClick={onSetBgcColor}></span>
+            <span className="save" onClick={onSave}></span><span className="color-palette" onClick={onSetBgcColor}></span>
             {colorMode && <div className="colors-to-choose">
                 {colorsToChoose.map((color, idx) => (
                     <div onClick={onColorDiv}
