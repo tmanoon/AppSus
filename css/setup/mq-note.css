@@ -1,0 +1,23 @@
+@media (max-width: 430px) {
+    .header-search input {
+        height: 3em;
+        width: 35vw;
+        padding-inline-start: 15px;
+}
+
+.note-header {
+    margin-inline: 1em;
+}
+
+.note-header .header-search {
+    padding-inline-end: 0.125em;
+}
+
+.note-main .add-note-div {
+    width: 20em;
+}
+
+.add-note-div input[type="text"] {
+    
+}
+}
