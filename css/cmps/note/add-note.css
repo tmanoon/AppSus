@@ -15,12 +15,11 @@
 
 .add-note-div input[type="text"] {
     color: var(--add-note-clr);
-    padding: 18px;
+    padding: 12px 16px 12px 16px;
     border: none;
-    width: 30em;
     height: 2em;
     font-size: 1.2em;
-    width: 100%;
+    width: 70%;
     font-family: google-sans, roboto;
     height: 2.2em;
 }
@@ -28,24 +27,6 @@
 .add-note-div input:focus {
     outline: none;
 }
-
-.add-note-div .icons {
-    font-size: 1.2em;
-    display: flex;
-    padding-inline-end: 18px;
-    color: var(--icons-clr);
-}
-
-/* .add-note-div input[type="text"] {
-    color: var(--add-note-clr);
-    padding: 12px 16px 12px 16px;
-    border: none;
-    height: 2.1em;
-    font-size: 1.2em;
-    width: 25em;
-    font-family: google-sans, roboto;
-    margin-block-end: 30px;
-} */
 
 .add-note-div input:focus {
     outline: none;
@@ -61,8 +42,6 @@
 }
 
 .add-note-div .icons {
-    top: calc(50% - 1.2em);
-    right: 0;
     font-size: 1.2em;
     display: flex;
     gap: 1.7em;
