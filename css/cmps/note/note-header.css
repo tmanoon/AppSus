@@ -1,5 +1,4 @@
 header {
-
     background: lightcyan;
     border-bottom: 2px solid white;
 }
@@ -53,9 +52,9 @@ nav a.active {
 
 .header-logo {
     color: var(--main-notes-logo-clr);
-    font-family: Arial;display: inline-block;
-    font-family: "Product Sans", Arial, sans-serif;
-    font-size: 22px;
+    display: inline-block;
+    font-family: google Sans, Arial, sans-serif;
+    font-size: 1.375em;
     line-height: 24px;
     padding-left: 8px;
     vertical-align: middle;
