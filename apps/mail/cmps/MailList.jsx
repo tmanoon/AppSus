@@ -3,8 +3,8 @@ const { Link } = ReactRouterDOM
 import { MailPreview } from "./MailPreview.jsx"
 
 export function MailList({ emails, onRemoveEmail, onUnread, onMarkEmail, onStarEmail }) {
-    if (!emails.length) return <div>No Emails to show</div>
-
+    console.log('List:',emails)
+    if (!emails.length || !emails) return <div>No Emails to show</div>
     return <ul className="email-list">
         {emails.map(email => <li key={email.id} className="grid">
             <div className="email-mark-actions flex align-center">
@@ -41,7 +41,7 @@ export function MailList({ emails, onRemoveEmail, onUnread, onMarkEmail, onStarE
                 <input
                     type="checkbox" name="read" id={`read ${email.id}`}
                     style={{ display: 'none' }}
-                    checked={email.isStared}
+                    checked={email.isRead}
                     onChange={() => onUnread(email)}
                 />
                 

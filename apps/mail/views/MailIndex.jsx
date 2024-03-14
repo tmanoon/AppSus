@@ -1,5 +1,5 @@
 const { useState, useEffect } = React
-const { Link, useSearchParams } = ReactRouterDOM
+const { Link, useSearchParams, Outlet, useLocation } = ReactRouterDOM
 
 import { MailList } from './../cmps/MailList.jsx'
 import { MailFilter } from './../cmps/MailFilter.jsx'
@@ -10,6 +10,8 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 export function MailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
+    const location = useLocation()
+    const path = location.pathname
 
     const [emails, setEmails] = useState(null)
     const [filterBy, setFilterBy] = useState(emailService.getFilterFromParams(searchParams))
@@ -27,7 +29,6 @@ export function MailIndex() {
         emailService.query(filterBy)
             .then((emails) => {
                 setEmails(emails)
-                // console.log('emails (loadEmails):', emails)
             })
     }
 
@@ -58,6 +59,7 @@ export function MailIndex() {
             .then(() => loadEmails())
     }
 
+    console.log('index:',emails)
     if (!emails) return <div>loading...</div>
     return <section className="email-index grid">
 
@@ -74,14 +76,14 @@ export function MailIndex() {
             filterBy={filterBy}
         />
 
-
-        <MailList
+        {path === '/mail' &&<MailList
             emails={emails}
             onRemoveEmail={onRemoveEmail}
             onUnread={onUnread}
             onMarkEmail={onMarkEmail}
             onStarEmail={onStarEmail}
-        />
+        />}
+        {path !== '/mail' && <Outlet/>}
     </section >
 }
 
