@@ -8,6 +8,7 @@ export function NoteAdd({ setNotes, notes }) {
     const [colorMode, setColorMode] = useState(false)
     const [title, setTitle] = useState(undefined)
     const [txt, setTxt] = useState(undefined)
+    const componentRef = useRef()
     // const navigate = useNavigate()
     // const titleRef = useRef()
     const [bgc, setBgc] = useState('')
@@ -19,7 +20,24 @@ export function NoteAdd({ setNotes, notes }) {
         // else txtRef.current.blur()
     }, [isNote])
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (componentRef.current && !componentRef.current.contains(event.target)) {
+                resetStates()
+            }
+        }
 
+        document.addEventListener('mousedown', handleClickOutside)
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [])
+
+    function resetStates(){
+        setNoteClick(false)
+        setColorMode(false)
+    }
 
     function onChangeTitle(e) {
         e.stopPropagation()
@@ -150,7 +168,7 @@ export function NoteAdd({ setNotes, notes }) {
         return leftPosition
     }
 
-    return <div className={"add-note-div flex space-between align-center"} style={{ backgroundColor: bgc || 'transparent' }}>
+    return <div ref={componentRef} className={"add-note-div flex space-between align-center"} style={{ backgroundColor: bgc || 'transparent' }}>
         <div className="input-place">
             <input type="text" placeholder="Take a note..." name="note-edit" value={title} onKeyDown={onSave} onClick={onAddNote} onChange={onChangeTitle} /></div>
         {isNote && <div className="icons-star"><span className="star" onClick={onSetStarred}></span></div>}
