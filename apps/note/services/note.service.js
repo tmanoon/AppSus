@@ -105,10 +105,11 @@ function _createNotes() {
     }
 }
 
-function _createNote(type, isStarred, info = {}, createdAt = Date.now()) {
+function _createNote(type, isStarred, info = {}, style = '', createdAt = Date.now()) {
     const note = getEmptyNote()
     note.id = utilService.makeId()
     note.type = type
+    if(style) note.style = {backgroundColor: style.backgroundColor}
     note.isStarred = isStarred
     note.createdAt = createdAt
 
