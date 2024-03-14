@@ -1,27 +1,22 @@
 .add-note-div .square-check::before {
     left: -40px;
     content: '\f14a';
-    font-family: fa;
-    color: var(--icons-clr);
 }
+   
 
 .add-note-div .brush::before {
     content: '\f1fc';
-    font-family: fa;
-    color: var(--icons-clr);
 }
+    
 
 .add-note-div .image::before {
     content: '\f03e';
-    font-family: fa;
-    color: var(--icons-clr);
 }
 
 .add-note-div input[type="text"] {
     color: var(--add-note-clr);
     padding: 18px;
     border: none;
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
     width: 30em;
     height: 2em;
     font-size: 1.2em;
@@ -32,10 +27,6 @@
     outline: none;
 }
 
-.add-note-div {
-    left: 50%;
-}
-
 .add-note-div .icons {
     position: absolute;
     top: 30%;
@@ -44,24 +35,6 @@
     display: flex;
     gap: 1.7em;
     padding-inline-end: 18px;
-}
-
-.add-note-div .square-check::before {
-    left: -40px;
-    content: '\f14a';
-    font-family: fa;
-    color: var(--icons-clr);
-}
-
-.add-note-div .brush::before {
-    content: '\f1fc';
-    font-family: fa;
-    color: var(--icons-clr);
-}
-
-.add-note-div .image::before {
-    content: '\f03e';
-    font-family: fa;
     color: var(--icons-clr);
 }
 
@@ -69,7 +42,6 @@
     color: var(--add-note-clr);
     padding: 12px 16px 12px 16px;
     border: none;
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
     height: 1.1em;
     font-size: 1.2em;
     width: 25em;
@@ -81,7 +53,10 @@
 }
 
 .add-note-div {
-    left: 50%;
+    /* left: 50%; */
+    position: relative;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
+    width: max-content;
 }
 
 .add-note-div .icons {
@@ -91,9 +66,26 @@
     font-size: 1.2em;
     display: flex;
     gap: 1.7em;
+    font-family: fa;
+    color: var(--icons-clr);
     padding-inline-end: 18px;
 }
 
-.input-place {
-    position: relative;
+.add-note-txt {
+    position: absolute;
+    color: var(--add-note-clr);
+    font-size: 1em;
+    font-family: Arial;
+    left: 0;
+    padding-inline-start: 16px;
+}
+
+.add-note-div .pin::before {
+    position: absolute;
+    content: '\f08d';
+    font-family: fa;
+    color: var(--icons-clr);
+    font-size: 1.2em;
+    right: 18px;
+    top: 12px;
 }
