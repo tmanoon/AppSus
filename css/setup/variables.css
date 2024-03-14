@@ -5,4 +5,7 @@
 
     --icons-clr: #999999;
     --add-note-clr: #525252;
+
+    --mailOutletBG:  rgba(255, 255, 255, 0.445);
+    --mailOutletBorder: #535353c4;
 }

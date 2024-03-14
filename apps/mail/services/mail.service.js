@@ -28,7 +28,7 @@ window.cs = emailService  // For Debug only
 //     removedAt: null,
 //     from: 'momo@momo.com',
 //     to: 'user@appsus.com',
-//     status: 'inbox',  //inbox/sent/trash/draft
+//     status: 'inbox',  //inbox/sent/trash/drafts
 //     labels: []
 // }
 
@@ -82,12 +82,14 @@ function remove(emailId) {
 }
 
 function save(email) {
-    if (email.id) {
-        return storageService.put(EMAIL_KEY, email)
-    } else {
-        email = getEmptyEmail()
-        return storageService.post(EMAIL_KEY, email)
-    }
+    return storageService.query(EMAIL_KEY).then(entities => {
+        const idx = entities.findIndex(entity => entity.id === email.id)
+        if (idx < 0) {
+            return storageService.post(EMAIL_KEY, email)
+        } else {
+            return storageService.put(EMAIL_KEY, email)
+        }
+    })
 }
 
 function toggle(keyName, email) {
@@ -100,7 +102,7 @@ function read(email) {
     return storageService.put(EMAIL_KEY, email)
 }
 
-function getEmptyEmail(status = 'draft') {
+function getEmptyEmail(status = 'drafts') {
     return {
         id: 'e' + utilService.makeId(),
         subject: '',
@@ -110,16 +112,16 @@ function getEmptyEmail(status = 'draft') {
         isMarked: false,
         sentAt: new Date(),
         removedAt: null,
-        from: (status === 'draft' || status === 'sent') ? loggedinUser.email : '',
+        from: (status === 'drafts' || status === 'sent') ? loggedinUser.email : '',
         to: '',
-        status,  //inbox/sent/trash/draft
+        status,  //inbox/sent/trash/drafts
         labels: []
     }
 }
 
 function getDefaultFilter() {
     return {
-        status: 'inbox',  //inbox/sent/trash/draft
+        status: 'inbox',  //inbox/sent/trash/drafts
         txt: '',
         isRead: false, //true/false
         isStared: false,  //true/false
@@ -169,10 +171,11 @@ function _createEmail() {
     email.body = utilService.makeLorem(50)
     email.sentAt = utilService.getRandomIntInclusive(1577839200000, new Date().getTime())
     email.isRead = utilService.getRandomIntInclusive(0, 1) > 0.5
+    email.isStared = utilService.getRandomIntInclusive(0, 1) > 0.8
     if (status === 'sent') {
         email.to = utilService.getRandomEmail()
         email.isRead = true
-    } else  if (status === 'inbox') {
+    } else if (status === 'inbox') {
         email.from = utilService.getRandomEmail()
         email.to = loggedinUser.email
     } else {
@@ -198,9 +201,9 @@ function _setNextPrevEmailId(email) {
     })
 }
 
-receiveEmails()
+_receiveEmails()
 
-function receiveEmails() {
+function _receiveEmails() {
     setInterval(_createReceivedEmail, 3600000)
 }
 

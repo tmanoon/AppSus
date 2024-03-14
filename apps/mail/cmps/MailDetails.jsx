@@ -43,8 +43,10 @@ export function MailDetails() {
         return emailAddress[0]
     }
 
-    function onStarEmail(email) {
-        emailService.toggle('isStared', email)
+    function onStarEmail() {
+        setEmail(prevEmail => ({...prevEmail, ['isStared']: !prevEmail.isStared}))
+        // emailService.toggle('isStared', email)
+        // .then (loadEmail())
     }
 
     if (isLoading) return <div>Loading details..</div>
@@ -70,22 +72,18 @@ export function MailDetails() {
                         type="checkbox" name="star" id="star"
                         style={{ display: 'none' }}
                         checked={email.isStared}
-                        onChange={() => onStarEmail(email)}
+                        onChange={onStarEmail}
                     />
                 </div>
 
-                {/* <link to={`/mail/compose/${emailId}`}><button className="flex"><span>Reply</span><i className="fa-solid fa-reply"></i></button></link> */}
-                <button className="flex"><span>Reply</span><i className="fa-solid fa-reply"></i></button>
-                {/* <link to="/note"><button className="flex"><span>send to notes</span><i className="fa-regular fa-note-sticky"></i></button></link> */}
-                <button className="flex"><span>Send to notes</span><i className="fa-regular fa-note-sticky"></i></button>
+                <Link to={`/mail/compose/${emailId}`}><button className="flex"><span>Reply</span><i className="fa-solid fa-reply"></i></button></Link>
+                <Link to="/note"><button className="flex"><span>send to notes</span><i className="fa-regular fa-note-sticky"></i></button></Link>
             </section>
         </div>
         <p>{email.body}</p>
         <section className="bottom-btns flex justify-center">
-            {/* <link to={`/mail/compose/${emailId}`}><button className="flex"><span>Reply</span><i className="fa-solid fa-reply"></i></button></link> */}
-            <button className="flex"><span>Reply</span><i className="fa-solid fa-reply"></i></button>
-            {/* <link to="/note"><button className="flex"><span>send to notes</span><i className="fa-regular fa-note-sticky"></i></button></link> */}
-            <button className="flex"><span>Send to notes</span><i className="fa-regular fa-note-sticky"></i></button>
+            <Link to={`/mail/compose/${emailId}`}><button className="flex"><span>Reply</span><i className="fa-solid fa-reply"></i></button></Link>
+            <Link to="/note"><button className="flex"><span>send to notes</span><i className="fa-regular fa-note-sticky"></i></button></Link>
         </section>
     </section>
 }

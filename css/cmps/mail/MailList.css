@@ -1,8 +1,8 @@
- /* mail list */
 .email-list {
-    border: 1px solid #535353c4;
+    border: 1px solid var(--mailOutletBorder);
     border-radius: 20px;
     padding: 10px 15px;
+    background-color: var(--mailOutletBG);
 }
 
 .email-list > li {
@@ -12,7 +12,7 @@
 
     align-content: center;
     padding-block: 10px;
-    border-bottom: 1px solid #535353c4;
+    border-bottom: 1px solid var(--mailOutletBorder);
 
     grid-template-columns: 40px minmax(200px, 1fr);
     gap: 20px;
@@ -27,6 +27,11 @@
 .email-mark-actions,
 .email-actions {
     gap: 5px;
+}
+
+.email-mark-actions > *,
+.email-actions> * {
+    cursor: pointer;
 }
 
 .email-actions {

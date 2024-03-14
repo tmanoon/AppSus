@@ -14,3 +14,7 @@
     padding-inline-start: 8px;
     background-color: transparent;
 }
+
+.checkbox-input-div > * {
+    cursor: pointer;
+}

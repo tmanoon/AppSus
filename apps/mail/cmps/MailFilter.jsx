@@ -32,7 +32,7 @@ export function MailFilter({ onSetFilter, filterBy }) {
             />
             <label htmlFor="email-search"><i className="fa-solid fa-magnifying-glass"></i></label>
             </div>
-            <div>
+            <div className="checkbox-input-div">
             <input type="checkbox"
                 id="email-read"
                 name="isRead"
@@ -41,7 +41,7 @@ export function MailFilter({ onSetFilter, filterBy }) {
             />
             <label htmlFor="email-read">Unread</label>
             </div>
-            <div>
+            <div className="checkbox-input-div">
             <input type="checkbox"
                 id="email-star"
                 name="isStared"

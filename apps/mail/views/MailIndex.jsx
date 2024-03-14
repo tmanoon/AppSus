@@ -61,8 +61,7 @@ export function MailIndex() {
     if (!emails) return <div>loading...</div>
     return <section className="email-index grid">
 
-        <button>Compose</button>
-        {/* <Link to="/email/compose"><button>Compose</button></Link> */}
+        <Link to="/mail/compose"><button className="compose-btn">Compose</button></Link>
 
         <MailFilter
             onSetFilter={onSetFilter}

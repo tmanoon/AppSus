@@ -5,6 +5,8 @@
     width: calc(100% - 10px);
 
     gap: 30px;
+
+    cursor: pointer;
 }
 
 .email-short-disp {
