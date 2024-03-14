@@ -60,7 +60,7 @@ function query(filterBy = getDefaultFilter()) {
             if (filterBy.labels && labelArr > 0) {
                 emails = emails.filter(email => filterBy.labels.every(label => email.labels.includes(label)))
             }
-            return emails
+            return emails.sort((a, b) => b.sentAt - a.sentAt)
         })
 }
 
@@ -159,8 +159,13 @@ function _createEmail() {
     const statusOps = ['inbox', 'sent', 'trash']
     const status = statusOps[utilService.getRandomIntInclusive(0, 2)]
     const email = getEmptyEmail(status)
+    email.subject = utilService.makeLorem(5)
+    email.body = utilService.makeLorem(50)
+    email.sentAt = utilService.getRandomIntInclusive(1577839200000, new Date().getTime())
+    email.isRead = utilService.getRandomIntInclusive(0, 1) > 0.5
     if (status === 'sent') {
         email.to = utilService.getRandomEmail()
+        email.isRead = true
     } else  if (status === 'inbox') {
         email.from = utilService.getRandomEmail()
         email.to = loggedinUser.email
@@ -173,10 +178,6 @@ function _createEmail() {
             email.from = utilService.getRandomEmail()
         }
     }
-    email.subject = utilService.makeLorem(5)
-    email.body = utilService.makeLorem(50)
-    email.sentAt = utilService.getRandomIntInclusive(1577839200000, new Date().getTime())
-    email.isRead = utilService.getRandomIntInclusive(0, 1) > 0.5
     return email
 }
 
