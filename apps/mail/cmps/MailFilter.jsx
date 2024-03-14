@@ -22,7 +22,7 @@ export function MailFilter({ onSetFilter, filterBy }) {
 
     return <section className="email-filter flex align-center">
         <form className="flex align-center space-between">
-            <div>
+            <div className="txt-input-div">
             <input type="text"
                 id="email-search"
                 name="txt"
@@ -50,7 +50,7 @@ export function MailFilter({ onSetFilter, filterBy }) {
             />
             <label htmlFor="email-star">Stared</label>
             </div>
-            <div>
+            <div className="txt-input-div">
             <input type="text"
                 id="email-label"
                 name="labels"

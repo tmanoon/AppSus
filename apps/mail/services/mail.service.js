@@ -99,7 +99,7 @@ function getEmptyEmail(status = 'draft') {
         id: 'e' + utilService.makeId(),
         subject: '',
         body: '',
-        isRead: false,
+        isRead: true,
         isStared: false,
         isMarked: false,
         sentAt: new Date(),
@@ -190,4 +190,18 @@ function _setNextPrevEmailId(email) {
         email.prevEmailId = prevEmail.id
         return email
     })
+}
+
+receiveEmails()
+
+function receiveEmails() {
+    setInterval(_createReceivedEmail, 3600000)
+}
+
+function _createReceivedEmail() {
+    const email = getEmptyEmail('inbox')
+    email.subject = utilService.makeLorem(5)
+    email.body = utilService.makeLorem(50)
+    email.isRead = false
+    return email
 }
