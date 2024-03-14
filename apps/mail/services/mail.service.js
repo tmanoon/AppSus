@@ -49,7 +49,7 @@ function query(filterBy = getFilterFromParams(new URLSearchParams(window.locatio
             }
             if (filterBy.txt) {
                 const regex = new RegExp(filterBy.txt, 'i')
-                emails = emails.filter(email => regex.test(email.subject) || regex.test(email.body))
+                emails = emails.filter(email => regex.test(email.subject) || regex.test(email.body) || regex.test(email.from) || regex.test(email.to))
             }
             if (filterBy.isRead) {
                 emails = emails.filter(email => !email.isRead)
