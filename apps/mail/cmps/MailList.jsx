@@ -1,14 +1,41 @@
-const { Link } = ReactRouterDOM
+const { useState , useEffect} = React
+const { Link, useSearchParams } = ReactRouterDOM
 
 import { MailPreview } from "./MailPreview.jsx"
 
-export function MailList({ emails, onRemoveEmail, onUnread, onMarkEmail, onStarEmail }) {
+export function MailList({ emails, onSetFilter, onRemoveEmail, onUnread, onMarkEmail, onStarEmail }) {
+
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [sortBy, setSortBy] = useState({ sort: searchParams.get('sort'), dir: searchParams.get('dir') })
+    const [currSorter, setCurrSorter] = useState({ sort: searchParams.get('sort'), dir: searchParams.get('dir') })
+
+    useEffect(() => {
+        onSetFilter(sortBy)
+    }, [sortBy])
+
+    function handleChange(val) {
+        const key = (typeof val === 'string') ? 'sort' : 'dir'
+         setSortBy((prevSortBy) => ({ ...prevSortBy, [key]: val }))
+    }
+
+    function onClickSort(val) {
+        const key = (typeof val === 'string') ? 'sort' : 'dir'
+        setCurrSorter((prevSortBy) => ({ ...prevSortBy, [key]: val }))
+        handleChange(val)
+    }
+
 
     if (!emails.length || !emails) return <div className="email-list flex center"><div>No Emails to show</div></div>
     return <ul className="email-list">
         <li className="email-sort flex">
-            <button>Date</button>
-            <button>title</button>
+            {currSorter.sort === 'date' && <button onClick={() => onClickSort('date')} style={{ backgroundColor: 'rgba(245, 245, 245, 0.9)' }}><span>Date</span></button>}
+            {currSorter.sort !== 'date' && <button onClick={() => onClickSort('date')}><span>Date</span></button>}
+            {currSorter.sort !== 'subject' && <button onClick={() => onClickSort('subject')}><span>Subject</span></button>}
+            {currSorter.sort === 'subject' && <button onClick={() => onClickSort('subject')} style={{ backgroundColor: 'rgba(245, 245, 245, 0.9)' }}><span>Subject</span></button>}
+            {currSorter.dir === true && <button onClick={() => onClickSort(true)} style={{ backgroundColor: 'rgba(245, 245, 245, 0.9)' }}><i className="fa-solid fa-chevron-up"></i></button>}
+            {currSorter.dir !== true && <button onClick={() => onClickSort(true)}><i className="fa-solid fa-chevron-up"></i></button>}
+            {currSorter.dir !== false && <button onClick={() => onClickSort(false)}><i className="fa-solid fa-chevron-down"></i></button>}
+            {currSorter.dir === false && <button onClick={() => onClickSort(false)} style={{ backgroundColor: 'rgba(245, 245, 245, 0.9)' }}><i className="fa-solid fa-chevron-down"></i></button>}
         </li>
         {emails.map(email => <li key={email.id} className="grid">
             <div className="email-mark-actions flex align-center">
@@ -40,7 +67,7 @@ export function MailList({ emails, onRemoveEmail, onUnread, onMarkEmail, onStarE
 
             <div className="email-actions flex center">
                 <label htmlFor={`read ${email.id}`}>
-                {(email.isRead) ? <i className="fa-regular fa-envelope-open"></i> : <i className="fa-regular fa-envelope"></i>}
+                    {(email.isRead) ? <i className="fa-regular fa-envelope-open"></i> : <i className="fa-regular fa-envelope"></i>}
                 </label>
                 <input
                     type="checkbox" name="read" id={`read ${email.id}`}
@@ -48,7 +75,7 @@ export function MailList({ emails, onRemoveEmail, onUnread, onMarkEmail, onStarE
                     checked={email.isRead}
                     onChange={() => onUnread(email)}
                 />
-                
+
                 <button className="remove-btn" onClick={() => onRemoveEmail(email.id)}><i className="fa-regular fa-trash-can"></i></button>
             </div>
         </li>)}

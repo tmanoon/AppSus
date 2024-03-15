@@ -62,7 +62,16 @@ function query(filterBy = getFilterFromParams(new URLSearchParams(window.locatio
                 if (labelArr > 0)
                     emails = emails.filter(email => filterBy.labels.every(label => email.labels.includes(label)))
             }
-            return emails.sort((a, b) => b.sentAt - a.sentAt)
+            if (filterBy.sort) {
+                if (filterBy.sort === 'date')
+                    emails = emails.sort((a, b) => b.sentAt - a.sentAt)
+                else if (filterBy.sort === 'subject')
+                    emails = emails.sort((a, b) => a.subject.localeCompare(b.subject))
+            }
+            if (filterBy.dir === false) {
+                emails = emails.reverse()
+            }
+            return emails
         })
 }
 
@@ -127,7 +136,9 @@ function getDefaultFilter() {
         txt: '',
         isRead: false, //true/false
         isStared: false,  //true/false
-        labels: ''
+        labels: '',
+        sort: 'date',  // title
+        dir: true
     }
 }
 
@@ -138,7 +149,9 @@ function getFilterFromParams(searchParams = {}) {
         txt: searchParams.get('txt') || defaultFilter.txt,
         isRead: searchParams.get('isRead') === 'true' || defaultFilter.isRead,
         isStared: searchParams.get('isStared') === 'true' || defaultFilter.isStared,
-        labels: searchParams.get('labels') || defaultFilter.labels
+        labels: searchParams.get('labels') || defaultFilter.labels,
+        sort: searchParams.get('sort') || defaultFilter.sort,
+        dir: searchParams.get('dir') || defaultFilter.dir
     }
 }
 
