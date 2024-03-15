@@ -37,7 +37,15 @@ function query(filterBy = getDefaultFilter()) {
                 const regex = new RegExp(filterBy.type, 'i')
                 notes = notes.filter(note => regex.test(note.type))
             }
-            console.log(notes)
+            notes.sort((firstNote, secondNote) => {
+                if (firstNote.isStarred && !secondNote.isStarred) {
+                    return -1 
+                } else if (!firstNote.isStarred && secondNote.isStarred) {
+                    return 1 
+                } else {
+                    return 0 
+                }
+            })
             return notes
         })
 }
@@ -100,7 +108,7 @@ function _createNotes() {
         notes.push(_createNote('NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, '', 1112222))
         notes.push(_createNote('NoteTxt', true, { txt: 'Fullstack Me Baby!' }, '', 1112222))
         notes.push(_createNote('NoteImg', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
-        notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [{ txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
+        notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [ { txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
         notes.push(_createNote('NoteVideo', false, { url: 'https://www.youtube.com/watch?v=RCmuTH6T7fk', title: 'Blame it on the boogie - Michael Jackson' }))
         storageFuncsService.saveToStorage(NOTES_KEY, notes)
     }
