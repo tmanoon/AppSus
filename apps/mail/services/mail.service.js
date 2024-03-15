@@ -22,7 +22,7 @@ window.cs = emailService  // For Debug only
 //     subject: 'Miss you!',
 //     body: 'Would love to catch up sometimes',
 //     isRead: false,
-//     isStared: null,
+//     isStarred: null,
 //     isMarked: false,
 //     sentAt: 1551133930594,
 //     removedAt: null,
@@ -54,8 +54,8 @@ function query(filterBy = getFilterFromParams(new URLSearchParams(window.locatio
             if (filterBy.isRead) {
                 emails = emails.filter(email => !email.isRead)
             }
-            if (filterBy.isStared) {
-                emails = emails.filter(email => email.isStared)
+            if (filterBy.isStarred) {
+                emails = emails.filter(email => email.isStarred)
             }
             if (filterBy.labels) {
                 const labelArr = filterBy.labels.split(' ')
@@ -119,7 +119,7 @@ function getEmptyEmail(status = 'drafts') {
         subject: '',
         body: '',
         isRead: true,
-        isStared: false,
+        isStarred: false,
         isMarked: false,
         sentAt: new Date().getTime(),
         removedAt: null,
@@ -135,7 +135,7 @@ function getDefaultFilter() {
         status: 'inbox',  //inbox/sent/trash/drafts
         txt: '',
         isRead: false, //true/false
-        isStared: false,  //true/false
+        isStarred: false,  //true/false
         labels: '',
         sort: 'date',  // title
         dir: true
@@ -148,7 +148,7 @@ function getFilterFromParams(searchParams = {}) {
         status: searchParams.get('status') || defaultFilter.status,
         txt: searchParams.get('txt') || defaultFilter.txt,
         isRead: searchParams.get('isRead') === 'true' || defaultFilter.isRead,
-        isStared: searchParams.get('isStared') === 'true' || defaultFilter.isStared,
+        isStarred: searchParams.get('isStarred') === 'true' || defaultFilter.isStarred,
         labels: searchParams.get('labels') || defaultFilter.labels,
         sort: searchParams.get('sort') || defaultFilter.sort,
         dir: searchParams.get('dir') || defaultFilter.dir
@@ -192,7 +192,7 @@ function _createEmail() {
     } else if (status === 'inbox') {
         email.from = utilService.getRandomEmail()
         email.to = loggedinUser.email
-        email.isStared = utilService.getRandomIntInclusive(0, 1) > 0.8
+        email.isStarred = utilService.getRandomIntInclusive(0, 1) > 0.8
     } else {
         if (utilService.getRandomIntInclusive(0, 1) > 0.5) {
             email.to = utilService.getRandomEmail()

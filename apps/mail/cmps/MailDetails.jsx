@@ -66,7 +66,7 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
             {email.status !== 'trash' && <button><span>Labels</span><i className="fa-solid fa-tags"></i></button>}
             {email.status === 'trash' && <button onClick={() => restoreEmail(email)}><span>Restore to inbox</span><i className="fa-solid fa-trash-arrow-up"></i></button>}
             <button onClick={() => onUnread(email)}><span>Mark as unread</span><i className="fa-regular fa-envelope"></i></button>
-            {(email.isStared) ?
+            {(email.isStarred) ?
                 <button onClick={() => onStarEmail(email)}><span>Star</span><i className="fa-solid fa-star"></i></button> :
                 <button onClick={() => onStarEmail(email)}><span>Star</span><i className="fa-regular fa-star"></i></button>}
             <button onClick={() => navAround('prev')}><i className="fa-solid fa-chevron-left"></i></button>
@@ -89,12 +89,12 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
 
                 <div className="star">
                     <label htmlFor="star">
-                        {(email.isStared) ? <i className="fa-solid fa-star"></i> : <i className="fa-regular fa-star"></i>}
+                        {(email.isStarred) ? <i className="fa-solid fa-star"></i> : <i className="fa-regular fa-star"></i>}
                     </label>
                     <input
                         type="checkbox" name="star" id="star"
                         style={{ display: 'none' }}
-                        checked={email.isStared}
+                        checked={email.isStarred}
                         onChange={() => onStarEmail(email)}
                     />
                 </div>

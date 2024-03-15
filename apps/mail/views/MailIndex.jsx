@@ -59,7 +59,7 @@ export function MailIndex() {
     }
 
     function onStarEmail(email) {
-        emailService.toggle('isStared', email)
+        emailService.toggle('isStarred', email)
             .then(() => loadEmails())
     }
 

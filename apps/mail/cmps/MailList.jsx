@@ -59,12 +59,12 @@ export function MailList({ emails, onSetFilter, onRemoveEmail, onUnread, onMarkE
                 />
 
                 <label htmlFor={`star ${email.id}`}>
-                    {(email.isStared) ? <i className="fa-solid fa-star"></i> : <i className="fa-regular fa-star"></i>}
+                    {(email.isStarred) ? <i className="fa-solid fa-star"></i> : <i className="fa-regular fa-star"></i>}
                 </label>
                 <input
                     type="checkbox" name="star" id={`star ${email.id}`}
                     style={{ display: 'none' }}
-                    checked={email.isStared}
+                    checked={email.isStarred}
                     onChange={() => onStarEmail(email)}
                 />
             </div>

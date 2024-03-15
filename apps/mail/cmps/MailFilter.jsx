@@ -44,8 +44,8 @@ export function MailFilter({ onSetFilter , filterBy}) {
             <div className="checkbox-input-div">
                 <input type="checkbox"
                     id="email-star"
-                    name="isStared"
-                    value={filterBy.isStared}
+                    name="isStarred"
+                    value={filterBy.isStarred}
                     onChange={handleChange}
                 />
                 <label htmlFor="email-star">Starred</label>
