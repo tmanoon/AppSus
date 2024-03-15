@@ -95,60 +95,54 @@ export function NoteAdd({ setNotes, notes }) {
     }
 
     function saveNote(isTitle, isTxt) {
-        if (isTitle && isTxt) {
-            noteService.save({ type: 'NoteTxt', isStarred: isStarred, info: { title: title, txt: txt } })
-                .then(savedNote => {
-                    setNotes(notes => [...notes, savedNote])
+        let noteToSave = {
+            type: 'NoteTxt', 
+            isStarred: isStarred,
+            createdAt: Date.now(), 
+            info: isTitle && isTxt ? { title: title, txt: txt } : isTitle ? { title: title } : { txt: txt }
+        };
+    
+        noteService.save(noteToSave)
+            .then(savedNote => {
+                setNotes(prevNotes => {
+                    const updatedNotes = [...prevNotes, savedNote]
+                    return updatedNotes.sort((firstNote, secondNote) => {
+                        if (secondNote.isStarred !== firstNote.isStarred) {
+                            return secondNote.isStarred - firstNote.isStarred
+                        }
+                        return secondNote.createdAt - firstNote.createdAt
+                    })
                 })
-                .catch(err => {
-                    console.log('Had issues saving the note', err)
-                })
-        } else if (isTitle && !isTxt) {
-            noteService.save({ type: 'NoteTxt', isStarred: isStarred, info: { title: title } })
-                .then(savedNote => {
-                    setNotes(notes => [...notes, savedNote])
-                })
-                .catch(err => {
-                    console.log('Had issues saving the note', err)
-                })
-        } else if (!isTitle && isTxt) {
-            noteService.save({ type: 'NoteTxt', isStarred: isStarred, info: { txt: txt } })
-                .then(savedNote => {
-                    setNotes(notes => [...notes, savedNote])
-                })
-                .catch(err => {
-                    console.log('Had issues saving the note', err)
-                })
-        }
+            })
+            .catch(err => {
+                console.log('Had issues saving the note', err)
+            })
     }
 
     function saveWithBgc(isTitle, isTxt) {
-        if (isTitle && isTxt) {
-            noteService.save({ type: 'NoteTxt', isStarred: isStarred, info: { title: title, txt: txt }, style: { backgroundColor: bgc } })
-                .then(savedNote => {
-                    setNotes(notes => [...notes, savedNote])
-                })
-                .catch(err => {
-                    console.log('Had issues saving the note', err)
-                })
-        } else if (isTitle && !isTxt) {
-            noteService.save({ type: 'NoteTxt', isStarred: isStarred, info: { title: title }, style: { backgroundColor: bgc } })
-                .then(savedNote => {
-                    setNotes(notes => [...notes, savedNote])
-                })
-                .catch(err => {
-                    console.log('Had issues saving the note', err)
-                })
-        } else if (!isTitle && isTxt) {
-            noteService.save({ type: 'NoteTxt', isStarred: isStarred, info: { txt: txt }, style: { backgroundColor: bgc } })
-                .then(savedNote => {
-                    setNotes(notes => [...notes, savedNote])
-                })
-                .catch(err => {
-                    console.log('Had issues saving the note', err)
-                })
+        let noteToSave = {
+            type: 'NoteTxt', 
+            isStarred: isStarred, 
+            info: isTitle && isTxt ? { title: title, txt: txt } : isTitle ? { title: title } : { txt: txt },
+            style: { backgroundColor: bgc }
         }
-    }
+    
+        noteService.save(noteToSave)
+        .then(savedNote => {
+            setNotes(prevNotes => {
+                const updatedNotes = [...prevNotes, savedNote]
+                return updatedNotes.sort((firstNote, secondNote) => {
+                    if (secondNote.isStarred !== firstNote.isStarred) {
+                        return secondNote.isStarred - firstNote.isStarred
+                    }
+                    return secondNote.createdAt - firstNote.createdAt
+                })
+            })
+        })
+        .catch(err => {
+            console.log('Had issues saving the note with background color', err)
+        })
+}
 
     function handleTxtField(e) {
         e.stopPropagation()
@@ -171,7 +165,7 @@ export function NoteAdd({ setNotes, notes }) {
     return <div ref={componentRef} className={"add-note-div flex space-between align-center"} style={{ backgroundColor: bgc || 'transparent' }}>
         <div className="input-place">
             <input type="text" placeholder="Take a note..." name="note-edit" value={title} onKeyDown={onSave} onClick={onAddNote} onChange={onChangeTitle} /></div>
-        {isNote && <div className="icons-star"><span className="star" onClick={onSetStarred}></span></div>}
+        {isNote && <div className="icons-star"><span className="star" style={isStarred && {fontFamily: 'fa'} || {fontFamily: 'fa-reg'}} onClick={onSetStarred}></span></div>}
         {!isNote && <div className="icons"><span className="square-check" onClick={onAddTodoNote}></span>
             <span className="brush" onClick={onAddCanvasNote}></span>
             <span className="image" onClick={onAddImageNote}></span></div>}

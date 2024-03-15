@@ -37,7 +37,15 @@ function query(filterBy = getDefaultFilter()) {
                 const regex = new RegExp(filterBy.type, 'i')
                 notes = notes.filter(note => regex.test(note.type))
             }
-            console.log(notes)
+            notes.sort((firstNote, secondNote) => {
+                if (firstNote.isStarred && !secondNote.isStarred) {
+                    return -1 
+                } else if (!firstNote.isStarred && secondNote.isStarred) {
+                    return 1 
+                } else {
+                    return 0 
+                }
+            })
             return notes
         })
 }

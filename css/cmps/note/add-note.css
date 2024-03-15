@@ -72,7 +72,6 @@
 
 .add-note-div .star::before {
     content: '\f005';
-    font-family: fa reg;
     color: var(--icons-clr);
     font-size: 1.2em;
     padding-inline-end: 0.9375em;
@@ -80,8 +79,7 @@
 }
 
 .star:hover::before {
-    content: '\f005';
-    font-family: fa;
+    color: rgb(181, 159, 30);
 }
 
 .add-note-txt p:focus {
