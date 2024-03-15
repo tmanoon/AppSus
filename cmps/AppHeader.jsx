@@ -4,7 +4,7 @@ export function AppHeader() {
 
     return <header className="app-header flex space-between">
         <Link to="/">
-            <h3>LOGO!</h3>
+            <h3 className="logo">MailMemo</h3>
         </Link>
         <nav>
             <NavLink to="/">Home</NavLink>

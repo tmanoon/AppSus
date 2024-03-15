@@ -17,3 +17,13 @@
     font-family: google-sans;
     src: url(../../fonts/GoogleSans-Regular.ttf);
 } 
+
+@font-face {
+    font-family: bubble;
+    src: url(../../fonts/Bubble.ttf);
+} 
+
+@font-face {
+    font-family: handWriting;
+    src: url(../../fonts/HandWriting.ttf);
+} 

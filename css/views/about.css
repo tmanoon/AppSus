@@ -1,15 +1,13 @@
-.home {
+.about {
     height: calc(100vh - 50px);
 
-    gap: 50px;
+    align-items: center;
+    gap: 30px;
 
     cursor: default;
 }
 
-.home span {
+.about h2 {
+    padding-block-start: 80px;
     font-family: 'handWriting', sans-serif;
-}
-
-.home Link {   
-    cursor: pointer;
 }
