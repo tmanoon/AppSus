@@ -29,6 +29,15 @@
     padding-bottom: 0;
 }
 
+.email-sort div {
+    gap: 25px;
+}
+
+.email-sort p {
+    font-size: 12px;
+    color: var(--mailOutletBorder);
+}
+
 .email-list li:first-child button {
     border-radius: 20px;
     padding-inline: 10px;
