@@ -17,7 +17,6 @@ export function NoteAdd({ setNotes, notes }) {
 
     useEffect(() => {
         if (isNote && txtRef.current) txtRef.current.focus()
-        // else txtRef.current.blur()
     }, [isNote])
 
     useEffect(() => {
@@ -34,7 +33,7 @@ export function NoteAdd({ setNotes, notes }) {
         }
     }, [])
 
-    function resetStates(){
+    function resetStates() {
         setNoteClick(false)
         setColorMode(false)
     }
@@ -84,7 +83,7 @@ export function NoteAdd({ setNotes, notes }) {
 
     function onSave(e) {
         if (e.type === 'keydown' && e.key !== 'Enter') return
-        if((!title && !txt && bgc) || (!title && !txt && !bgc)) return
+        if ((!title && !txt && bgc) || (!title && !txt && !bgc)) return
         console.log(title, txt, bgc)
         if (title && !txt && bgc) saveWithBgc(true, false)
         else if (title && txt && bgc) saveWithBgc(true, true)
@@ -96,12 +95,12 @@ export function NoteAdd({ setNotes, notes }) {
 
     function saveNote(isTitle, isTxt) {
         let noteToSave = {
-            type: 'NoteTxt', 
+            type: 'NoteTxt',
             isStarred: isStarred,
-            createdAt: Date.now(), 
+            createdAt: Date.now(),
             info: isTitle && isTxt ? { title: title, txt: txt } : isTitle ? { title: title } : { txt: txt }
         };
-    
+
         noteService.save(noteToSave)
             .then(savedNote => {
                 setNotes(prevNotes => {
@@ -121,28 +120,32 @@ export function NoteAdd({ setNotes, notes }) {
 
     function saveWithBgc(isTitle, isTxt) {
         let noteToSave = {
-            type: 'NoteTxt', 
-            isStarred: isStarred, 
+            type: 'NoteTxt',
+            isStarred: isStarred,
             info: isTitle && isTxt ? { title: title, txt: txt } : isTitle ? { title: title } : { txt: txt },
             style: { backgroundColor: bgc }
         }
-    
+
         noteService.save(noteToSave)
-        .then(savedNote => {
-            setNotes(prevNotes => {
-                const updatedNotes = [...prevNotes, savedNote]
-                return updatedNotes.sort((firstNote, secondNote) => {
-                    if (secondNote.isStarred !== firstNote.isStarred) {
-                        return secondNote.isStarred - firstNote.isStarred
-                    }
-                    return secondNote.createdAt - firstNote.createdAt
+            .then(savedNote => {
+                setNotes(prevNotes => {
+                    const updatedNotes = [...prevNotes, savedNote]
+                    return updatedNotes.sort((firstNote, secondNote) => {
+                        if (secondNote.isStarred !== firstNote.isStarred) {
+                            return secondNote.isStarred - firstNote.isStarred
+                        }
+                        return secondNote.createdAt - firstNote.createdAt
+                    })
                 })
             })
-        })
-        .catch(err => {
-            console.log('Had issues saving the note with background color', err)
-        })
-}
+            .catch(err => {
+                console.log('Had issues saving the note with background color', err)
+            })
+    }
+
+    function onAddVideoNote(e) {
+
+    }
 
     function handleTxtField(e) {
         e.stopPropagation()
@@ -153,7 +156,6 @@ export function NoteAdd({ setNotes, notes }) {
     function calculateLeftPosition(idx, numberOfDivs) {
         const containerWidthEm = 7.625
         const divWidthEm = 1.25
-        // const spacingEm = 0.3125
 
         const totalDivWidth = numberOfDivs * divWidthEm
         const availableSpace = containerWidthEm - totalDivWidth
@@ -165,10 +167,11 @@ export function NoteAdd({ setNotes, notes }) {
     return <div ref={componentRef} className={"add-note-div flex space-between align-center"} style={{ backgroundColor: bgc || 'transparent' }}>
         <div className="input-place">
             <input type="text" placeholder="Take a note..." name="note-edit" value={title} onKeyDown={onSave} onClick={onAddNote} onChange={onChangeTitle} /></div>
-        {isNote && <div className="icons-star"><span className="star" style={isStarred && {fontFamily: 'fa'} || {fontFamily: 'fa-reg'}} onClick={onSetStarred}></span></div>}
+        {isNote && <div className="icons-star"><span className="star" style={isStarred && { fontFamily: 'fa' } || { fontFamily: 'fa-reg' }} onClick={onSetStarred}></span></div>}
         {!isNote && <div className="icons"><span className="square-check" onClick={onAddTodoNote}></span>
             <span className="brush" onClick={onAddCanvasNote}></span>
-            <span className="image" onClick={onAddImageNote}></span></div>}
+            <span className="image" onClick={onAddImageNote}></span>
+            <span className="video" onClick={onAddVideoNote}></span></div>}
         {isNote && <textarea ref={txtRef} value={txt} placeholder="Add your note..." onClick={onFocusTxt} onChange={handleTxtField} onKeyDown={onSave} />}
         {isNote && <div className="user-actions icons">
             <span className="save" onClick={onSave}></span><span className="color-palette" onClick={onSetBgcColor}></span>

@@ -1,5 +1,3 @@
-const { useState } = React
-
 export function NoteImg({note}) {
 
     return <article className={`note ${note.type}`}>

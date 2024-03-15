@@ -100,7 +100,7 @@
 }
 
 .add-note-div .input-place {
-    width: 70%;
+    width: 60%;
 }
 
 .user-actions .save::before {
@@ -136,4 +136,9 @@
 
 .colors-to-choose .color:hover {
     outline: gold .1em solid;
+}
+
+.icons .video::before {
+    content: "\f03d";
+    font-family: fa;
 }
