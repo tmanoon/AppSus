@@ -13,15 +13,19 @@
     content: '\f03e';
 }
 
+.title-text-area {
+    font-size: 1.1em;
+}
+
 .add-note-div input[type="text"] {
     background-color: inherit;
     color: var(--add-note-clr);
     border: none;
-    height: 2em;
     font-size: 1.2em;
     font-family: google-sans, roboto;
-    height: 2.2em;
+    width: 100%;
 }
+
 
 .add-note-div input:focus {
     outline: none;
@@ -39,7 +43,8 @@
     margin-inline: auto;
     margin-block: 45px;
     padding: 12px 16px 12px 16px;
-}
+    overflow: hidden; 
+  }
 
 .add-note-div .icons {
     font-size: 1.2em;
@@ -78,7 +83,7 @@
     cursor: pointer;
 }
 
-.star:hover::before {
+.star:hover::before, .completed-todo:hover::before {
     color: rgb(181, 159, 30);
 }
 
@@ -95,12 +100,14 @@
     background-color: inherit;
     font-family: google-sans, roboto;
     color: var(--add-note-clr);
-    resize: none;
+    resize: vertical; 
     width: 100%;
-}
+    height: auto; 
+  }
 
-.add-note-div .input-place {
+.add-note-div .title-place {
     width: 60%;
+    text-align: center;
 }
 
 .user-actions .save::before {
@@ -141,4 +148,32 @@
 .icons .video::before {
     content: "\f03d";
     font-family: fa;
+}
+
+.todo-item {
+    width: 100%;
+    gap: .3em;
+}
+
+.todo-item textarea {
+    height: 2em;
+}
+
+.add-note-div textarea::-webkit-scrollbar {
+  width: 0px; 
+  background: transparent;
+}
+
+.add-note-div textarea::-webkit-resizer {
+  display: none; 
+}
+
+.completed-todo::before {
+    content: '\f00c';
+    font-family: fa;
+    cursor: pointer;
+}
+
+.green {
+    color: rgb(62, 159, 62);
 }

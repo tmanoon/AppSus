@@ -1,285 +1,208 @@
+
 const { useState, useRef, useEffect, Fragment } = React
-import { noteService } from "../services/note.service.js"
+import { noteAddService } from '../services/noteadd.service.js'
 const { useNavigate } = ReactRouter
 
 export function NoteAdd({ setNotes, notes }) {
-  const colorsToChoose = ['#f1c2ff', '#ffefba', '#caf5ca', '#c3ecff', '#ffffff']
-  const [noteMode, setNoteMode] = useState({
-    isClicked: false,
-    isNoteTxt: false,
-    isNoteImg: false,
-    isNoteTodos: false,
-    isNoteVideo: false,
-    isNoteCanvas: false
-  })
-  const [colorMode, setColorMode] = useState(false)
-  const [title, setTitle] = useState('')
-  const [txt, setTxt] = useState('')
-  const componentRef = useRef()
-  const [bgc, setBgc] = useState('')
-  const txtRef = useRef()
-  const [isStarred, setIsStarred] = useState(false)
-
-  useEffect(() => {
-    if (noteMode.isNoteTxt && txtRef.current) txtRef.current.focus()
-  }, [noteMode.isNoteTxt])
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (componentRef.current && !componentRef.current.contains(event.target)) {
-        resetStates()
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
-
-  function resetStates() {
-    setNoteMode({
-      isClicked: false,
-      isNoteTxt: false,
-      isNoteImg: false,
-      isNoteTodos: false,
-      isNoteVideo: false,
-      isNoteCanvas: false
+    const colorsToChoose = ['#f1c2ff', '#ffefba', '#caf5ca', '#c3ecff', '#ffffff']
+    const [noteMode, setNoteMode] = useState({
+        isClicked: false,
+        isNoteTxt: false,
+        isNoteImg: false,
+        isNoteTodos: false,
+        isNoteVideo: false,
+        isNoteCanvas: false
     })
-    setColorMode(false)
-  }
 
-  function onChangeTitle(e) {
-    e.stopPropagation()
-    setTitle(e.target.value)
-  }
+    const [colorMode, setColorMode] = useState(false)
+    const [numOfListItems, setNumOfListItems] = useState(1)
+    const [todos, setTodos] = useState([{txt: '', doneAt: undefined}])
+    const [title, setTitle] = useState('')
+    const [isStarred, setIsStarred] = useState(false)
+    const [txt, setTxt] = useState('')
+    const [bgc, setBgc] = useState(undefined)
+    const [img, setImg] = useState(undefined)
+    const [video, setVideo] = useState(undefined)
+    const [placeholder, setPlaceholder] = useState('Take a note...')
+    const txtRef = useRef()
+    const componentRef = useRef()
 
-  function onColorDiv(e) {
-    e.stopPropagation()
-    setBgc(e.target.id)
-  }
+    useEffect(() => {
+        if (noteMode.isNoteTxt && txtRef.current) txtRef.current.focus()
+    }, [noteMode.isNoteTxt])
 
-  function onSetBgcColor(e) {
-    e.stopPropagation()
-    setColorMode(prevColorMode => !prevColorMode)
-  }
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (componentRef.current && !componentRef.current.contains(event.target)) {
+                noteAddService.resetStates(setNoteMode, noteMode, setColorMode, colorMode)
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside)
 
-  function onSetStarred() {
-    setIsStarred(prevIsStarred => !prevIsStarred)
-  }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [])
 
-  function onAddTxtNote(e) {
-    e.stopPropagation()
-    e.target.placeholder = 'Title'
-    setNoteMode(prevNoteMode => ({
-      ...prevNoteMode,
-      isClicked: true,
-      isNoteTxt: true
-    }))
-  }
-
-  function onFocusTxt(e) {
-    e.stopPropagation()
-    e.target.focus()
-  }
-
-  function onAddTodoNote(e) {
-    setNoteMode(prevNoteMode => ({
-      ...prevNoteMode,
-      isClicked: true,
-      isNoteTodos: true
-    }))
-  }
-
-  function onAddCanvasNote(e) {
-    setNoteMode(prevNoteMode => ({
-      ...prevNoteMode,
-      isClicked: true,
-      isNoteCanvas: true
-    }))
-  }
-
-  function onAddImageNote(e) {
-    setNoteMode(prevNoteMode => ({
-      ...prevNoteMode,
-      isClicked: true,
-      isNoteImg: true
-    }))
-  }
-
-  function onAddVideoNote(e) {
-    setNoteMode(prevNoteMode => ({
-      ...prevNoteMode,
-      isClicked: true,
-      isNoteVideo: true
-    }))
-  }
-
-  function onSave(e) {
-    if (e.type === 'keydown' && e.key !== 'Enter') return
-    if ((!title && !txt && bgc) || (!title && !txt && !bgc)) return
-    if (title && !txt && bgc) saveWithBgc(true, false)
-    else if (title && txt && bgc) saveWithBgc(true, true)
-    else if (!title && txt && bgc) saveWithBgc(false, true)
-    else if (title && txt) saveNote(true, true)
-    else if (title && !txt) saveNote(true, false)
-    else if (!title && txt) saveNote(false, true)
-  }
-
-  function saveNote(isTitle, isTxt) {
-    let noteToSave = {
-      type: 'NoteTxt',
-      isStarred,
-      createdAt: Date.now(),
-      info: isTitle && isTxt ? { title, txt } : isTitle ? { title } : { txt }
+    function onSave(e) {
+        e.stopPropagation()
+        if (noteMode.isNoteTxt) {
+            if ((!title && !txt && bgc) || (!title && !txt && !bgc)) return
+            noteAddService.saveNote(noteMode, setNotes, isStarred, {title, txt}, bgc)
+        } else if (noteMode.isNoteTodos) {
+            if(todos.length === 1 && todos[0].txt === '') return
+            noteAddService.saveNote(noteMode, setNotes, isStarred, {title, todos}, bgc)
+        } else if(noteMode.isNoteImg) {
+            if(img === undefined) return
+            noteAddService.saveNote(noteMode, setNotes, isStarred, {url: img, title}, bgc)
+        } else {
+            if(video === undefined) return
+            noteAddService.saveNote(noteMode, setNotes, isStarred, {url: video, title}, bgc)
+        }
     }
 
-    noteService.save(noteToSave)
-      .then(savedNote => {
-        setNotes(prevNotes => {
-          const updatedNotes = [...prevNotes, savedNote]
-          return updatedNotes.sort((firstNote, secondNote) => {
-            if (secondNote.isStarred !== firstNote.isStarred) {
-              return secondNote.isStarred - firstNote.isStarred
-            }
-            return secondNote.createdAt - firstNote.createdAt
-          })
-        })
-      })
-      .catch(err => {
-        console.log('Had issues saving the note', err)
-      })
-  }
-
-  function saveWithBgc(isTitle, isTxt) {
-    let noteToSave = {
-      type: 'NoteTxt',
-      isStarred,
-      info: isTitle && isTxt ? { title, txt } : isTitle ? { title } : { txt },
-      style: { backgroundColor: bgc }
+    function renderNoteTextAdd() {
+        return (
+            <Fragment>
+                {noteMode.isNoteTxt && (
+                    <div className="icons-star">
+                        <span
+                            className="star"
+                            style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }}
+                            onClick={() => noteAddService.onSetStarred(setIsStarred)}></span>
+                    </div>
+                )}
+                {noteMode.isNoteTxt && (
+                    <textarea
+                        ref={txtRef}
+                        value={txt}
+                        placeholder="Add your note..."
+                        onClick={noteAddService.onFocusTxt}
+                        onChange={(e) => noteAddService.handleTxtField(e, setTxt)}
+                    />
+                )}
+            </Fragment>
+        )
     }
 
-    noteService.save(noteToSave)
-      .then(savedNote => {
-        setNotes(prevNotes => {
-          const updatedNotes = [...prevNotes, savedNote]
-          return updatedNotes.sort((firstNote, secondNote) => {
-            if (secondNote.isStarred !== firstNote.isStarred) {
-              return secondNote.isStarred - firstNote.isStarred
+    function renderNoteTodosAdd() {
+        const lastTodoRef = useRef()
+
+        function onFocusListItem(e) {
+            e.stopPropagation()
+            e.target.focus()
+        }
+        
+        useEffect(() => {
+            if (lastTodoRef.current) {
+                lastTodoRef.current.focus()
             }
-            return secondNote.createdAt - firstNote.createdAt
-          })
-        })
-      })
-      .catch(err => {
-        console.log('Had issues saving the note with background color', err)
-      })
-  }
+        }, [todos.length])
 
-  function handleTxtField(e) {
-    e.stopPropagation()
-    setTxt(e.target.value)
-  }
+        const onTypeListItem = (e, idx) => {
+            e.stopPropagation()
+            setTodos((prevTodos) => {
+                const updatedTodos = [...prevTodos]
+                updatedTodos[idx] = { ...updatedTodos[idx], txt: e.target.value }
+                return updatedTodos
+            })
+        }
 
-  function calculateLeftPosition(idx, numberOfDivs) {
-    const containerWidthEm = 7.625
-    const divWidthEm = 1.25
+        function onAddListItem(e) {
+            if (e.key === 'Enter') {
+                setTodos((prevTodos) => [...prevTodos, { txt: '', doneAt: null }])
 
-    const totalDivWidth = numberOfDivs * divWidthEm
-    const availableSpace = containerWidthEm - totalDivWidth
-    const spaceBetweenDivs = availableSpace / (numberOfDivs + 1)
-    const leftPosition = (idx + 1) * spaceBetweenDivs + (idx * divWidthEm)
-    return leftPosition
-  }
+            }
+        }
 
-  function renderNoteTextAdd() {
+        function onCompletedTodo(e, idx) {
+            console.log(todos)
+            e.stopPropagation()
+            e.target.classList.add('green')
+            setTodos(prevTodos => prevTodos.map((todo, todoIdx) => {
+                if (idx === todoIdx) return { ...todo, doneAt: Date.now() }
+                return todo
+            }))
+            console.log(todos)
+        }
+
+        return (
+            <Fragment>
+                {noteMode.isNoteTodos && (
+                    <div className="icons-star">
+                        <span
+                            className="star"
+                            style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }}
+                            onClick={() => noteAddService.onSetStarred(setIsStarred)}
+                        ></span>
+                    </div>
+                )}
+                {noteMode.isNoteTodos &&
+                    todos.map((todo, idx) => (
+                        <div className="todo-item flex align-center" key={idx}>
+                            <span className="completed-todo" onClick={(e) => onCompletedTodo(e, idx)}></span>
+                            <textarea
+                                className='todo-textarea'
+                                ref={idx === todos.length - 1 ? lastTodoRef : null}
+                                onClick={onFocusListItem}
+                                onChange={(event) => onTypeListItem(event, idx)}
+                                onKeyDown={onAddListItem}
+                                placeholder="List Item"
+                                value={todo.txt}
+                            />
+                        </div>
+                    ))}
+            </Fragment>
+        )
+    }
+
     return (
-      <Fragment>
-        {noteMode.isNoteTxt && (
-          <div className="icons-star">
-            <span
-              className="star"
-              style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }}
-              onClick={onSetStarred}></span>
-          </div>
-        )}
-        {noteMode.isNoteTxt && (
-          <textarea
-            ref={txtRef}
-            value={txt}
-            placeholder="Add your note..."
-            onClick={onFocusTxt}
-            onChange={handleTxtField}
-            onKeyDown={onSave}
-          />
-        )}
-      </Fragment>
-    )
-  }
-
-  function renderNoteTodosAdd() {
-    return (
-      <Fragment>
-        {noteMode.isNoteTodos && (
-          <div>
-            {/* Render the TodoList component here */}
-            <TodoList setNotes={setNotes} notes={notes} />
-          </div>
-        )}
-      </Fragment>
-    )
-  }
-
-  // Render functions for other note types can be added here
-
-  return (
-    <div
-      ref={componentRef}
-      className="add-note-div flex space-between align-center"
-      style={{ backgroundColor: bgc || 'transparent' }}>
-      <div className="input-place">
-        <input
-          type="text"
-          placeholder="Take a note..."
-          name="note-edit"
-          value={title}
-          onKeyDown={onSave}
-          onClick={onAddTxtNote}
-          onChange={onChangeTitle}/>
-      </div>
-      {!noteMode.isClicked && (
-        <div className="icons">
-          <span className="square-check" onClick={onAddTodoNote}></span>
-          <span className="brush" onClick={onAddCanvasNote}></span>
-          <span className="image" onClick={onAddImageNote}></span>
-          <span className="video" onClick={onAddVideoNote}></span>
-        </div>
-      )}
-      {noteMode.isClicked && (
-        <div className="user-actions icons">
-          <span className="save" onClick={onSave}></span>
-          <span className="color-palette" onClick={onSetBgcColor}></span>
-          {colorMode && (
-            <div className="colors-to-choose">
-              {colorsToChoose.map((color, idx) => (
-                <div
-                  onClick={onColorDiv}
-                  key={color}
-                  className="color"
-                  id={color}
-                  style={{
-                    backgroundColor: color,
-                    left: `${calculateLeftPosition(idx, colorsToChoose.length)}em`
-                  }}
-                ></div>
-              ))}
+        <div
+            ref={componentRef}
+            className="add-note-div flex space-between"
+            style={{ backgroundColor: bgc || 'transparent' }}>
+            <div className="title-place">
+                <textarea
+                    type="text"
+                    placeholder={placeholder}
+                    className='title-text-area'
+                    name="note-edit"
+                    value={title}
+                    onClick={(ev) => noteAddService.onTitleClick(ev, noteMode, setNoteMode, setPlaceholder)}
+                    onChange={(event) => noteAddService.onChangeTitle(event, setTitle)}></textarea>
             </div>
-          )}
+            {!noteMode.isClicked && (
+                <div className="icons">
+                    <span className="square-check" onClick={(ev) => noteAddService.onAddTodoNote(ev, setNoteMode, setPlaceholder)}></span>
+                    <span className="brush" onClick={(ev) => noteAddService.onAddCanvasNote(ev, setNoteMode)}></span>
+                    <span className="image" onClick={(ev) => noteAddService.onAddImageNote(ev, setNoteMode)}></span>
+                    <span className="video" onClick={(ev) => noteAddService.onAddVideoNote(ev, setNoteMode)}></span>
+                </div>
+            )}
+            {noteMode.isClicked && (
+                <div className="user-actions icons">
+                    <span className="save" onClick={onSave}></span>
+                    <span className="color-palette" onClick={(event) => noteAddService.onSetBgcColor(event, setColorMode)}></span>
+                    {colorMode && (
+                        <div className="colors-to-choose">
+                            {colorsToChoose.map((color, idx) => (
+                                <div
+                                    onClick={(event) => noteAddService.onColorDiv(event, setBgc)}
+                                    key={color}
+                                    className="color"
+                                    id={color}
+                                    style={{
+                                        backgroundColor: color,
+                                        left: `${noteAddService.calculateLeftPosition(idx, colorsToChoose.length)}em`
+                                    }}></div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
+            {renderNoteTextAdd()}
+            {renderNoteTodosAdd()}
+            {/* {renderNoteImgAdd()} */}
         </div>
-      )}
-      {renderNoteTextAdd()}
-      {renderNoteTodosAdd()}
-    </div>
-  )
+    )
 }
