@@ -1,9 +1,9 @@
 .email-index {
-    grid-template-columns: minmax(150px, 1fr) minmax(100px, 4fr);
+    grid-template-columns: 150px minmax(100px, 4fr);
     grid-template-rows: 50px minmax(100px, 1fr);
     gap: 5px;
 
-    padding: 10px 20px;
+    padding: 10px 20px 10px 10px;
 }
 
 .email-filter form {
