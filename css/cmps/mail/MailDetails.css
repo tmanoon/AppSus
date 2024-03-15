@@ -8,13 +8,15 @@
 }
 
 .email-details button {
-    width: 100%;
     border-radius: 20px;
-    padding: 8px 10px;
-    text-align: start;
+    padding-inline: 10px;
+    height: 36.67px;
+    width: fit-content;
 
-    gap: 8px;
+    display: flex;
+    justify-content: center;
     align-items: center;
+    gap: 5px;
 
     cursor: pointer;
 }
@@ -72,19 +74,6 @@
 .email-details .actions-bar i.fa-chevron-left,
 .email-details .actions-bar i.fa-chevron-right {
     display: block;
-}
-
-
-.email-details button {
-    border-radius: 20px;
-    height: 36.67px;
-    width: fit-content;
-
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-
-    cursor: pointer;
 }
 
 .email-details .sent-actions .star {

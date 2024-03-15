@@ -84,6 +84,7 @@ export function MailIndex() {
 
         {path === '/mail' && <MailList
             emails={emails}
+            onSetFilter={onSetFilter}
             onRemoveEmail={onRemoveEmail}
             onUnread={onUnread}
             onMarkEmail={onMarkEmail}
