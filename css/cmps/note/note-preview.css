@@ -14,6 +14,11 @@
     flex-wrap: wrap;
  }
 
+ .note :is(h3, p) {
+   overflow-wrap: break-word;
+   white-space: pre-wrap;
+ }
+
  .note-element article {
    width: 100%;
  }
