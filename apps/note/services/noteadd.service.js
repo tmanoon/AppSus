@@ -104,16 +104,8 @@ function onAddVideoNote(e, setNoteMode) {
 
 function saveNote(noteMode, setNotes, isStarred, info, bgc) {
     if (noteMode.isNoteTxt) {
-        let noteToSave = {
-            type: 'NoteTxt',
-            isStarred,
-            createdAt: Date.now(),
-            info: {
-                ...(info.title && { title: info.title }), 
-                ...(info.txt && { txt: info.txt })
-            },
-            style: { backgroundColor: bgc }
-        }
+        let noteToSave = { type: 'NoteTxt', isStarred, createdAt: Date.now(), info: {...(info.title && { title: info.title }), ...(info.txt && { txt: info.txt }) }, 
+        style: { backgroundColor: bgc } }
 
         noteService.save(noteToSave)
             .then(savedNote => {
@@ -131,15 +123,7 @@ function saveNote(noteMode, setNotes, isStarred, info, bgc) {
                 console.log('Had issues saving the note', err)
             })
     } else if (noteMode.isNoteTodos) {
-        console.log(info)
-        let noteToSave = {
-            type: 'NoteTodos',
-            isStarred,
-            createdAt: Date.now(),
-            info: {
-                ...(info.title && { title: info.title }), 
-                ...(info.todos && { todos: info.todos })
-            },
+        let noteToSave = { type: 'NoteTodos', isStarred, createdAt: Date.now(), info: { ...(info.title && { title: info.title }), ...(info.todos && { todos: info.todos }) },
             style: { backgroundColor: bgc }
         }
 
@@ -158,6 +142,26 @@ function saveNote(noteMode, setNotes, isStarred, info, bgc) {
             .catch(err => {
                 console.log('Had issues saving the note', err)
             })
+    } else if(noteMode.isNoteImg) {
+        let noteToSave = { type: 'NoteImg', isStarred, createdAt: Date.now(), info: { ...(info.title && { title: info.title }), ...(info.url && { url: info.url }) },
+        style: { backgroundColor: bgc }
+    }
+
+    noteService.save(noteToSave)
+        .then(savedNote => {
+            setNotes(prevNotes => {
+                const updatedNotes = [...prevNotes, savedNote]
+                return updatedNotes.sort((firstNote, secondNote) => {
+                    if (secondNote.isStarred !== firstNote.isStarred) {
+                        return secondNote.isStarred - firstNote.isStarred
+                    }
+                    return secondNote.createdAt - firstNote.createdAt
+                })
+            })
+        })
+        .catch(err => {
+            console.log('Had issues saving the note', err)
+        })
     }
 }
 

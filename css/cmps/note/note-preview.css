@@ -36,3 +36,8 @@
    break-inside: avoid;
    margin-block-end: 20px;
 }
+
+.video-container {
+   width: 100%;
+   height: 100%;
+}

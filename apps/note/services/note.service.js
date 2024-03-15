@@ -104,12 +104,12 @@ function _createNotes() {
         notes.push(_createNote('NoteTxt', true, { txt: 'Fullstack Me Baby!' }, '', 1112222))
         notes.push(_createNote('NoteImg', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
         notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [{ txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
-        notes.push(_createNote('NoteVideo', false, { url: 'https://www.youtube.com/watch?v=RCmuTH6T7fk', title: 'Blame it on the boogie - Michael Jackson' }))
+        notes.push(_createNote('NoteVideo', false, { url: 'https://vimeo.com/798326630', title: 'Smooth Criminal - Michael Jackson' }))
         notes.push(_createNote('NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, '', 1112222))
         notes.push(_createNote('NoteTxt', true, { txt: 'Fullstack Me Baby!' }, '', 1112222))
         notes.push(_createNote('NoteImg', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
         notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [ { txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
-        notes.push(_createNote('NoteVideo', false, { url: 'https://www.youtube.com/watch?v=RCmuTH6T7fk', title: 'Blame it on the boogie - Michael Jackson' }))
+        notes.push(_createNote('NoteVideo', false, { url: 'https://vimeo.com/14639124', title: 'נינט - היא יודעת' }))
         storageFuncsService.saveToStorage(NOTES_KEY, notes)
     }
 }
@@ -118,7 +118,7 @@ function _createNote(type, isStarred, info = {}, style = '', createdAt = Date.no
     const note = getEmptyNote()
     note.id = utilService.makeId()
     note.type = type
-    if(style) note.style = {backgroundColor: style.backgroundColor}
+    if(style.backgroundColor) note.style = {backgroundColor: style.backgroundColor}
     note.isStarred = isStarred
     note.createdAt = createdAt
 

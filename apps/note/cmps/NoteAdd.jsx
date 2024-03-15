@@ -16,16 +16,17 @@ export function NoteAdd({ setNotes, notes }) {
 
     const [colorMode, setColorMode] = useState(false)
     const [numOfListItems, setNumOfListItems] = useState(1)
-    const [todos, setTodos] = useState([{txt: '', doneAt: undefined}])
+    const [todos, setTodos] = useState([{ txt: '', doneAt: undefined }])
     const [title, setTitle] = useState('')
     const [isStarred, setIsStarred] = useState(false)
     const [txt, setTxt] = useState('')
     const [bgc, setBgc] = useState(undefined)
-    const [img, setImg] = useState(undefined)
-    const [video, setVideo] = useState(undefined)
+    const [img, setImg] = useState({url: ''})
+    const [video, setVideo] = useState({url: ''})
     const [placeholder, setPlaceholder] = useState('Take a note...')
     const txtRef = useRef()
     const componentRef = useRef()
+    const imgRef = useRef()
 
     useEffect(() => {
         if (noteMode.isNoteTxt && txtRef.current) txtRef.current.focus()
@@ -33,10 +34,7 @@ export function NoteAdd({ setNotes, notes }) {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (componentRef.current && !componentRef.current.contains(event.target)) {
-                noteAddService.resetStates(setNoteMode, noteMode, setColorMode, colorMode)
-            }
-        }
+            if (componentRef.current && !componentRef.current.contains(event.target)) noteAddService.resetStates(setNoteMode, noteMode, setColorMode, colorMode)}
         document.addEventListener('mousedown', handleClickOutside)
 
         return () => {
@@ -44,20 +42,64 @@ export function NoteAdd({ setNotes, notes }) {
         }
     }, [])
 
+    function renderNoteImgAdd() {
+        
+        useEffect(() => { if (noteMode.isNoteImg && imgRef.current) imgRef.current.focus() }, [noteMode.isNoteImg])
+        const onSetImg = (e) => setImg({ ...img, url: e.target.value })
+
+        return (
+            <Fragment>
+                {noteMode.isNoteImg && (<Fragment><div className="icons-star">
+                    <span className="star" style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }} onClick={() => noteAddService.onSetStarred(setIsStarred)}></span></div>
+                <textarea value={img.url} placeholder="Enter your image URL" ref={imgRef} onChange={onSetImg} /></Fragment>)}
+            </Fragment>
+        )
+    }
+
     function onSave(e) {
         e.stopPropagation()
         if (noteMode.isNoteTxt) {
             if ((!title && !txt && bgc) || (!title && !txt && !bgc)) return
-            noteAddService.saveNote(noteMode, setNotes, isStarred, {title, txt}, bgc)
+            noteAddService.saveNote(noteMode, setNotes, isStarred, { title, txt }, bgc)
         } else if (noteMode.isNoteTodos) {
-            if(todos.length === 1 && todos[0].txt === '') return
-            noteAddService.saveNote(noteMode, setNotes, isStarred, {title, todos}, bgc)
-        } else if(noteMode.isNoteImg) {
-            if(img === undefined) return
-            noteAddService.saveNote(noteMode, setNotes, isStarred, {url: img, title}, bgc)
+            if (todos.length === 1 && todos[0].txt === '') return
+            noteAddService.saveNote(noteMode, setNotes, isStarred, { title, todos }, bgc)
+        } else if (noteMode.isNoteImg) {
+            if (img === undefined) return
+            noteAddService.saveNote(noteMode, setNotes, isStarred, { url: img.url, title }, bgc)
         } else {
-            if(video === undefined) return
-            noteAddService.saveNote(noteMode, setNotes, isStarred, {url: video, title}, bgc)
+            if (video === undefined) return
+            noteAddService.saveNote(noteMode, setNotes, isStarred, { url: video.url, title }, bgc)
+        }
+    }
+    // function renderNoteVideoAdd() {
+        
+    //     useEffect(() => { if (noteMode.isNoteImg && imgRef.current) imgRef.current.focus() }, [noteMode.isNoteImg])
+    //     const onSetImg = (e) => setImg({ ...img, url: e.target.value })
+
+    //     return (
+    //         <Fragment>
+    //             {noteMode.isNoteImg && (<Fragment><div className="icons-star">
+    //                 <span className="star" style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }} onClick={() => noteAddService.onSetStarred(setIsStarred)}></span></div>
+    //             <textarea value={img.url} placeholder="Enter your image URL" ref={imgRef} onChange={onSetImg} /></Fragment>)}
+    //         </Fragment>
+    //     )
+    // }
+
+    function onSave(e) {
+        e.stopPropagation()
+        if (noteMode.isNoteTxt) {
+            if ((!title && !txt && bgc) || (!title && !txt && !bgc)) return
+            noteAddService.saveNote(noteMode, setNotes, isStarred, { title, txt }, bgc)
+        } else if (noteMode.isNoteTodos) {
+            if (todos.length === 1 && todos[0].txt === '') return
+            noteAddService.saveNote(noteMode, setNotes, isStarred, { title, todos }, bgc)
+        } else if (noteMode.isNoteImg) {
+            if (img === undefined) return
+            noteAddService.saveNote(noteMode, setNotes, isStarred, { url: img.url, title }, bgc)
+        } else {
+            if (video === undefined) return
+            noteAddService.saveNote(noteMode, setNotes, isStarred, { url: video.url, title }, bgc)
         }
     }
 
@@ -66,21 +108,11 @@ export function NoteAdd({ setNotes, notes }) {
             <Fragment>
                 {noteMode.isNoteTxt && (
                     <div className="icons-star">
-                        <span
-                            className="star"
-                            style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }}
-                            onClick={() => noteAddService.onSetStarred(setIsStarred)}></span>
+                        <span className="star" style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }} onClick={() => noteAddService.onSetStarred(setIsStarred)}></span>
                     </div>
                 )}
                 {noteMode.isNoteTxt && (
-                    <textarea
-                        ref={txtRef}
-                        value={txt}
-                        placeholder="Add your note..."
-                        onClick={noteAddService.onFocusTxt}
-                        onChange={(e) => noteAddService.handleTxtField(e, setTxt)}
-                    />
-                )}
+                    <textarea ref={txtRef} value={txt} placeholder="Add your note..." onClick={noteAddService.onFocusTxt} onChange={(e) => noteAddService.handleTxtField(e, setTxt)} />)}
             </Fragment>
         )
     }
@@ -92,12 +124,8 @@ export function NoteAdd({ setNotes, notes }) {
             e.stopPropagation()
             e.target.focus()
         }
-        
-        useEffect(() => {
-            if (lastTodoRef.current) {
-                lastTodoRef.current.focus()
-            }
-        }, [todos.length])
+
+        useEffect(() => { if (lastTodoRef.current) lastTodoRef.current.focus() }, [todos.length])
 
         const onTypeListItem = (e, idx) => {
             e.stopPropagation()
@@ -109,47 +137,31 @@ export function NoteAdd({ setNotes, notes }) {
         }
 
         function onAddListItem(e) {
-            if (e.key === 'Enter') {
-                setTodos((prevTodos) => [...prevTodos, { txt: '', doneAt: null }])
-
-            }
+            if (e.key === 'Enter') setTodos((prevTodos) => [...prevTodos, { txt: '', doneAt: null }])
         }
 
         function onCompletedTodo(e, idx) {
-            console.log(todos)
             e.stopPropagation()
             e.target.classList.add('green')
             setTodos(prevTodos => prevTodos.map((todo, todoIdx) => {
                 if (idx === todoIdx) return { ...todo, doneAt: Date.now() }
                 return todo
             }))
-            console.log(todos)
         }
 
         return (
             <Fragment>
                 {noteMode.isNoteTodos && (
                     <div className="icons-star">
-                        <span
-                            className="star"
-                            style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }}
-                            onClick={() => noteAddService.onSetStarred(setIsStarred)}
-                        ></span>
+                        <span className="star" style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }} onClick={() => noteAddService.onSetStarred(setIsStarred)}></span>
                     </div>
                 )}
                 {noteMode.isNoteTodos &&
                     todos.map((todo, idx) => (
                         <div className="todo-item flex align-center" key={idx}>
                             <span className="completed-todo" onClick={(e) => onCompletedTodo(e, idx)}></span>
-                            <textarea
-                                className='todo-textarea'
-                                ref={idx === todos.length - 1 ? lastTodoRef : null}
-                                onClick={onFocusListItem}
-                                onChange={(event) => onTypeListItem(event, idx)}
-                                onKeyDown={onAddListItem}
-                                placeholder="List Item"
-                                value={todo.txt}
-                            />
+                            <textarea className='todo-textarea' ref={idx === todos.length - 1 ? lastTodoRef : null} onClick={onFocusListItem}
+                                onChange={(event) => onTypeListItem(event, idx)} onKeyDown={onAddListItem} placeholder="List Item" value={todo.txt} />
                         </div>
                     ))}
             </Fragment>
@@ -157,26 +169,17 @@ export function NoteAdd({ setNotes, notes }) {
     }
 
     return (
-        <div
-            ref={componentRef}
-            className="add-note-div flex space-between"
-            style={{ backgroundColor: bgc || 'transparent' }}>
+        <div ref={componentRef} className="add-note-div flex space-between" style={{ backgroundColor: bgc || 'transparent' }}>
             <div className="title-place">
-                <textarea
-                    type="text"
-                    placeholder={placeholder}
-                    className='title-text-area'
-                    name="note-edit"
-                    value={title}
-                    onClick={(ev) => noteAddService.onTitleClick(ev, noteMode, setNoteMode, setPlaceholder)}
-                    onChange={(event) => noteAddService.onChangeTitle(event, setTitle)}></textarea>
+                <textarea type="text" placeholder={placeholder} className='title-text-area' name="note-edit" value={title}
+                    onClick={(ev) => noteAddService.onTitleClick(ev, noteMode, setNoteMode, setPlaceholder)} onChange={(event) => noteAddService.onChangeTitle(event, setTitle)}></textarea>
             </div>
             {!noteMode.isClicked && (
                 <div className="icons">
                     <span className="square-check" onClick={(ev) => noteAddService.onAddTodoNote(ev, setNoteMode, setPlaceholder)}></span>
-                    <span className="brush" onClick={(ev) => noteAddService.onAddCanvasNote(ev, setNoteMode)}></span>
-                    <span className="image" onClick={(ev) => noteAddService.onAddImageNote(ev, setNoteMode)}></span>
-                    <span className="video" onClick={(ev) => noteAddService.onAddVideoNote(ev, setNoteMode)}></span>
+                    <span className="brush" onClick={(ev) => noteAddService.onAddCanvasNote(ev, setNoteMode, setPlaceholder)}></span>
+                    <span className="image" onClick={(ev) => noteAddService.onAddImageNote(ev, setNoteMode, setPlaceholder)}></span>
+                    <span className="video" onClick={(ev) => noteAddService.onAddVideoNote(ev, setNoteMode, setPlaceholder)}></span>
                 </div>
             )}
             {noteMode.isClicked && (
@@ -186,15 +189,8 @@ export function NoteAdd({ setNotes, notes }) {
                     {colorMode && (
                         <div className="colors-to-choose">
                             {colorsToChoose.map((color, idx) => (
-                                <div
-                                    onClick={(event) => noteAddService.onColorDiv(event, setBgc)}
-                                    key={color}
-                                    className="color"
-                                    id={color}
-                                    style={{
-                                        backgroundColor: color,
-                                        left: `${noteAddService.calculateLeftPosition(idx, colorsToChoose.length)}em`
-                                    }}></div>
+                                <div onClick={(event) => noteAddService.onColorDiv(event, setBgc)} key={color} className="color" id={color}
+                                    style={{ backgroundColor: color, left: `${noteAddService.calculateLeftPosition(idx, colorsToChoose.length)}em` }}></div>
                             ))}
                         </div>
                     )}
@@ -202,7 +198,8 @@ export function NoteAdd({ setNotes, notes }) {
             )}
             {renderNoteTextAdd()}
             {renderNoteTodosAdd()}
-            {/* {renderNoteImgAdd()} */}
+            {renderNoteImgAdd()}
+            {/* {renderNoteVideoImg()} */}
         </div>
     )
 }
