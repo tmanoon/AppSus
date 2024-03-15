@@ -57,6 +57,7 @@
 
 .add-note-div .icons :is(span) {
     cursor: pointer;
+    height: fit-content;
 }
 
 .icons span:hover {
