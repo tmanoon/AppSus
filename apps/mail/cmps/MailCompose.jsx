@@ -15,6 +15,10 @@ export function MailCompose() {
     console.log('email:', email)
 
     function saveToDrafts() {
+        if (!email.to) {
+            leavePage()
+            return
+        }
         emailService.save(email)
             .then(leavePage)
     }

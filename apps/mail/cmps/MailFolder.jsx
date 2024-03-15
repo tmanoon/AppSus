@@ -1,4 +1,4 @@
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 const { useNavigate } = ReactRouter
 const { useSearchParams } = ReactRouterDOM
 
@@ -6,7 +6,7 @@ export function MailFolder({ onSetFilter }) {
 
     const navigate = useNavigate()
     const [searchParams, setSearchParams] = useSearchParams()
-    const [filterByToEdit, setFilterByToEdit] = useState({status: searchParams.get('status')})
+    const [filterByToEdit, setFilterByToEdit] = useState({ status: searchParams.get('status') })
     const [currFolder, setCurrFolder] = useState(searchParams.get('status'))
 
     const folders = ['Inbox', 'Starred', 'Sent', 'Drafts', 'Trash', 'All-Mail']
@@ -21,7 +21,7 @@ export function MailFolder({ onSetFilter }) {
         if (val !== 'starred') {
             setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, ['status']: val, ['isStared']: false }))
         } else {
-            setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, ['isStared']: prevFilterBy.isStared = true}))
+            setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, ['isStared']: prevFilterBy.isStared = true }))
         }
         navigate('/mail')
     }
@@ -32,15 +32,15 @@ export function MailFolder({ onSetFilter }) {
     }
 
     return <section className="email-folder">
-        <ul className="flex column">
+        <ul className="flex column" >
             {folders.map((folder, idx) =>
                 <li key={folder}>
                     {currFolder === folder && <button onClick={() => onClickFolder(folder)} className="flex"
-                    style={{backgroundColor: 'rgba(245, 245, 245, 0.568)'}}>
-                        <i className={icons[idx]}></i>{folder}
+                        style={{ backgroundColor: 'rgba(245, 245, 245, 0.568)' }}>
+                        <i className={icons[idx]}></i><span>{folder}</span>
                     </button>}
                     {currFolder !== folder && <button onClick={() => onClickFolder(folder)} className="flex">
-                        <i className={icons[idx]}></i>{folder}
+                        <i className={icons[idx]}></i><span>{folder}</span>
                     </button>}
                 </li>
             )}

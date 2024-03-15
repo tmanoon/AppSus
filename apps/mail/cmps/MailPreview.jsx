@@ -22,11 +22,14 @@ export function MailPreview({ email }) {
         dispTime = `${dayOfMonth}/${monthOfYear}/${year}`
     }
 
-    return < article className="email-preview flex space-between" >
-        {!email.isRead && email.status !== 'sent' && <h4>{email.from}</h4>}
-        {email.isRead && email.status !== 'sent' && <h4 style={{ fontWeight: 'lighter' }}>{email.from}</h4>}
-        {!email.isRead && email.status === 'sent' && <h4>To:{email.to}</h4>}
-        {email.isRead && email.status === 'sent' && <h4 style={{ fontWeight: 'lighter' }}>To:{email.to}</h4>}
+    const fromName = email.from.split('@')[0]
+    const toName = email.to.split('@')[0]
+
+    return < article className="email-preview grid" >
+        {!email.isRead && email.status !== 'sent' && <h4>{fromName}</h4>}
+        {email.isRead && email.status !== 'sent' && <h4 style={{ fontWeight: 'lighter' }}>{fromName}</h4>}
+        {!email.isRead && email.status === 'sent' && <h4>To:{toName}</h4>}
+        {email.isRead && email.status === 'sent' && <h4 style={{ fontWeight: 'lighter' }}>To:{toName}</h4>}
         <div className="email-short-disp flex align-center">
             {email.isRead && <h6 style={{ fontWeight: 'lighter' }}>{email.subject}</h6>}
             {!email.isRead && <h6>{email.subject}</h6>}

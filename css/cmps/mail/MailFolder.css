@@ -2,12 +2,12 @@
     padding-block-start: 20px;
 }
 
- button {
+.email-folder button {
     width: 100%;
     border-radius: 20px;
     padding: 8px 10px;
     text-align: start;
-    
+
     gap: 8px;
     align-items: center;
 
@@ -16,4 +16,14 @@
 
 .email-folder button:hover {
     background-color: rgba(245, 245, 245, 0.568);
+}
+
+@media (width < 700px) {
+    .email-folder button {
+        justify-content: center;
+    }
+
+    .email-folder>*>li>*>span {
+        display: none;
+    }
 }

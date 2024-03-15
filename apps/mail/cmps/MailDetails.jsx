@@ -25,7 +25,7 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
             .finally(() => setIsLoading(false))
     }
 
-    function formatDate(timestamp) {
+    function formatDateLong(timestamp) {
         const date = new Date(timestamp)
         const options = {
             weekday: 'short',
@@ -34,7 +34,16 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
             hour: 'numeric',
             minute: 'numeric',
             hour12: true
-        };
+        }
+        return date.toLocaleString('en-US', options)
+    }
+
+    function formatDateShort(timestamp) {
+        const date = new Date(timestamp)
+        const options = {
+            month: 'short',
+            day: 'numeric'
+        }
         return date.toLocaleString('en-US', options)
     }
 
@@ -52,12 +61,14 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
     if (isLoading) return <section className="email-details flex center"><div>Loading details..</div></section>
     return <section className="email-details">
         <div className="actions-bar flex space-between">
-            <button onClick={() => navAround('back')}>Back</button>
-            <button onClick={() => {onRemoveEmail(email.id); navAround('back')}}>Delete</button>
-            {email.status !== 'trash' && <button>Labels</button>}
-            {email.status === 'trash' && <button onClick={()=> restoreEmail(email)}>Restore to inbox</button>}
-            <button onClick={() => onUnread(email)}>Mark as unread</button>
-            <button onClick={() => onStarEmail(email)}>Star</button>
+            <button onClick={() => navAround('back')}><span>Back</span><i className="fa-solid fa-arrow-left"></i></button>
+            <button onClick={() => { onRemoveEmail(email.id); navAround('back') }}><span>Delete</span><i className="fa-regular fa-trash-can"></i></button>
+            {email.status !== 'trash' && <button><span>Labels</span><i className="fa-solid fa-tags"></i></button>}
+            {email.status === 'trash' && <button onClick={() => restoreEmail(email)}><span>Restore to inbox</span><i className="fa-solid fa-trash-arrow-up"></i></button>}
+            <button onClick={() => onUnread(email)}><span>Mark as unread</span><i className="fa-regular fa-envelope"></i></button>
+            {(email.isStared) ?
+                <button onClick={() => onStarEmail(email)}><span>Star</span><i className="fa-solid fa-star"></i></button> :
+                <button onClick={() => onStarEmail(email)}><span>Star</span><i className="fa-regular fa-star"></i></button>}
             <button onClick={() => navAround('prev')}><i className="fa-solid fa-chevron-left"></i></button>
             <button onClick={() => navAround('next')}><i className="fa-solid fa-chevron-right"></i></button>
         </div>
@@ -66,13 +77,15 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
 
             <section className="to-from flex column">
                 <div className="flex">
-                    <h4>{getNameFromEmail(email.from)}</h4><h5>{`<${email.from}>`}</h5>
+                    <h4>{getNameFromEmail(email.from)}</h4>
+                    <h5 className="large">{`<${email.from}>`}</h5>
+                    <h5 className="small">{formatDateShort(email.sentAt)}</h5>
                 </div>
                 <h5>To: {getNameFromEmail(email.to)}</h5>
             </section>
 
             <section className="sent-actions flex">
-                <h5>{formatDate(email.sentAt)}</h5>
+                <h5 className="large">{formatDateLong(email.sentAt)}</h5>
 
                 <div className="star">
                     <label htmlFor="star">
@@ -86,14 +99,14 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
                     />
                 </div>
 
-                <Link to={`/mail/compose`}><button className="flex"><span>Reply</span><i className="fa-solid fa-reply"></i></button></Link>
-                <Link to="/note"><button className="flex"><span>send to notes</span><i className="fa-regular fa-note-sticky"></i></button></Link>
+                <Link to={`/mail/compose`}><button><span>Reply</span><i className="fa-solid fa-reply"></i></button></Link>
+                <Link to="/note"><button><span>send to notes</span><i className="fa-regular fa-note-sticky"></i></button></Link>
             </section>
         </div>
         <p>{email.body}</p>
         <section className="bottom-btns flex justify-center">
-            <Link to={`/mail/compose`}><button className="flex"><span>Reply</span><i className="fa-solid fa-reply"></i></button></Link>
-            <Link to="/note"><button className="flex"><span>send to notes</span><i className="fa-regular fa-note-sticky"></i></button></Link>
+            <Link to={`/mail/compose`}><button><span>Reply</span><i className="fa-solid fa-reply"></i></button></Link>
+            <Link to="/note"><button><span>send to notes</span><i className="fa-regular fa-note-sticky"></i></button></Link>
         </section>
     </section>
 }

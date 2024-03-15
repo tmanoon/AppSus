@@ -202,17 +202,3 @@ function _setNextPrevEmailId(email) {
         return email
     })
 }
-
-_receiveEmails()
-
-function _receiveEmails() {
-    setInterval(_createReceivedEmail, 3600000)
-}
-
-function _createReceivedEmail() {
-    const email = getEmptyEmail('inbox')
-    email.subject = utilService.makeLorem(5)
-    email.body = utilService.makeLorem(50)
-    email.isRead = false
-    return email
-}

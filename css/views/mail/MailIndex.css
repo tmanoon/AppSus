@@ -10,7 +10,7 @@
     width: 100%;
 }
 
-.email-index >*>.compose-btn {
+.email-index>*>.compose-btn {
     margin: 10px 36px;
     background-color: var(--mailOutletBG);
     border-radius: 20px;
@@ -20,6 +20,33 @@
     cursor: pointer;
 }
 
-.email-index >*>.compose-btn:hover {
+.email-index>*>.compose-btn:hover {
     background-color: #c2bfbf62;
+}
+
+@media (width < 700px) {
+    .email-index {
+        grid-template-columns: 30px minmax(100px, 1fr);
+        grid-template-rows: minmax(100px, 1fr);
+        padding-inline: 8px 16px;
+    }
+
+    .email-index>a {
+        position: fixed;
+        inset: auto 10px 10px auto;
+
+        z-index: 1;
+    }
+
+    .email-index>*>.compose-btn {
+        background-color: rgb(255, 255, 255);
+    }
+
+    .email-index>*>.compose-btn:hover {
+        background-color: #c2bfbf;
+    }
+
+    .email-filter {
+        display: none;
+    }
 }

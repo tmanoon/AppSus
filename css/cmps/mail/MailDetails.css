@@ -7,6 +7,18 @@
     cursor: context-menu;
 }
 
+.email-details button {
+    width: 100%;
+    border-radius: 20px;
+    padding: 8px 10px;
+    text-align: start;
+
+    gap: 8px;
+    align-items: center;
+
+    cursor: pointer;
+}
+
 .email-details>h1 {
     padding-block: 10px;
     font-size: 20px;
@@ -45,7 +57,7 @@
     margin-block: 16px;
 }
 
-.email-details > p {
+.email-details>p {
     padding-block-start: 10px;
 }
 
@@ -53,14 +65,27 @@
     border: 1px solid var(--mailOutletBorder);
 }
 
-.email-details>.bottom-btns>*>button,
+.email-details>*>.to-from>*>.small,
+.email-details>.actions-bar>button>i {
+    display: none;
+}
+
+.email-details>.actions-bar>button>i:nth-last-of-type(1),
+.email-details>.actions-bar>button>i:nth-last-of-type(2) {
+    display: block;
+}
+
+
+.email-details>.actions-bar>button,
 .sent-actions>*>button,
-.email-details>.actions-bar>button  {
+.email-details>.bottom-btns>*>button {
     border-radius: 20px;
-    padding: 10px 15px;
-    gap: 5px;
     height: 36.67px;
     width: fit-content;
+
+    display: flex;
+    justify-content: center;
+    gap: 5px;
 
     cursor: pointer;
 }
@@ -73,16 +98,37 @@
     cursor: pointer;
 }
 
-.email-details>.bottom-btns>*>button:hover,
+.email-details>.actions-bar>button:hover,
 .sent-actions>*>button:hover,
 .sent-actions>.star:hover,
-.email-details>.actions-bar>button:hover {
+.email-details>.bottom-btns>*>button:hover {
     background-color: #c2bfbf62;
 }
 
-.email-details>.bottom-btns>*>button:active,
+.email-details>.actions-bar>button:active,
 .sent-actions>*>button:active,
 .sent-actions>.star:active,
-.email-details>.actions-bar>button:active {
+.email-details>.bottom-btns>*>button:active {
     scale: 1.1;
+}
+
+@media (width < 700px) {
+
+    .email-details>.actions-bar>button,
+    .sent-actions>*>button {
+        height: 36.67px;
+        width: 36.67px;
+    }
+
+    .email-details>*>.to-from>*>.small,
+    .email-details>.actions-bar>button>i {
+        display: block;
+    }
+
+    .email-details>*>.to-from>*>.large,
+    .email-details>*>.sent-actions>.large,
+    .email-details>.actions-bar>button>span,
+    .sent-actions>*>*>span {
+        display: none;
+    }
 }
