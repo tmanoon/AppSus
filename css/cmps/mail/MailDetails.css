@@ -33,52 +33,49 @@
     gap: 5px;
 }
 
-.to-from>div {
+.to-from div {
     gap: 10px;
 }
 
-.to-from>*>h5,
-.to-from>h5,
-.sent-actions>h5 {
+.to-from h5,
+.sent-actions h5 {
     font-weight: lighter;
     color: var(--mailOutletBorder);
 }
 
-.to-from>h4 {
-    font-size: 0.8rem;
-}
-
-.sent-actions>h5 {
+.email-details .sent-actions h5 {
     padding: 10px;
 }
 
-.bottom-btns {
+.to-from h4 {
+    font-size: 0.8rem;
+}
+
+.email-details .bottom-btns {
     gap: 20px;
     margin-block: 16px;
 }
 
-.email-details>p {
+.email-details p {
     padding-block-start: 10px;
 }
 
-.email-details>.bottom-btns>*>button {
+.email-details .bottom-btns button {
     border: 1px solid var(--mailOutletBorder);
 }
 
-.email-details>*>.to-from>*>.small,
-.email-details>.actions-bar>button>i {
+.email-details .small,
+.email-details .actions-bar i {
     display: none;
 }
 
-.email-details>.actions-bar>button>i:nth-last-of-type(1),
-.email-details>.actions-bar>button>i:nth-last-of-type(2) {
+.email-details .actions-bar i.fa-chevron-left,
+.email-details .actions-bar i.fa-chevron-right {
     display: block;
 }
 
 
-.email-details>.actions-bar>button,
-.sent-actions>*>button,
-.email-details>.bottom-btns>*>button {
+.email-details button {
     border-radius: 20px;
     height: 36.67px;
     width: fit-content;
@@ -90,7 +87,7 @@
     cursor: pointer;
 }
 
-.sent-actions>.star {
+.email-details .sent-actions .star {
     border-radius: 20px;
     padding: 10px 10px;
     height: 36.67px;
@@ -98,37 +95,31 @@
     cursor: pointer;
 }
 
-.email-details>.actions-bar>button:hover,
-.sent-actions>*>button:hover,
-.sent-actions>.star:hover,
-.email-details>.bottom-btns>*>button:hover {
+.email-details button:hover,
+.email-details .sent-actions .star:hover {
     background-color: #c2bfbf62;
 }
 
-.email-details>.actions-bar>button:active,
-.sent-actions>*>button:active,
-.sent-actions>.star:active,
-.email-details>.bottom-btns>*>button:active {
+.email-details button:active,
+.email-details .sent-actions .star:active {
     scale: 1.1;
 }
 
 @media (width < 700px) {
 
-    .email-details>.actions-bar>button,
-    .sent-actions>*>button {
+    .email-details .actions-bar button,
+    .sent-actions button {
         height: 36.67px;
         width: 36.67px;
     }
 
-    .email-details>*>.to-from>*>.small,
-    .email-details>.actions-bar>button>i {
+    .email-details .small,
+    .email-details .actions-bar i {
         display: block;
     }
 
-    .email-details>*>.to-from>*>.large,
-    .email-details>*>.sent-actions>.large,
-    .email-details>.actions-bar>button>span,
-    .sent-actions>*>*>span {
+    .email-details .large,
+    .email-details span {
         display: none;
     }
 }

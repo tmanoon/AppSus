@@ -10,7 +10,7 @@
     width: 100%;
 }
 
-.email-index>*>.compose-btn {
+.email-index .compose-btn {
     margin: 10px 36px;
     background-color: var(--mailOutletBG);
     border-radius: 20px;
@@ -20,7 +20,7 @@
     cursor: pointer;
 }
 
-.email-index>*>.compose-btn:hover {
+.email-index .compose-btn:hover {
     background-color: #c2bfbf62;
 }
 
@@ -38,11 +38,11 @@
         z-index: 1;
     }
 
-    .email-index>*>.compose-btn {
+    .email-index .compose-btn {
         background-color: rgb(255, 255, 255);
     }
 
-    .email-index>*>.compose-btn:hover {
+    .email-index .compose-btn:hover {
         background-color: #c2bfbf;
     }
 

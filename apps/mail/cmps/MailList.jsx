@@ -6,6 +6,10 @@ export function MailList({ emails, onRemoveEmail, onUnread, onMarkEmail, onStarE
 
     if (!emails.length || !emails) return <div className="email-list flex center"><div>No Emails to show</div></div>
     return <ul className="email-list">
+        <li className="email-sort flex">
+            <button>Date</button>
+            <button>title</button>
+        </li>
         {emails.map(email => <li key={email.id} className="grid">
             <div className="email-mark-actions flex align-center">
 

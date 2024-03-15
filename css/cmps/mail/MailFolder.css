@@ -6,10 +6,8 @@
     width: 100%;
     border-radius: 20px;
     padding: 8px 10px;
-    text-align: start;
 
     gap: 8px;
-    align-items: center;
 
     cursor: pointer;
 }
@@ -23,7 +21,7 @@
         justify-content: center;
     }
 
-    .email-folder>*>li>*>span {
+    .email-folder span {
         display: none;
     }
 }

@@ -21,18 +21,18 @@
     justify-self: end;
 }
 
-.email-short-disp>h6 {
+.email-short-disp h6 {
     font-size: 0.8em;
 }
 
-.email-short-disp>p,
+.email-short-disp p,
 .email-time-disp {
     font-size: 12px;
     color: var(--mailOutletBorder);
 }
 
 
-.email-list>li:hover .email-time-disp {
+.email-list li:hover .email-time-disp {
     color: transparent;
 }
 
@@ -48,7 +48,7 @@
         grid-area: 1/2;
     }
 
-    .email-list>li:hover .email-time-disp {
+    .email-list li:hover .email-time-disp {
         color: var(--mailOutletBorder);
     }
 

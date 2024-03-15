@@ -9,10 +9,14 @@
     background-color: rgba(245, 245, 245, 0.699);
 }
 
-.txt-input-div > input {
+.txt-input-div input {
     border: none;
     padding-inline-start: 8px;
     background-color: transparent;
+}
+
+.txt-input-div input:focus {
+    outline: none;
 }
 
 .checkbox-input-div > * {
