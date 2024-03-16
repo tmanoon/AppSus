@@ -25,10 +25,10 @@ window.cs = emailService  // For Debug only
 //     isStarred: null,
 //     isMarked: false,
 //     sentAt: 1551133930594,
-//     removedAt: null,
+//     removed: false,
 //     from: 'momo@momo.com',
 //     to: 'user@appsus.com',
-//     status: 'inbox',  //inbox/sent/trash/drafts
+//     status: 'inbox',  //inbox/sent/drafts
 //     labels: []
 // }
 
@@ -43,9 +43,15 @@ _createEmails()
 function query(filterBy = getFilterFromParams(new URLSearchParams(window.location.search))) {
     return storageService.query(EMAIL_KEY)
         .then(emails => {
-            if (filterBy.status && filterBy.status !== 'all-mail') {
+            if (filterBy.status && filterBy.status !== 'all-mail' && filterBy.status !== 'trash') {
                 const regex = new RegExp(filterBy.status, 'i')
                 emails = emails.filter(email => regex.test(email.status))
+            }
+            if (filterBy.status === 'trash') {
+                emails = emails.filter(email => email.removed)
+            }
+            else if (filterBy.status !== 'all-mail') {
+                emails = emails.filter(email => !email.removed)
             }
             if (filterBy.txt) {
                 const regex = new RegExp(filterBy.txt, 'i')
@@ -81,14 +87,12 @@ function get(emailId) {
     // return axios.get(EMAIL_KEY, emailId)
 }
 
-function remove(emailId) {
-    return storageService.get(EMAIL_KEY, emailId)
-        .then(email => {
-            if (email.status !== 'trash') {
-                email.status = 'trash'
-                return storageService.put(EMAIL_KEY, email)
-            } else return storageService.remove(EMAIL_KEY, emailId)
-        })
+function remove(email) {
+    if (!email.removed) {
+        email.removed = true
+        return storageService.put(EMAIL_KEY, email)
+    }
+    return storageService.remove(EMAIL_KEY, email.id)
 }
 
 function save(email) {
@@ -103,7 +107,7 @@ function save(email) {
 }
 
 function toggle(keyName, email) {
-    if (keyName === 'status') email[keyName] = 'inbox'
+    if (keyName === 'status') email.removed = false
     else email[keyName] = !email[keyName]
     return storageService.put(EMAIL_KEY, email)
 }
@@ -122,10 +126,10 @@ function getEmptyEmail(status = 'drafts') {
         isStarred: false,
         isMarked: false,
         sentAt: new Date().getTime(),
-        removedAt: null,
+        removed: false,
         from: (status === 'drafts' || status === 'sent') ? loggedinUser.email : '',
         to: '',
-        status,  //inbox/sent/trash/drafts
+        status,  //inbox/sent/drafts
         labels: []
     }
 }
@@ -179,28 +183,21 @@ function _createEmails() {
 }
 
 function _createEmail() {
-    const statusOps = ['inbox', 'sent', 'trash']
-    const status = statusOps[utilService.getRandomIntInclusive(0, 2)]
+    const statusOps = ['inbox', 'sent']
+    const status = statusOps[utilService.getRandomIntInclusive(0, 1)]
     const email = getEmptyEmail(status)
     email.subject = utilService.makeLorem(5)
     email.body = utilService.makeLorem(50)
     email.sentAt = utilService.getRandomIntInclusive(1577839200000, new Date().getTime())
-    email.isRead = utilService.getRandomIntInclusive(0, 1) > 0.5
+    email.isRead = utilService.getRandomFraction() > 0.5
+    email.removed = utilService.getRandomFraction() > 0.9
     if (status === 'sent') {
         email.to = utilService.getRandomEmail()
         email.isRead = true
     } else if (status === 'inbox') {
         email.from = utilService.getRandomEmail()
         email.to = loggedinUser.email
-        email.isStarred = utilService.getRandomIntInclusive(0, 1) > 0.8
-    } else {
-        if (utilService.getRandomIntInclusive(0, 1) > 0.5) {
-            email.to = utilService.getRandomEmail()
-            email.from = loggedinUser.email
-        } else {
-            email.to = loggedinUser.email
-            email.from = utilService.getRandomEmail()
-        }
+        email.isStarred = utilService.getRandomFraction() > 0.8
     }
     return email
 }

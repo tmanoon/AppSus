@@ -84,7 +84,7 @@ export function MailList({ emails, onSetFilter, onRemoveEmail, onUnread, onMarkE
                     onChange={() => onUnread(email)}
                 />
 
-                <button onClick={() => onRemoveEmail(email.id)}><i className="fa-regular fa-trash-can"></i></button>
+                <button onClick={() => onRemoveEmail(email)}><i className="fa-regular fa-trash-can"></i></button>
             </div>
         </li>)}
     </ul>

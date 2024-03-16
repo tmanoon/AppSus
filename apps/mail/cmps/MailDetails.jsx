@@ -63,9 +63,9 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
 
         <div className="actions-bar flex space-between">
             <button onClick={() => navAround('back')}><span>Back</span><i className="fa-solid fa-arrow-left"></i></button>
-            <button onClick={() => { onRemoveEmail(email.id); navAround('back') }}><span>Delete</span><i className="fa-regular fa-trash-can"></i></button>
-            {email.status !== 'trash' && <button><span>Labels</span><i className="fa-solid fa-tags"></i></button>}
-            {email.status === 'trash' && <button onClick={() => restoreEmail(email)}><span>Restore to inbox</span><i className="fa-solid fa-trash-arrow-up"></i></button>}
+            <button onClick={() => { onRemoveEmail(email); navAround('back') }}><span>Delete</span><i className="fa-regular fa-trash-can"></i></button>
+            {!email.removedAt && <button><span>Labels</span><i className="fa-solid fa-tags"></i></button>}
+            {email.removedAt && <button onClick={() => restoreEmail(email)}><span>Restore message</span><i className="fa-solid fa-trash-arrow-up"></i></button>}
             <button onClick={() => onUnread(email)}><span>Mark as unread</span><i className="fa-regular fa-envelope"></i></button>
             {(email.isStarred) ?
                 <button onClick={() => onStarEmail(email)}><span>Star</span><i className="fa-solid fa-star"></i></button> :

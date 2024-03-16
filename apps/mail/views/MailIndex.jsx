@@ -37,14 +37,14 @@ export function MailIndex() {
             })
     }
 
-    function onRemoveEmail(emailId) {
-        emailService.remove(emailId)
+    function onRemoveEmail(email) {
+        emailService.remove(email)
             .then(() => {
                 loadEmails()
-                showSuccessMsg(`email removed successfully (${emailId})`)
+                showSuccessMsg(`email removed successfully`)
             })
             .catch((err) => {
-                showErrorMsg(`Could not remove (${emailId})`)
+                showErrorMsg(`Could not remove email`)
             })
     }
 
