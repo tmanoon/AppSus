@@ -1,6 +1,6 @@
  /* note list */
 
- .note.NoteImage > img {
+ .note.NoteImage>img {
     max-width: 100%;
     display: block;
     object-fit: contain;
@@ -8,6 +8,7 @@
  }
 
  .note-element {
+    min-width: 300px;
     padding: 10px;
     min-height: 200px;
     display: flex;
@@ -16,50 +17,52 @@
  }
 
  .note :is(h3, p) {
-   overflow-wrap: break-word;
-   white-space: pre-wrap;
-   text-align: center;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    text-align: center;
  }
 
  .note-element article {
-   width: 100%;
+    width: 100%;
  }
 
- .note.todo-note > ul .finished {
+ .note.todo-note>ul .finished {
     font-weight: bold;
  }
 
  .notes-container {
-   columns: 250px 8;
-   margin-inline: 10.625em;
-}
+    columns: 300px 8;
+    margin-inline: 10.625em;
+ }
 
-.notes-container li {
-   break-inside: avoid;
-   margin-block-end: 20px;
-}
+ .notes-container li {
+    break-inside: avoid;
+    margin-block-end: 20px;
+ }
 
-.video-container {
-   width: 100%;
-}
+ .video-container {
+    width: 100%;
+ }
 
-.note > h3, .note > ul > li, .note > p {
-   font-family: roboto, google-sans, Arial;
-}
+ .note>h3,
+ .note>ul>li,
+ .note>p {
+    font-family: roboto, google-sans, Arial;
+ }
 
-.note > h3 {
-   font-weight: bold;
-   margin-block-end: 1em;
-}
+ .note>h3 {
+    font-weight: bold;
+    margin-block-end: 1em;
+ }
 
-.remove-btn::before {
-   content: '\f2ed';
-   font-family: fa-reg;
-   color: var(--icons-clr);
-   cursor: pointer;
-   font-size: 1em;
-}
+ .remove-btn::before {
+    content: '\f2ed';
+    font-family: fa-reg;
+    color: var(--icons-clr);
+    cursor: pointer;
+    font-size: 1em;
+ }
 
-.remove-btn:hover::before {
-   scale: 1.2;
-}
+ .remove-btn:hover::before {
+    scale: 1.2;
+ }

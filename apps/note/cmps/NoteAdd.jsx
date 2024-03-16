@@ -1,6 +1,6 @@
 
 const { useState, useRef, useEffect, Fragment } = React
-import { noteAddService } from '../services/noteadd.service.js'
+import { noteAddService } from './../services/noteadd.service.js'
 const { useNavigate } = ReactRouter
 
 export function NoteAdd({ setNotes, notes }) {
@@ -162,7 +162,7 @@ export function NoteAdd({ setNotes, notes }) {
             {!noteMode.isClicked && (
                 <div className="icons">
                     <span className="square-check" onClick={(ev) => noteAddService.onAddTodoNote(ev, setNoteMode, setPlaceholder)}></span>
-                    <span className="brush" onClick={(ev) => noteAddService.onAddCanvasNote(ev, setNoteMode, setPlaceholder)}></span>
+                    {/* <span className="brush" onClick={(ev) => noteAddService.onAddCanvasNote(ev, setNoteMode, setPlaceholder)}></span> */}
                     <span className="image" onClick={(ev) => noteAddService.onAddImageNote(ev, setNoteMode, setPlaceholder)}></span>
                     <span className="video" onClick={(ev) => noteAddService.onAddVideoNote(ev, setNoteMode, setPlaceholder)}></span>
                 </div>
