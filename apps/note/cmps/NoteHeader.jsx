@@ -2,6 +2,7 @@ const { useState, useEffect } = React
 
 export function NoteHeader({ onSetFilter, filterBy }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+    const [isNavOpened, setNavMode] = useState(false)
 
     useEffect(() => {
         onSetFilter(filterByToEdit)
@@ -13,14 +14,6 @@ export function NoteHeader({ onSetFilter, filterBy }) {
         setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, [field]: value }))
     }
 
-    function onShowMenu() {
-
-    }
-
-    function onShowNotes(e) {
-        e.stopPropagation()
-    }
-
     function onShowMenu(e) {
         e.stopPropagation()
     }
@@ -29,20 +22,35 @@ export function NoteHeader({ onSetFilter, filterBy }) {
         e.stopPropagation()
     }
 
-    return <section className="note-header flex align-center space-between">
-        <div className="header-details header-details flex align-center">
-            {/* <div className="menu-of-btn">
-                <button className="btn all-notes" onClick={onShowNotes}></button>
-                <button className="btn removed-notes-btn" onClick={onRemovedNotes}></button>
-            </div> */}
-            <button className="btn btn-search" onClick={onShowMenu}></button>
-            <img className="note-header-img" src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" />
-            <h1 className="header-logo">Keep</h1>
+    function onTodosNotes(e) {
+        e.stopPropagation()
+    }
+    function onImgNotes(e) {
+        e.stopPropagation()
+    }
+
+    function onTxtNotes(e) {
+        e.stopPropagation()
+    }
+
+    return <section className="note-header flex column">
+        <div className="search-and-logo flex align-center space-between">
+            <div className="header-details header-details flex align-center">
+                <button className="btn btn-search" onClick={onShowMenu}></button>
+                <img className="note-header-img" src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" />
+                <h1 className="header-logo">Keep</h1>
+            </div>
+            <div className="header-search flex space-between align-center">
+                <div className="search-span-container flex align-center justify-center"><span className="span-search"></span></div>
+                <input type='text' placeholder="Search" name='search' value={filterBy.search} onChange={handleChange} />
+            </div>
         </div>
-        <div className="header-search flex space-between align-center">
-            <div className="search-span-container flex align-center justify-center"><span className="span-search"></span></div>
-            <input type='text' placeholder="Search" name='search' value={filterBy.search} onChange={handleChange} />
-        </div>
+        <nav className="side-nav flex column">
+            <div className="flex nav-icon-txt"><span className="nav-span deleted-notes" onClick={onRemovedNotes}></span><div>Deleted Notes</div></div>
+            <div className="flex nav-icon-txt"><span className="nav-span todos-notes" onClick={onTodosNotes}></span><div>Todos Notes</div></div>
+            <div className="flex nav-icon-txt"><span className="nav-span img-notes" onClick={onImgNotes}></span><div>Image Notes</div></div>
+            <div className="flex nav-icon-txt"><span className="nav-span txt-notes" onClick={onTxtNotes}></span><div>Text Notes</div></div>
+        </nav>
     </section>
 }
 

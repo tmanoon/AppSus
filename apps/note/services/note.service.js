@@ -3,6 +3,9 @@ import { storageService } from '../../../services/async-storage.service.js'
 import { storageFuncsService } from '../../../services/storage.service.js'
 
 const NOTES_KEY = 'notesDB'
+const DELETED_NOTED_KEY = 'deletedNotesDB'
+let removedNotes = []
+
 _createNotes()
 
 export const noteService = {
@@ -57,6 +60,12 @@ function get(noteId) {
 }
 
 function remove(noteId) {
+    get(noteId)
+        .then(noteToDelete => {
+            removedNotes.push(noteToDelete)
+            storageFuncsService.saveToStorage(DELETED_NOTED_KEY, removedNotes)
+        })
+        .catch(err => console.log)
     return storageService.remove(NOTES_KEY, noteId)
 }
 

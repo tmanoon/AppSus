@@ -12,11 +12,13 @@
     min-height: 200px;
     display: flex;
     flex-wrap: wrap;
+    gap: .5em;
  }
 
  .note :is(h3, p) {
    overflow-wrap: break-word;
    white-space: pre-wrap;
+   text-align: center;
  }
 
  .note-element article {
@@ -46,7 +48,18 @@
 }
 
 .note > h3 {
-   text-align: center;
    font-weight: bold;
    margin-block-end: 1em;
+}
+
+.remove-btn::before {
+   content: '\f2ed';
+   font-family: fa-reg;
+   color: var(--icons-clr);
+   cursor: pointer;
+   font-size: 1em;
+}
+
+.remove-btn:hover::before {
+   scale: 1.2;
 }

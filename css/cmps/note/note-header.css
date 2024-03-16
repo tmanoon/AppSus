@@ -6,7 +6,8 @@ header {
 .note-header {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    padding-block-end: .9em;
+    position: relative;
 }
 
 nav a {
@@ -36,10 +37,6 @@ nav a.active {
 .btn-search::before {
     content: '\f0c9';
     font-family: fa;
-}
-
-.note-header {
-    padding-block: 14px;
 }
 
 .header-search {
@@ -77,4 +74,48 @@ nav a.active {
     background-color: #F1F3F4;
     padding-inline-start: 15px;    
     height: 2.5em;
+}
+
+.search-and-logo {
+    width: 100%;
+    padding-inline: 1em;
+}
+
+.deleted-notes::before {
+    content: '\f2ed';
+    font-family: fa-reg;
+}
+
+.todos-notes::before {
+    content: '\f14a';
+    font-family: fa;
+}
+
+.img-notes::before {
+    content: '\f03e';
+    font-family: fa;
+}
+
+.txt-notes::before {
+    content: '\f031';
+    font-family: fa;
+}
+
+.side-nav {
+    font-size: 1.2em;
+    gap: 1.7em;
+    color: var(--icons-clr);
+    padding-inline-start: 1em;
+    margin-block-start: 3.5em;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.625);
+}
+
+.nav-icon-txt {
+    gap: 1em;
+}
+
+.nav-icon-txt > div {
+    font-family: google-sans, roboto, Arial;
+    font-size: .8em;
 }
