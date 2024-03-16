@@ -70,7 +70,11 @@ nav a.active {
 
 .header-search span {
     background-color: #F1F3F4;
-    padding-inline-start: 15px;
-    height: 2.6em;
     text-align: center;
+}
+
+.search-span-container {
+    background-color: #F1F3F4;
+    padding-inline-start: 15px;    
+    height: 2.5em;
 }

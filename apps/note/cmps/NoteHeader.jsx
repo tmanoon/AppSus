@@ -40,7 +40,7 @@ export function NoteHeader({ onSetFilter, filterBy }) {
             <h1 className="header-logo">Keep</h1>
         </div>
         <div className="header-search flex space-between align-center">
-            <span className="span-search"></span>
+            <div className="search-span-container flex align-center justify-center"><span className="span-search"></span></div>
             <input type='text' placeholder="Search" name='search' value={filterBy.search} onChange={handleChange} />
         </div>
     </section>

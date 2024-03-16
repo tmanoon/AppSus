@@ -35,7 +35,7 @@ export function NoteAdd({ setNotes, notes }) {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (componentRef.current && !componentRef.current.contains(event.target)) noteAddService.resetStates(setNoteMode, noteMode, setColorMode, colorMode)}
+            if (componentRef.current && !componentRef.current.contains(event.target)) noteAddService.resetStates(setNoteMode,  setColorMode)}
         document.addEventListener('mousedown', handleClickOutside)
 
         return () => {
