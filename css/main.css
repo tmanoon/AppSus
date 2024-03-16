@@ -1,7 +1,7 @@
 /* SETUP */
 @import './setup/variables.css';
 @import './setup/typography.css';
-@import './setup/mq-note.css';
+@import './setup/mqnote.css';
 
 
 /* BASICS */
@@ -22,10 +22,10 @@
 @import './cmps/UserMsg.css';
 @import './cmps/AppHeader.css';
 
-@import './cmps/note/note-header.css';
-@import './cmps/note/note-preview.css';
-@import './cmps/note/note-main.css';
-@import './cmps/note/add-note.css';
+@import './cmps/note/noteheader.css';
+@import './cmps/note/notepreview.css';
+@import './cmps/note/notemain.css';
+@import './cmps/note/addnote.css';
 
 @import './cmps/mail/MailList.css';
 @import './cmps/mail/MailPreview.css';
