@@ -109,12 +109,13 @@ function save(note) {
 }
 
 function getEmptyNote() {
+    const colorsToChoose = ['#f1c2ff', '#ffefba', '#caf5ca', '#c3ecff', '#f2f2f2']
     return {
         createdAt: '',
         type: '',
         isStarred: '',
         style: {
-            backgroundColor: utilService.getRandomColor()
+            backgroundColor: colorsToChoose[utilService.getRandomIntInclusive(0,4)]
         },
         info: {
         },

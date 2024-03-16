@@ -4,7 +4,7 @@ import { noteAddService } from './../services/noteadd.service.js'
 const { useNavigate } = ReactRouter
 
 export function NoteAdd({ setNotes, notes }) {
-    const colorsToChoose = ['#f1c2ff', '#ffefba', '#caf5ca', '#c3ecff', '#ffffff']
+    const colorsToChoose = ['#f1c2ff', '#ffefba', '#caf5ca', '#c3ecff', '#f2f2f2']
     const [noteMode, setNoteMode] = useState({
         isClicked: false,
         isNoteText: false,
