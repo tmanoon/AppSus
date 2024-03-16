@@ -35,7 +35,7 @@ nav a.active {
     cursor: pointer;
 }
 
-.btn-search::before {
+.btn-hamburger::before {
     content: '\f0c9';
     font-family: fa;
 }
@@ -117,7 +117,15 @@ nav a.active {
     gap: 1em;
 }
 
+.nav-icon-txt > span {
+    cursor: pointer;
+}
+
 .nav-icon-txt > div {
     font-family: google-sans, roboto, Arial;
     font-size: .8em;
+}
+
+.header-details > * {
+    cursor: pointer;
 }

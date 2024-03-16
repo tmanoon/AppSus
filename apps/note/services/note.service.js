@@ -36,10 +36,6 @@ function query(filterBy = getDefaultFilter()) {
                         (note.info.todos && note.info.todos.some(todo => regex.test(todo.txt) || (todo.title && regex.test(todo.title))))
                 })
             }
-            if (filterBy.type) {
-                const regex = new RegExp(filterBy.type, 'i')
-                notes = notes.filter(note => regex.test(note.type))
-            }
             notes.sort((firstNote, secondNote) => {
                 if (firstNote.isStarred && !secondNote.isStarred) {
                     return -1 
@@ -112,15 +108,15 @@ function _createNotes() {
     let notes = storageFuncsService.loadFromStorage(NOTES_KEY)
     if (!notes || !notes.length) {
         notes = []
-        notes.push(_createNote('NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, '', 1112222))
-        notes.push(_createNote('NoteTxt', true, { txt: 'Fullstack Me Baby!' }, '', 1112222))
-        notes.push(_createNote('NoteImg', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
+        notes.push(_createNote('NoteText', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, '', 1112222))
+        notes.push(_createNote('NoteText', true, { txt: 'Fullstack Me Baby!' }, '', 1112222))
+        notes.push(_createNote('NoteImage', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
         notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [{ txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
         notes.push(_createNote('NoteVideo', false, { url: 'https://vimeo.com/798326630', title: 'Smooth Criminal - Michael Jackson' }))
-        notes.push(_createNote('NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, '', 1112222))
-        notes.push(_createNote('NoteTxt', true, { txt: 'Fullstack Me Baby!' }, '', 1112222))
+        notes.push(_createNote('NoteText', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, '', 1112222))
+        notes.push(_createNote('NoteText', true, { txt: 'Fullstack Me Baby!' }, '', 1112222))
         notes.push(_createNote('NoteVideo', false, { url: 'https://vimeo.com/348906914', title: 'The Beatles - In my life' }))
-        notes.push(_createNote('NoteImg', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
+        notes.push(_createNote('NoteImage', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
         notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [ { txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
         notes.push(_createNote('NoteVideo', false, { url: 'https://vimeo.com/14639124', title: 'נינט - היא יודעת' }))
         
@@ -137,11 +133,11 @@ function _createNote(type, isStarred, info = {}, style = '', createdAt = Date.no
     note.createdAt = createdAt
 
     switch (type) {
-        case 'NoteTxt':
+        case 'NoteText':
             if (info.title) note.info.title = info.title
             note.info.txt = info.txt
             break
-        case 'NoteImg':
+        case 'NoteImage':
             note.info.url = info.url
             note.info.title = info.title
             break

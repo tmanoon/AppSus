@@ -1,6 +1,6 @@
 const { useState } = React
 
-export function NoteTxt({note}) {
+export function NoteText({note}) {
 
     return <article className={`note ${note.type}`}>
         {note.info.title && <h3>{note.info.title}</h3>}

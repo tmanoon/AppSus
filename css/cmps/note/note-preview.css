@@ -1,6 +1,6 @@
  /* note list */
 
- .note.NoteImg > img {
+ .note.NoteImage > img {
     max-width: 100%;
     display: block;
     object-fit: contain;

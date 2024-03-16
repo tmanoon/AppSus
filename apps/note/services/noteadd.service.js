@@ -21,8 +21,8 @@ export const noteAddService = {
 function resetStates(setNoteMode, setColorMode) {
     setNoteMode({
         isClicked: false,
-        isNoteTxt: false,
-        isNoteImg: false,
+        isNoteText: false,
+        isNoteImage: false,
         isNoteTodos: false,
         isNoteVideo: false,
         isNoteCanvas: false
@@ -52,11 +52,11 @@ function onSetStarred(setIsStarred) {
 function onTitleClick(e, noteMode, setNoteMode, setPlaceholder) {
     e.stopPropagation()
     setPlaceholder('Title')
-    if(noteMode.isNoteTodos || noteMode.isNoteImg || noteMode.isNoteCanvas || noteMode.isNoteVideo) return
+    if(noteMode.isNoteTodos || noteMode.isNoteImage || noteMode.isNoteCanvas || noteMode.isNoteVideo) return
     setNoteMode(prevNoteMode => ({
         ...prevNoteMode,
         isClicked: true,
-        isNoteTxt: true
+        isNoteText: true
     }))
 }
 
@@ -90,7 +90,7 @@ function onAddImageNote(e, setNoteMode, setPlaceholder) {
     setNoteMode(prevNoteMode => ({
         ...prevNoteMode,
         isClicked: true,
-        isNoteImg: true
+        isNoteImage: true
     }))
 }
 
@@ -105,8 +105,8 @@ function onAddVideoNote(e, setNoteMode, setPlaceholder) {
 }
 
 function saveNote(noteMode, setNotes, isStarred, info, bgc) {
-    if (noteMode.isNoteTxt) {
-        let noteToSave = { type: 'NoteTxt', isStarred, createdAt: Date.now(), info: {...(info.title && { title: info.title }), ...(info.txt && { txt: info.txt }) }, 
+    if (noteMode.isNoteText) {
+        let noteToSave = { type: 'NoteText', isStarred, createdAt: Date.now(), info: {...(info.title && { title: info.title }), ...(info.txt && { txt: info.txt }) }, 
         style: { backgroundColor: bgc } }
 
         noteService.save(noteToSave)
@@ -144,8 +144,8 @@ function saveNote(noteMode, setNotes, isStarred, info, bgc) {
             .catch(err => {
                 console.log('Had issues saving the note', err)
             })
-    } else if(noteMode.isNoteImg) {
-        let noteToSave = { type: 'NoteImg', isStarred, createdAt: Date.now(), info: { ...(info.title && { title: info.title }), ...(info.url && { url: info.url }) },
+    } else if(noteMode.isNoteImage) {
+        let noteToSave = { type: 'NoteImage', isStarred, createdAt: Date.now(), info: { ...(info.title && { title: info.title }), ...(info.url && { url: info.url }) },
         style: { backgroundColor: bgc }
     }
 

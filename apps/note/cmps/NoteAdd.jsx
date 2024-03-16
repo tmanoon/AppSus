@@ -7,8 +7,8 @@ export function NoteAdd({ setNotes, notes }) {
     const colorsToChoose = ['#f1c2ff', '#ffefba', '#caf5ca', '#c3ecff', '#ffffff']
     const [noteMode, setNoteMode] = useState({
         isClicked: false,
-        isNoteTxt: false,
-        isNoteImg: false,
+        isNoteText: false,
+        isNoteImage: false,
         isNoteTodos: false,
         isNoteVideo: false,
         isNoteCanvas: false
@@ -30,8 +30,8 @@ export function NoteAdd({ setNotes, notes }) {
     const videoRef = useRef()
 
     useEffect(() => {
-        if (noteMode.isNoteTxt && txtRef.current) txtRef.current.focus()
-    }, [noteMode.isNoteTxt])
+        if (noteMode.isNoteText && txtRef.current) txtRef.current.focus()
+    }, [noteMode.isNoteText])
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -43,14 +43,14 @@ export function NoteAdd({ setNotes, notes }) {
         }
     }, [])
 
-    function renderNoteImgAdd() {
+    function renderNoteImageAdd() {
         
-        useEffect(() => { if (noteMode.isNoteImg && imgRef.current) imgRef.current.focus() }, [noteMode.isNoteImg])
+        useEffect(() => { if (noteMode.isNoteImage && imgRef.current) imgRef.current.focus() }, [noteMode.isNoteImage])
         const onSetImg = (e) => setImg({ ...img, url: e.target.value })
 
         return (
             <Fragment>
-                {noteMode.isNoteImg && (<Fragment><div className="icons-star">
+                {noteMode.isNoteImage && (<Fragment><div className="icons-star">
                     <span className="star" style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }} onClick={() => noteAddService.onSetStarred(setIsStarred)}></span></div>
                 <textarea value={img.url} placeholder="Enter your image URL" ref={imgRef} onChange={onSetImg} /></Fragment>)}
             </Fragment>
@@ -73,13 +73,13 @@ export function NoteAdd({ setNotes, notes }) {
 
     function onSave(e) {
         e.stopPropagation()
-        if (noteMode.isNoteTxt) {
+        if (noteMode.isNoteText) {
             if ((!title && !txt && bgc) || (!title && !txt && !bgc)) return
             noteAddService.saveNote(noteMode, setNotes, isStarred, { title, txt }, bgc)
         } else if (noteMode.isNoteTodos) {
             if (todos.length === 1 && todos[0].txt === '') return
             noteAddService.saveNote(noteMode, setNotes, isStarred, { title, todos }, bgc)
-        } else if (noteMode.isNoteImg) {
+        } else if (noteMode.isNoteImage) {
             if (img.url === '') return
             noteAddService.saveNote(noteMode, setNotes, isStarred, { url: img.url, title }, bgc)
         } else {
@@ -91,12 +91,12 @@ export function NoteAdd({ setNotes, notes }) {
     function renderNoteTextAdd() {
         return (
             <Fragment>
-                {noteMode.isNoteTxt && (
+                {noteMode.isNoteText && (
                     <div className="icons-star">
                         <span className="star" style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }} onClick={() => noteAddService.onSetStarred(setIsStarred)}></span>
                     </div>
                 )}
-                {noteMode.isNoteTxt && (
+                {noteMode.isNoteText && (
                     <textarea ref={txtRef} value={txt} placeholder="Add your note..." onClick={noteAddService.onFocusTxt} onChange={(e) => noteAddService.handleTxtField(e, setTxt)} />)}
             </Fragment>
         )
@@ -183,7 +183,7 @@ export function NoteAdd({ setNotes, notes }) {
             )}
             {renderNoteTextAdd()}
             {renderNoteTodosAdd()}
-            {renderNoteImgAdd()}
+            {renderNoteImageAdd()}
             {renderNoteVideoAdd()}
         </div>
     )
