@@ -6,22 +6,21 @@ import { MailPreview } from "./MailPreview.jsx"
 export function MailList({ emails, onSetFilter, onRemoveEmail, onUnread, onMarkEmail, onStarEmail }) {
 
     const [searchParams, setSearchParams] = useSearchParams()
-    const [sortBy, setSortBy] = useState({ sort: searchParams.get('sort'), dir: searchParams.get('dir') })
-    const [currSorter, setCurrSorter] = useState({ sort: searchParams.get('sort'), dir: searchParams.get('dir') })
+    const [sortBy, setSortBy] = useState({ sort: searchParams.get('sort') || 'date', dir: searchParams.get('dir') || true})
+    const [currSorter, setCurrSorter] = useState({ sort: searchParams.get('sort') || 'date', dir: searchParams.get('dir') || true})
 
     useEffect(() => {
         onSetFilter(sortBy)
     }, [sortBy])
 
-    function handleChange(val) {
-        const key = (typeof val === 'string') ? 'sort' : 'dir'
+    function handleChange(key, val) {
          setSortBy((prevSortBy) => ({ ...prevSortBy, [key]: val }))
     }
 
     function onClickSort(val) {
         const key = (typeof val === 'string') ? 'sort' : 'dir'
         setCurrSorter((prevSortBy) => ({ ...prevSortBy, [key]: val }))
-        handleChange(val)
+        handleChange(key, val)
     }
 
     function unreadCount() {
