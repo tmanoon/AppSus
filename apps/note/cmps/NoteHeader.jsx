@@ -30,7 +30,7 @@ export function NoteHeader({ onSetFilter, filterBy }) {
     }
 
     return <section className="note-header flex align-center space-between">
-        <div className="header-details">
+        <div className="header-details header-details flex align-center">
             {/* <div className="menu-of-btn">
                 <button className="btn all-notes" onClick={onShowNotes}></button>
                 <button className="btn removed-notes-btn" onClick={onRemovedNotes}></button>
