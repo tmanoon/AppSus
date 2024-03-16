@@ -28,7 +28,6 @@ export function NoteIndex() {
             })
     }
     
-    console.log(notes)
     function onRemoveNote(noteId) {
         noteService.remove(noteId)
             .then(() => {
@@ -56,15 +55,12 @@ export function NoteIndex() {
 
     // console.log('notes from note index', notes)
     // console.log('selectednote from note index', selectednote)
-    const { search, type} = filterBy
+    const { search, type } = filterBy
     if (!notes) return <div>loading...</div>
     return <section className="note-main">
-        <NoteHeader onSetFilter={onSetFilter} filterBy={ {search} }/>
-        {/* <noteFilter onSetFilter={onSetFilter} filterBy={{ type }} /> */}
+        <NoteHeader onSetFilter={onSetFilter} filterBy={ {search, type } }/>
         <NoteAdd setNotes={setNotes} notes={notes} />
-
         {/* <Link to="/note/edit"><button>Add a note</button></Link> */}
-        {/* <DataTable notes={notes} onRemovenote={onRemovenote} /> */}
         <NotePreview filterBy={filterBy} notes={notes} onRemoveNote={onRemoveNote} onUpdateNote={onUpdateNote} />
     </section >
 

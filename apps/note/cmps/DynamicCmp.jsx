@@ -14,7 +14,7 @@ export function DynamicCmp({ filterBy, note }) {
         case 'video':
             return <NoteVideo note={note} />
         default:
-            if(note.type === 'NoteText') return <NoteText note={note} />
+            if (note.type === 'NoteText') return <NoteText note={note} />
             else if (note.type === 'NoteImage') return <NoteImage note={note} />
             else if (note.type === 'NoteTodos') return <NoteTodos note={note} />
             else if (note.type === 'NoteVideo') return <NoteVideo note={note} />

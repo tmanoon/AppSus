@@ -22,32 +22,59 @@ window.ns = noteService
 
 
 function query(filterBy = getDefaultFilter()) {
-    console.log('filterBy', filterBy)
 
-    return storageService.query(NOTES_KEY)
-        .then(notes => {
-            if (filterBy.search) {
-                const regex = new RegExp(filterBy.search, 'i')
-                notes = notes.filter(note => {
-                    return regex.test(note.type) ||
-                        (note.info.title && regex.test(note.info.title)) ||
-                        (note.info.url && regex.test(note.info.url)) ||
-                        (note.info.txt && regex.test(note.info.txt)) ||
-                        (note.info.todos && note.info.todos.some(todo => regex.test(todo.txt) || (todo.title && regex.test(todo.title))))
-                })
-            }
-            notes.sort((firstNote, secondNote) => {
-                if (firstNote.isStarred && !secondNote.isStarred) {
-                    return -1 
-                } else if (!firstNote.isStarred && secondNote.isStarred) {
-                    return 1 
-                } else {
-                    return 0 
+    if (filterBy.type !== 'deleted') {
+        return storageService.query(NOTES_KEY)
+            .then(notes => {
+                if (filterBy.search) {
+                    const regex = new RegExp(filterBy.search, 'i')
+                    notes = notes.filter(note => {
+                        return regex.test(note.type) ||
+                            (note.info.title && regex.test(note.info.title)) ||
+                            (note.info.url && regex.test(note.info.url)) ||
+                            (note.info.txt && regex.test(note.info.txt)) ||
+                            (note.info.todos && note.info.todos.some(todo => regex.test(todo.txt) || (todo.title && regex.test(todo.title))))
+                    })
                 }
+                notes.sort((firstNote, secondNote) => {
+                    if (firstNote.isStarred && !secondNote.isStarred) {
+                        return -1
+                    } else if (!firstNote.isStarred && secondNote.isStarred) {
+                        return 1
+                    } else {
+                        return 0
+                    }
+                })
+                return notes
             })
-            return notes
-        })
+    } else {
+        return storageService.query(DELETED_NOTED_KEY)
+            .then(notes => {
+                if (filterBy.search) {
+                    const regex = new RegExp(filterBy.search, 'i')
+                    notes = notes.filter(note => {
+                        return regex.test(note.type) ||
+                            (note.info.title && regex.test(note.info.title)) ||
+                            (note.info.url && regex.test(note.info.url)) ||
+                            (note.info.txt && regex.test(note.info.txt)) ||
+                            (note.info.todos && note.info.todos.some(todo => regex.test(todo.txt) || (todo.title && regex.test(todo.title))))
+                    })
+                }
+                notes.sort((firstNote, secondNote) => {
+                    if (firstNote.isStarred && !secondNote.isStarred) {
+                        return -1
+                    } else if (!firstNote.isStarred && secondNote.isStarred) {
+                        return 1
+                    } else {
+                        return 0
+                    }
+                })
+                return notes
+            })
+    }
+
 }
+
 
 function get(noteId) {
     return storageService.get(NOTES_KEY, noteId)
@@ -71,7 +98,7 @@ function save(note) {
         return storageService.put(NOTES_KEY, note)
     } else {
         const currLength = storageFuncsService.loadFromStorage(NOTES_KEY).length
-        if(note.style) note = _createNote(note.type, note.isStarred, note.info, note.style)
+        if (note.style) note = _createNote(note.type, note.isStarred, note.info, note.style)
         else note = _createNote(note.type, note.isStarred, note.info)
         return storageService.post(NOTES_KEY, note)
     }
@@ -90,17 +117,15 @@ function getEmptyNote() {
     }
 }
 
-// function getDefaultFilter() {
-//     return { search: '', type: '' }
-// }
 function getDefaultFilter() {
-    return { search: ''}
+    return { search: '', type: 'all' }
 }
 
 function getFilterFromParams(searchParams = {}) {
     const defaultFilter = getDefaultFilter()
     return {
-        search: searchParams.get('search') || defaultFilter.search
+        search: searchParams.get('search') || defaultFilter.search,
+        type: searchParams.get('type') || defaultFilter.type
     }
 }
 
@@ -117,9 +142,9 @@ function _createNotes() {
         notes.push(_createNote('NoteText', true, { txt: 'Fullstack Me Baby!' }, '', 1112222))
         notes.push(_createNote('NoteVideo', false, { url: 'https://vimeo.com/348906914', title: 'The Beatles - In my life' }))
         notes.push(_createNote('NoteImage', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
-        notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [ { txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
+        notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [{ txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
         notes.push(_createNote('NoteVideo', false, { url: 'https://vimeo.com/14639124', title: 'נינט - היא יודעת' }))
-        
+
         storageFuncsService.saveToStorage(NOTES_KEY, notes)
     }
 }
@@ -128,7 +153,7 @@ function _createNote(type, isStarred, info = {}, style = '', createdAt = Date.no
     const note = getEmptyNote()
     note.id = utilService.makeId()
     note.type = type
-    if(style.backgroundColor) note.style = {backgroundColor: style.backgroundColor}
+    if (style.backgroundColor) note.style = { backgroundColor: style.backgroundColor }
     note.isStarred = isStarred
     note.createdAt = createdAt
 

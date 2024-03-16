@@ -22,26 +22,26 @@ export function NoteHeader({ onSetFilter, filterBy }) {
 
     function onRemovedNotes(e) {
         e.stopPropagation()
-        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: 'isDeleted' }))
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, type: 'deleted'}))
     }
 
     function onTodosNotes(e) {
         e.stopPropagation()
-        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: 'NoteTodos' }))
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: 'NoteTodos'}))
     }
     function onImgNotes(e) {
         e.stopPropagation()
-        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: 'NoteImage' }))
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: 'NoteImage'}))
     }
 
     function onTxtNotes(e) {
         e.stopPropagation()
-        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: 'NoteText' }))
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: 'NoteText'}))
     }
 
     function onHomeClick(e) {
         e.stopPropagation()
-        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: '' }))
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: '', type: 'all' }))
     }
 
     return <section className="note-header flex column">
