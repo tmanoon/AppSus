@@ -83,14 +83,18 @@ function get(noteId) {
 }
 
 function remove(noteId) {
-    get(noteId)
+    return storageService.get(NOTES_KEY, noteId)
         .then(noteToDelete => {
-            noteToDelete.isDeleted = true
-            removedNotes.push(noteToDelete)
-            storageFuncsService.saveToStorage(DELETED_NOTED_KEY, removedNotes)
+            if (!noteToDelete.isDeleted) {
+                noteToDelete.isDeleted = true
+                removedNotes.push(noteToDelete)
+                storageFuncsService.saveToStorage(DELETED_NOTED_KEY, removedNotes)
+                storageService.remove(NOTES_KEY, noteId)
+            } else {
+                return storageService.remove(DELETED_NOTED_KEY, noteId)
+            }
         })
         .catch(err => console.log)
-    return storageService.remove(NOTES_KEY, noteId)
 }
 
 function save(note) {
