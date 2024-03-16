@@ -47,9 +47,9 @@ export function MailCompose() {
 
     return <section className="email-compose">
         <div className="flex space-between align-center">
-            <button onClick={saveToDrafts} className="back-btn">Back</button>
+        <button onClick={saveToDrafts} className="back-btn" title="Back"><span>Back</span><i className="fa-solid fa-arrow-left"></i></button>
             <h1>New Massage</h1>
-            <button onClick={saveToDrafts} className="close-btn"><i className="fa-solid fa-xmark"></i></button>
+            <button onClick={saveToDrafts} className="close-btn" title="Close"><i className="fa-solid fa-xmark"></i></button>
         </div>
         <form className="flex column">
             <input type="email"
@@ -73,7 +73,7 @@ export function MailCompose() {
         <div className="actions-div flex space-between">
             <button onClick={saveToSent} className="save-btn">Send</button>
             <button onClick={sendToNotes} className="notes-btn">Send to notes</button>
-            <button onClick={leavePage} className="delete-btn"><i className="fa-regular fa-trash-can"></i></button>
+            <button onClick={leavePage} className="delete-btn" title="Delete"><i className="fa-regular fa-trash-can"></i></button>
         </div>
     </section>
 }

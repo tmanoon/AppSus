@@ -77,21 +77,11 @@
     display: block;
 }
 
-.email-details .sent-actions .star {
-    border-radius: 20px;
-    padding: 10px 10px;
-    height: 36.67px;
-
-    cursor: pointer;
-}
-
-.email-details button:hover,
-.email-details .sent-actions .star:hover {
+.email-details button:hover {
     background-color: #c2bfbf62;
 }
 
-.email-details button:active,
-.email-details .sent-actions .star:active {
+.email-details button:active {
     scale: 1.1;
 }
 

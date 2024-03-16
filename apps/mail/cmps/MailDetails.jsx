@@ -62,16 +62,16 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
     return <section className="email-details">
 
         <div className="actions-bar flex space-between">
-            <button onClick={() => navAround('back')}><span>Back</span><i className="fa-solid fa-arrow-left"></i></button>
-            <button onClick={() => { onRemoveEmail(email); navAround('back') }}><span>Delete</span><i className="fa-regular fa-trash-can"></i></button>
-            {!email.removed && <button><span>Labels</span><i className="fa-solid fa-tags"></i></button>}
-            {email.removed && <button onClick={() => restoreEmail(email)}><span>Restore message</span><i className="fa-solid fa-trash-arrow-up"></i></button>}
-            <button onClick={() => onUnread(email)}><span>Mark as unread</span><i className="fa-regular fa-envelope"></i></button>
+            <button onClick={() => navAround('back')} title="Back"><span>Back</span><i className="fa-solid fa-arrow-left"></i></button>
+            <button onClick={() => { onRemoveEmail(email); navAround('back') }} title="Delete"><span>Delete</span><i className="fa-regular fa-trash-can"></i></button>
+            {!email.removed && <button title="Labels"><span>Labels</span><i className="fa-solid fa-tags"></i></button>}
+            {email.removed && <button onClick={() => restoreEmail(email)} title="Restore Message"><span>Restore message</span><i className="fa-solid fa-trash-arrow-up"></i></button>}
+            <button onClick={() => onUnread(email)} title="Mark as unread"><span>Mark as unread</span><i className="fa-regular fa-envelope"></i></button>
             {(email.isStarred) ?
-                <button onClick={() => onStarEmail(email)}><span>Star</span><i className="fa-solid fa-star"></i></button> :
-                <button onClick={() => onStarEmail(email)}><span>Star</span><i className="fa-regular fa-star"></i></button>}
-            <button onClick={() => navAround('prev')}><i className="fa-solid fa-chevron-left"></i></button>
-            <button onClick={() => navAround('next')}><i className="fa-solid fa-chevron-right"></i></button>
+                <button onClick={() => onStarEmail(email)} title="Unstar"><span>Star</span><i className="fa-solid fa-star"></i></button> :
+                <button onClick={() => onStarEmail(email)} title="Star"><span>Star</span><i className="fa-regular fa-star"></i></button>}
+            <button onClick={() => navAround('prev')} title="Previous"><i className="fa-solid fa-chevron-left"></i></button>
+            <button onClick={() => navAround('next')} title="Next"><i className="fa-solid fa-chevron-right"></i></button>
         </div>
 
         <h1>{email.subject}</h1>
@@ -90,20 +90,12 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
 
                 <h5 className="large">{formatDateLong(email.sentAt)}</h5>
 
-                <div className="star">
-                    <label htmlFor="star">
-                        {(email.isStarred) ? <i className="fa-solid fa-star"></i> : <i className="fa-regular fa-star"></i>}
-                    </label>
-                    <input
-                        type="checkbox" name="star" id="star"
-                        style={{ display: 'none' }}
-                        checked={email.isStarred}
-                        onChange={() => onStarEmail(email)}
-                    />
-                </div>
+                {(email.isStarred) ?
+                <button onClick={() => onStarEmail(email)} title="Unstar"><i className="fa-solid fa-star"></i></button> :
+                <button onClick={() => onStarEmail(email)} title="Star"><i className="fa-regular fa-star"></i></button>}
 
-                <Link to={`/mail/compose`}><button><span>Reply</span><i className="fa-solid fa-reply"></i></button></Link>
-                <Link to="/note"><button><span>send to notes</span><i className="fa-regular fa-note-sticky"></i></button></Link>
+                <Link to={`/mail/compose`}><button title="Reply"><span>Reply</span><i className="fa-solid fa-reply"></i></button></Link>
+                <Link to="/note"><button title="Send to notes"><span>Send to notes</span><i className="fa-regular fa-note-sticky"></i></button></Link>
             </section>
         </div>
 
@@ -111,7 +103,7 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
 
         <section className="bottom-btns flex justify-center">
             <Link to={`/mail/compose`}><button><span>Reply</span><i className="fa-solid fa-reply"></i></button></Link>
-            <Link to="/note"><button><span>send to notes</span><i className="fa-regular fa-note-sticky"></i></button></Link>
+            <Link to="/note"><button><span>Send to notes</span><i className="fa-regular fa-note-sticky"></i></button></Link>
         </section>
         
     </section>
