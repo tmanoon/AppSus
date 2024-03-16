@@ -35,7 +35,7 @@ export function MailFolder({ onSetFilter }) {
         <ul className="flex column" >
             {folders.map((folder, idx) =>
                 <li key={folder}>
-                    {currFolder === folder && <button onClick={() => onClickFolder(folder)} className="flex"
+                    {currFolder === folder.toLowerCase() && <button onClick={() => onClickFolder(folder)} className="flex"
                         style={{ backgroundColor: 'rgba(245, 245, 245, 0.568)' }}>
                         <i className={icons[idx]}></i><span>{folderNames[idx]}</span>
                     </button>}
