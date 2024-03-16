@@ -38,10 +38,10 @@ export function MailList({ emails, onSetFilter, onRemoveEmail, onUnread, onMarkE
             {currSorter.sort !== 'date' && <button onClick={() => onClickSort('date')}><span>Date</span></button>}
             {currSorter.sort !== 'subject' && <button onClick={() => onClickSort('subject')}><span>Subject</span></button>}
             {currSorter.sort === 'subject' && <button onClick={() => onClickSort('subject')} style={{ backgroundColor: 'rgba(225, 224, 224, 0.8)' }}><span>Subject</span></button>}
-            {currSorter.dir === true && <button onClick={() => onClickSort(true)} style={{ backgroundColor: 'rgba(225, 224, 224, 0.8)' }}><i className="fa-solid fa-chevron-up"></i></button>}
-            {currSorter.dir !== true && <button onClick={() => onClickSort(true)}><i className="fa-solid fa-chevron-up"></i></button>}
-            {currSorter.dir !== false && <button onClick={() => onClickSort(false)}><i className="fa-solid fa-chevron-down"></i></button>}
-            {currSorter.dir === false && <button onClick={() => onClickSort(false)} style={{ backgroundColor: 'rgba(225, 224, 224, 0.8)' }}><i className="fa-solid fa-chevron-down"></i></button>}
+            {currSorter.dir && <button onClick={() => onClickSort(true)} style={{ backgroundColor: 'rgba(225, 224, 224, 0.8)' }}><i className="fa-solid fa-chevron-up"></i></button>}
+            {!currSorter.dir && <button onClick={() => onClickSort(true)}><i className="fa-solid fa-chevron-up"></i></button>}
+            {currSorter.dir && <button onClick={() => onClickSort(false)}><i className="fa-solid fa-chevron-down"></i></button>}
+            {!currSorter.dir && <button onClick={() => onClickSort(false)} style={{ backgroundColor: 'rgba(225, 224, 224, 0.8)' }}><i className="fa-solid fa-chevron-down"></i></button>}
             </div>
             <p>Unread: {unreadCount()}</p>
         </li>
