@@ -7,7 +7,7 @@ import { MailList } from './../cmps/MailList.jsx'
 import { MailDetails } from '../cmps/MailDetails.jsx'
 
 import { emailService } from './../services/mail.service.js'
-import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
+import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
 
 export function MailIndex() {
     const { emailId } = useParams()

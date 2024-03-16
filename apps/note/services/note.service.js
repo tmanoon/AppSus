@@ -1,6 +1,6 @@
-import { utilService } from '../../../services/util.service.js'
-import { storageService } from '../../../services/async-storage.service.js'
-import { storageFuncsService } from '../../../services/storage.service.js'
+import { utilService } from './../../../services/util.service.js'
+import { storageService } from './../../../services/async-storage.service.js'
+import { storageFuncsService } from './../../../services/storage.service.js'
 
 const NOTES_KEY = 'notesDB'
 const DELETED_NOTED_KEY = 'deletedNotesDB'
