@@ -40,7 +40,7 @@ export function MailFolder({ onSetFilter }) {
                         <i className={icons[idx]}></i><span>{folderNames[idx]}</span>
                     </button>}
                     {currFolder !== folder && <button onClick={() => onClickFolder(folder)} className="flex">
-                        <i className={icons[idx]}></i><span>{folderNames[idx]}</span>
+                        <i className={icons[idx]}></i><span>{folder}</span>
                     </button>}
                 </li>
             )}
