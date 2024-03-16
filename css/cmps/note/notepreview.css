@@ -67,3 +67,7 @@
  .remove-btn:hover::before {
     scale: 1.2;
  }
+
+ .notes-main {
+   background-color: var(--main-bg-note-color);
+ }

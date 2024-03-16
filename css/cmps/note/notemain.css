@@ -1,5 +1,6 @@
 .note-main {
     background-color: var(--main-bg-note-color);
     padding-block: .9em;
+    height: 100vh;
 }
 
