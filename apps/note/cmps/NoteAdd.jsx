@@ -27,6 +27,7 @@ export function NoteAdd({ setNotes, notes }) {
     const txtRef = useRef()
     const componentRef = useRef()
     const imgRef = useRef()
+    const videoRef = useRef()
 
     useEffect(() => {
         if (noteMode.isNoteTxt && txtRef.current) txtRef.current.focus()
@@ -56,35 +57,19 @@ export function NoteAdd({ setNotes, notes }) {
         )
     }
 
-    function onSave(e) {
-        e.stopPropagation()
-        if (noteMode.isNoteTxt) {
-            if ((!title && !txt && bgc) || (!title && !txt && !bgc)) return
-            noteAddService.saveNote(noteMode, setNotes, isStarred, { title, txt }, bgc)
-        } else if (noteMode.isNoteTodos) {
-            if (todos.length === 1 && todos[0].txt === '') return
-            noteAddService.saveNote(noteMode, setNotes, isStarred, { title, todos }, bgc)
-        } else if (noteMode.isNoteImg) {
-            if (img === undefined) return
-            noteAddService.saveNote(noteMode, setNotes, isStarred, { url: img.url, title }, bgc)
-        } else {
-            if (video === undefined) return
-            noteAddService.saveNote(noteMode, setNotes, isStarred, { url: video.url, title }, bgc)
-        }
-    }
-    // function renderNoteVideoAdd() {
+    function renderNoteVideoAdd() {
         
-    //     useEffect(() => { if (noteMode.isNoteImg && imgRef.current) imgRef.current.focus() }, [noteMode.isNoteImg])
-    //     const onSetImg = (e) => setImg({ ...img, url: e.target.value })
+        useEffect(() => { if (noteMode.isNoteVideo && videoRef.current) videoRef.current.focus() }, [noteMode.isNoteVideo])
+        const onSetVideo = (e) => setVideo({ ...video, url: e.target.value })
 
-    //     return (
-    //         <Fragment>
-    //             {noteMode.isNoteImg && (<Fragment><div className="icons-star">
-    //                 <span className="star" style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }} onClick={() => noteAddService.onSetStarred(setIsStarred)}></span></div>
-    //             <textarea value={img.url} placeholder="Enter your image URL" ref={imgRef} onChange={onSetImg} /></Fragment>)}
-    //         </Fragment>
-    //     )
-    // }
+        return (
+            <Fragment>
+                {noteMode.isNoteVideo && (<Fragment><div className="icons-star">
+                    <span className="star" style={isStarred ? { fontFamily: 'fa' } : { fontFamily: 'fa-reg' }} onClick={() => noteAddService.onSetStarred(setIsStarred)}></span></div>
+                <textarea value={video.url} placeholder="Enter your video URL (Vimeo only)" ref={videoRef} onChange={onSetVideo} /></Fragment>)}
+            </Fragment>
+        )
+    }
 
     function onSave(e) {
         e.stopPropagation()
@@ -95,10 +80,10 @@ export function NoteAdd({ setNotes, notes }) {
             if (todos.length === 1 && todos[0].txt === '') return
             noteAddService.saveNote(noteMode, setNotes, isStarred, { title, todos }, bgc)
         } else if (noteMode.isNoteImg) {
-            if (img === undefined) return
+            if (img.url === '') return
             noteAddService.saveNote(noteMode, setNotes, isStarred, { url: img.url, title }, bgc)
         } else {
-            if (video === undefined) return
+            if (video.url === '') return
             noteAddService.saveNote(noteMode, setNotes, isStarred, { url: video.url, title }, bgc)
         }
     }
@@ -199,7 +184,7 @@ export function NoteAdd({ setNotes, notes }) {
             {renderNoteTextAdd()}
             {renderNoteTodosAdd()}
             {renderNoteImgAdd()}
-            {/* {renderNoteVideoImg()} */}
+            {renderNoteVideoAdd()}
         </div>
     )
 }

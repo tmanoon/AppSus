@@ -1,16 +1,12 @@
-const { useState } = React
-
 export function NoteVideo({ note }) {
     function convertToEmbedUrl(vimeoUrl) {
-        // This pattern matches both simple Vimeo URLs and more complex ones
-        const videoIdMatch = vimeoUrl.match(/vimeo\.com\/(\d+)/);
+        const videoIdMatch = vimeoUrl.match(/vimeo\.com\/(\d+)/)
         
         if (videoIdMatch && videoIdMatch[1]) {
-            const videoId = videoIdMatch[1];
-            // Construct the embed URL for Vimeo
-            return `https://player.vimeo.com/video/${videoId}`;
+            const videoId = videoIdMatch[1]
+            return `https://player.vimeo.com/video/${videoId}`
         } else {
-            console.error('Invalid Vimeo URL:', vimeoUrl);
+            console.error('Invalid Vimeo URL:', vimeoUrl)
             return ''
         }
     }
@@ -18,7 +14,7 @@ export function NoteVideo({ note }) {
 
     return (
         <article className={`note ${note.type}`}>
-            {note.title && <h3>{note.title}</h3>}
+            {note.info.title && <h3>{note.info.title}</h3>}
             <iframe 
                 className="video-container" 
                 src={convertToEmbedUrl(note.info.url)} 
@@ -28,5 +24,5 @@ export function NoteVideo({ note }) {
                 allowFullScreen>
             </iframe>
         </article>
-    );
+    )
 }

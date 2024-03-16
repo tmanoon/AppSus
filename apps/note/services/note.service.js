@@ -107,9 +107,11 @@ function _createNotes() {
         notes.push(_createNote('NoteVideo', false, { url: 'https://vimeo.com/798326630', title: 'Smooth Criminal - Michael Jackson' }))
         notes.push(_createNote('NoteTxt', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, '', 1112222))
         notes.push(_createNote('NoteTxt', true, { txt: 'Fullstack Me Baby!' }, '', 1112222))
+        notes.push(_createNote('NoteVideo', false, { url: 'https://vimeo.com/348906914', title: 'The Beatles - In my life' }))
         notes.push(_createNote('NoteImg', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
         notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [ { txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
         notes.push(_createNote('NoteVideo', false, { url: 'https://vimeo.com/14639124', title: 'נינט - היא יודעת' }))
+        
         storageFuncsService.saveToStorage(NOTES_KEY, notes)
     }
 }

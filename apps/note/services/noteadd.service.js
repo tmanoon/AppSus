@@ -18,7 +18,7 @@ export const noteAddService = {
     calculateLeftPosition
 }
 
-function resetStates(setNoteMode, noteMode, setColorMode, colorMode) {
+function resetStates(setNoteMode, setColorMode) {
     setNoteMode({
         isClicked: false,
         isNoteTxt: false,
@@ -84,8 +84,9 @@ function onAddCanvasNote(e, setNoteMode) {
     }))
 }
 
-function onAddImageNote(e, setNoteMode) {
+function onAddImageNote(e, setNoteMode, setPlaceholder) {
     e.stopPropagation()
+    setPlaceholder('Title')
     setNoteMode(prevNoteMode => ({
         ...prevNoteMode,
         isClicked: true,
@@ -93,8 +94,9 @@ function onAddImageNote(e, setNoteMode) {
     }))
 }
 
-function onAddVideoNote(e, setNoteMode) {
+function onAddVideoNote(e, setNoteMode, setPlaceholder) {
     e.stopPropagation()
+    setPlaceholder('Title')
     setNoteMode(prevNoteMode => ({
         ...prevNoteMode,
         isClicked: true,
