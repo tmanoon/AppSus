@@ -62,6 +62,7 @@ function get(noteId) {
 function remove(noteId) {
     get(noteId)
         .then(noteToDelete => {
+            noteToDelete.isDeleted = true
             removedNotes.push(noteToDelete)
             storageFuncsService.saveToStorage(DELETED_NOTED_KEY, removedNotes)
         })
@@ -93,15 +94,17 @@ function getEmptyNote() {
     }
 }
 
+// function getDefaultFilter() {
+//     return { search: '', type: '' }
+// }
 function getDefaultFilter() {
-    return { search: '', type: '' }
+    return { search: ''}
 }
 
 function getFilterFromParams(searchParams = {}) {
     const defaultFilter = getDefaultFilter()
     return {
-        search: searchParams.get('search') || defaultFilter.search,
-        type: searchParams.get('type') || defaultFilter.type,
+        search: searchParams.get('search') || defaultFilter.search
     }
 }
 

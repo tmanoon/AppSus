@@ -20,29 +20,38 @@ export function NoteHeader({ onSetFilter, filterBy }) {
 
     function onRemovedNotes(e) {
         e.stopPropagation()
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: 'isDeleted' }))
     }
 
     function onTodosNotes(e) {
         e.stopPropagation()
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: 'NoteTodos' }))
     }
     function onImgNotes(e) {
         e.stopPropagation()
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: 'NoteImg' }))
     }
 
     function onTxtNotes(e) {
         e.stopPropagation()
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: 'NoteTxt' }))
+    }
+
+    function onHomeClick(e) {
+        e.stopPropagation()
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, search: '' }))
     }
 
     return <section className="note-header flex column">
         <div className="search-and-logo flex align-center space-between">
             <div className="header-details header-details flex align-center">
                 <button className="btn btn-search" onClick={onShowMenu}></button>
-                <img className="note-header-img" src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" />
-                <h1 className="header-logo">Keep</h1>
+                <img className="note-header-img" onClick={onHomeClick} src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" />
+                <h1 className="header-logo" onClick={onHomeClick}>Keep</h1>
             </div>
             <div className="header-search flex space-between align-center">
                 <div className="search-span-container flex align-center justify-center"><span className="span-search"></span></div>
-                <input type='text' placeholder="Search" name='search' value={filterBy.search} onChange={handleChange} />
+                <input type='text' placeholder="Search" name='search' value='' onChange={handleChange} />
             </div>
         </div>
         <nav className="side-nav flex column">

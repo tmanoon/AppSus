@@ -4,16 +4,16 @@ import { NoteTodos } from './NoteTodos.jsx'
 import { NoteVideo } from './NoteVideo.jsx'
 
 export function DynamicCmp({ filterBy, note }) {
-    switch (filterBy.type) {
-        case 'NoteTxt':
+    switch (filterBy.search.toLowerCase()) {
+        case 'txt' || 'text':
             return <NoteTxt note={note} />
-        case 'NoteImg':
+        case 'img' || 'image':
             return <NoteImg note={note} />
-        case 'NoteTodos':
+        case 'todos' || 'to do' || 'to dos':
             return <NoteTodos note={note} />
-        case 'NoteVideo':
+        case 'video':
             return <NoteVideo note={note} />
-        case '':
+        default:
             if(note.type === 'NoteTxt') return <NoteTxt note={note} />
             else if (note.type === 'NoteImg') return <NoteImg note={note} />
             else if (note.type === 'NoteTodos') return <NoteTodos note={note} />
