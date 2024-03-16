@@ -60,6 +60,7 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
 
     if (isLoading) return <section className="email-details flex center"><div>Loading details..</div></section>
     return <section className="email-details">
+
         <div className="actions-bar flex space-between">
             <button onClick={() => navAround('back')}><span>Back</span><i className="fa-solid fa-arrow-left"></i></button>
             <button onClick={() => { onRemoveEmail(email.id); navAround('back') }}><span>Delete</span><i className="fa-regular fa-trash-can"></i></button>
@@ -72,9 +73,10 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
             <button onClick={() => navAround('prev')}><i className="fa-solid fa-chevron-left"></i></button>
             <button onClick={() => navAround('next')}><i className="fa-solid fa-chevron-right"></i></button>
         </div>
-        <h1>{email.subject}</h1>
-        <div className="flex space-between">
 
+        <h1>{email.subject}</h1>
+
+        <div className="flex space-between">
             <section className="to-from flex column">
                 <div className="flex">
                     <h4>{getNameFromEmail(email.from)}</h4>
@@ -85,6 +87,7 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
             </section>
 
             <section className="sent-actions flex">
+
                 <h5 className="large">{formatDateLong(email.sentAt)}</h5>
 
                 <div className="star">
@@ -103,10 +106,13 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
                 <Link to="/note"><button><span>send to notes</span><i className="fa-regular fa-note-sticky"></i></button></Link>
             </section>
         </div>
+
         <p>{email.body}</p>
+
         <section className="bottom-btns flex justify-center">
             <Link to={`/mail/compose`}><button><span>Reply</span><i className="fa-solid fa-reply"></i></button></Link>
             <Link to="/note"><button><span>send to notes</span><i className="fa-regular fa-note-sticky"></i></button></Link>
         </section>
+        
     </section>
 }

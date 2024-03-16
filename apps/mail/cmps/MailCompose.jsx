@@ -12,8 +12,6 @@ export function MailCompose() {
         setEmail(prevEmail => ({ ...prevEmail, [field]: value }))
     }
 
-    console.log('email:', email)
-
     function saveToDrafts() {
         if (!email.to) {
             leavePage()

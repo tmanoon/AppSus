@@ -108,7 +108,8 @@
     }
 
     .email-details .large,
-    .email-details span {
+    .email-details .actions-bar span,
+    .email-details .sent-actions span {
         display: none;
     }
 }

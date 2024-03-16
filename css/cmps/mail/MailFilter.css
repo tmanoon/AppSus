@@ -9,6 +9,10 @@
     background-color: rgba(245, 245, 245, 0.699);
 }
 
+.txt-input-div label {
+    cursor: pointer;
+}
+
 .txt-input-div input {
     border: none;
     padding-inline-start: 8px;
