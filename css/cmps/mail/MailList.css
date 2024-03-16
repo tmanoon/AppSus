@@ -64,7 +64,7 @@
 .email-actions {
     display: none;
     position: absolute;
-    inset: 30% 0 auto auto;
+    inset: 22% 0 auto auto;
 }
 
 .email-list>li:hover:not(:first-child) {
