@@ -1,8 +1,8 @@
-import { NotePreview } from "../cmps/NotePreview.jsx"
-import { noteService } from "../services/note.service.js"
-import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
-import { NoteHeader } from '../cmps/NoteHeader.jsx'
-import { NoteAdd } from '../cmps/NoteAdd.jsx'
+import { NotePreview } from "./../cmps/NotePreview.jsx"
+import { noteService } from "./../services/note.service.js"
+import { showErrorMsg, showSuccessMsg } from './../../../services/event-bus.service.js'
+import { NoteHeader } from './../cmps/NoteHeader.jsx'
+import { NoteAdd } from './../cmps/NoteAdd.jsx'
 
 const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
@@ -52,15 +52,11 @@ export function NoteIndex() {
             })
     }
 
-
-    // console.log('notes from note index', notes)
-    // console.log('selectednote from note index', selectednote)
     const { search, type } = filterBy
     if (!notes) return <div>loading...</div>
     return <section className="note-main">
         <NoteHeader onSetFilter={onSetFilter} filterBy={ {search, type } }/>
         <NoteAdd setNotes={setNotes} notes={notes} />
-        {/* <Link to="/note/edit"><button>Add a note</button></Link> */}
         <NotePreview filterBy={filterBy} notes={notes} onRemoveNote={onRemoveNote} onUpdateNote={onUpdateNote} />
     </section >
 
