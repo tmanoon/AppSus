@@ -8,9 +8,9 @@
  }
 
  .note-element {
-    min-width: 300px;
+    min-width: 200px;
     padding: 10px;
-    min-height: 200px;
+    min-height: 180px;
     display: flex;
     flex-wrap: wrap;
     gap: .5em;
