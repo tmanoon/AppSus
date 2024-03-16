@@ -40,10 +40,6 @@ nav a.active {
     font-family: fa;
 }
 
-.header-search {
-    padding-inline-end: 140px;
-}
-
 .menu-of-btn {
     display: none;
 }
