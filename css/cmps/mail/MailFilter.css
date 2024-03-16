@@ -26,3 +26,7 @@
 .checkbox-input-div > * {
     cursor: pointer;
 }
+
+.checkbox-input-div label {
+    font-size: smaller;
+}

@@ -1,4 +1,5 @@
 .email-index {
+    font-family: 'google-sans';
     grid-template-columns: 150px minmax(100px, 4fr);
     grid-template-rows: 50px minmax(100px, 1fr);
     gap: 5px;
