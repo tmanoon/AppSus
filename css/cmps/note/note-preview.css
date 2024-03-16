@@ -40,3 +40,13 @@
 .video-container {
    width: 100%;
 }
+
+.note > h3, .note > ul > li, .note > p {
+   font-family: roboto, google-sans, Arial;
+}
+
+.note > h3 {
+   text-align: center;
+   font-weight: bold;
+   margin-block-end: 1em;
+}
