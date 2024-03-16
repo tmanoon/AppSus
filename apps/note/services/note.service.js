@@ -145,7 +145,7 @@ function _createNotes() {
         notes.push(_createNote('NoteText', true, { title: `I'm a student in Coding Academy`, txt: 'Fullstack Me Baby!' }, '', 1112222))
         notes.push(_createNote('NoteText', true, { txt: 'Fullstack Me Baby!' }, '', 1112222))
         notes.push(_createNote('NoteVideo', false, { url: 'https://vimeo.com/348906914', title: 'The Beatles - In my life' }))
-        notes.push(_createNote('NoteImage', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Mooni and Me' }))
+        notes.push(_createNote('NoteImage', false, { url: 'https://games.moogaz.co.il/up/fireboy-and-watergirl-1-the-forest-temple.png', title: 'Pookpooki and Me' }))
         notes.push(_createNote('NoteTodos', false, { title: 'Get my stuff together', todos: [{ txt: 'Driving license', doneAt: null }, { txt: 'Coding power', doneAt: 187111111 }] }))
         notes.push(_createNote('NoteVideo', false, { url: 'https://vimeo.com/14639124', title: 'נינט - היא יודעת' }))
 
