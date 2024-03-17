@@ -99,7 +99,7 @@ export function MailDetails({ onRemoveEmail, onUnread, onStarEmail, restoreEmail
             </section>
         </div>
 
-        <p>{email.body}</p>
+        <pre>{email.body}</pre>
 
         <section className="bottom-btns flex justify-center">
             <Link to={`/mail/compose`}><button><span>Reply</span><i className="fa-solid fa-reply"></i></button></Link>
