@@ -1,5 +1,5 @@
 header {
-    background: lightcyan;
+    background: white;
     border-bottom: 2px solid white;
 }
 
@@ -21,7 +21,6 @@ nav a:active {
 nav a.active {
     color: darkblue;
     font-weight: bold;
-    text-decoration: overline;
 }
 
 .span-search::before {
