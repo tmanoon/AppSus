@@ -1,13 +1,17 @@
 .about {
     height: calc(100vh - 50px);
-
     align-items: center;
     gap: 30px;
-
     cursor: default;
 }
 
 .about h2 {
     padding-block-start: 80px;
-    font-family: 'handWriting', sans-serif;
+    font-family: handWriting, sans-serif;
+    font-size: 40px;
+}
+
+.about p {
+    text-align: center;
+    margin-inline: 100px;
 }
