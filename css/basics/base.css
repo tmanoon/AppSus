@@ -11,13 +11,18 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+p,
+a,
+label {
     margin: 0;
+    font-family: roboto, Tahoma;
 }
 
 a {
     text-decoration: none;
     color: inherit;
+    font-family: roboto;
 }
 
 button {
