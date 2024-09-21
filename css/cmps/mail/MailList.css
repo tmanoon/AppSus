@@ -1,7 +1,7 @@
 .email-list {
     border: 1px solid var(--mailOutletBorder);
     border-radius: 20px;
-    padding: 10px 15px;
+    padding: 10px 15px 5px;
     background-color: var(--mailOutletBG);
 }
 
@@ -26,7 +26,6 @@
 .email-list li:last-child {
     border-bottom: none;
     margin-bottom: 0;
-    padding-bottom: 0;
 }
 
 .email-sort div {
