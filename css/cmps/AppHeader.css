@@ -1,12 +1,8 @@
 .app-header {
-    padding: 10px 20px;
+    padding: 24px 20px;
 }
 
 .app-header .logo {
     height: 21px;
-    font-family: 'handWriting', sans-serif;
-}
-
-.app-header .logo:hover {
-    font-family: 'Bubble', sans-serif;
+    font-family: handWriting, Tahoma;
 }
